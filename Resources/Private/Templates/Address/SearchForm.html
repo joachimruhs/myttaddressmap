@@ -1,0 +1,136 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	  data-namespace-typo3-fluid="true">
+
+
+<f:layout name="Default" />
+
+
+<f:section name="main">
+	<h1>SearchForm</h1>
+	
+	<f:flashMessages />
+	
+	<div id="searchform">
+		<f:if condition="{settings.resultPageId}">
+			<f:then>
+			<form method="post" action='<f:uri.action action="searchResult" pluginName="searchResult" noCacheHash="1" pageUid="{settings.resultPageId}" />' name="searchform">
+			</f:then>
+			<f:else>
+			<form method="post" action='<f:uri.action action="searchResult" pluginName="searchResult" noCacheHash="1" />' name="searchform">
+			</f:else>
+		</f:if>	
+		<table>
+			<tr>
+				<td class="zip"><f:translate key="zip" />:</td><td><input name="tx_myttaddressmap_searchresult[zip]" value ="<f:format.htmlentities>{GP.zip}</f:format.htmlentities>" /></td>
+			</tr>
+			<tr>
+				<td class="city"><f:translate key="city" />:</td><td><input name="tx_myttaddressmap_searchresult[city]" value ="<f:format.htmlentities>{GP.city}</f:format.htmlentities>" /></td>
+			</tr>
+			<tr>
+				<td class="country">
+					<f:translate key="country" />:
+				</td>
+				<td>
+					<select name="tx_myttaddressmap_searchresult[country]">
+						<f:if condition="{GP.country} == 'Germany'">
+						<f:then>
+							<option value="Germany" selected="selected">Deutschland</option>
+						</f:then>
+						<f:else>
+							<option value="GermanyE">Deutschland</option>
+						</f:else>
+						</f:if>
+						
+						<f:if condition="{GP.country} == 'Austria'">
+						<f:then>
+							<option value="Austria" selected="selected">Österreich</option>
+						</f:then>
+						<f:else>
+							<option value="Austria">Österreich</option>
+						</f:else>
+						</f:if>
+						
+						<f:if condition="{GP.country} == 'France'">
+						<f:then>
+							<option value="France" selected="selected">Frankreich</option>
+						</f:then>
+						<f:else>
+							<option value="France">Frankreich</option>
+						</f:else>
+						</f:if>
+			
+						<f:if condition="{GP.country} == 'Switzerland'">
+						<f:then>
+							<option value="Switzerland" selected="selected">Schweiz</option>
+						</f:then>
+						<f:else>
+							<option value="Switzerland">Schweiz</option>
+						</f:else>
+						</f:if>
+					</select>
+
+				</td>
+				</tr>
+			<tr>
+				<td>Kategorien</td>
+				<td>			
+
+					<f:render section="categoryList" arguments="{categories: categories}" />
+					<f:section name="categoryList">
+						<ul>
+							<f:for each="{categories}" as="category">
+								<li>
+									<f:if condition="{category.selected} == 1">
+										<f:then>
+											<input type="checkbox" checked="checked" id="{category.name}" name="tx_myttaddressmap_searchresult[categories][]"  value="{category.uid}"/>
+										</f:then>
+										<f:else>
+											<input type="checkbox" id="{category.name}" name="tx_myttaddressmap_searchresult[categories][]"  value="{category.uid}"/>
+											
+										</f:else>
+									</f:if>								
+									<label for="{category.name}">{category.title}</label>
+									<f:if condition="{category.children}">
+										<f:render section="categoryList" arguments="{categories: category.children}" />
+									</f:if>
+								</li>
+							</f:for>
+						</ul>
+					</f:section>
+				</td>
+
+			</tr>
+			<tr>
+				<td>Radius:</td>
+				<td>
+					<select id="radiusSelector" name="tx_myttaddressmap_searchresult[radius]">
+					<option value="2">2 km</option>
+					<option value="5">5 km </option>
+					<option value="20" selected="selected">20 km </option>
+					<option value="200">200 km</option>
+					<option value="500">500 km</option>
+					<option value="1000">1000 km</option>
+					</select>		
+					
+				</td>
+			</tr>
+		</table>
+		
+		<div id="search">
+			<input type="submit" name="submit" src="<f:translate key="searchbuttonpath" />" value="<f:translate key="search" />" alt="<f:translate key="search" />" />
+		</div>
+		<div class="clearer"></div>
+	</form>
+</div>
+
+
+<script type="text/javascript">
+	if ("{radius}" > 0 ) {
+		$('#radiusSelector').val({radius});
+	}
+</script>
+
+
+</f:section>
+
+

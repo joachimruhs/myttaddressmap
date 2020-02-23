@@ -1,0 +1,102 @@
+{
+    "modules": [
+        {
+            "config": {
+                "position": [
+                    29,
+                    61
+                ]
+            },
+            "name": "New Model Object",
+            "value": {
+                "actionGroup": {
+                    "_default0_list": true,
+                    "_default1_show": true,
+                    "_default2_new_create": false,
+                    "_default3_edit_update": false,
+                    "_default4_delete": false,
+                    "customActions": [
+                        "ajaxSearch"
+                    ]
+                },
+                "name": "Address",
+                "objectsettings": {
+                    "addDeletedField": true,
+                    "addHiddenField": true,
+                    "addStarttimeEndtimeFields": true,
+                    "aggregateRoot": true,
+                    "categorizable": false,
+                    "description": "",
+                    "mapToTable": "",
+                    "parentClass": "",
+                    "sorting": false,
+                    "type": "Entity",
+                    "uid": "271044822024"
+                },
+                "propertyGroup": {
+                    "properties": [
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsRequired": false,
+                            "propertyName": "name",
+                            "propertyType": "String",
+                            "uid": "1000150916853"
+                        }
+                    ]
+                },
+                "relationGroup": {
+                    "relations": []
+                }
+            }
+        }
+    ],
+    "properties": {
+        "backendModules": [],
+        "description": "Google maps for tt_address",
+        "emConf": {
+            "category": "plugin",
+            "custom_category": "",
+            "dependsOn": "typo3 => 7.6.0-8.7.99\n",
+            "disableLocalization": false,
+            "disableVersioning": true,
+            "skipGenerateDocumentationTemplate": false,
+            "sourceLanguage": "en",
+            "state": "beta",
+            "targetVersion": "7.6.0-7.6.99",
+            "version": "0.1.0"
+        },
+        "extensionKey": "myttaddressmap",
+        "name": "MyTTAddressMap",
+        "originalExtensionKey": "myttaddressmap",
+        "originalVendorName": "WSR",
+        "persons": [
+            {
+                "company": "Web Services Ruhs",
+                "email": "postmaster@joachim.ruhs.de",
+                "name": "Joachim Ruhs",
+                "role": "Developer"
+            }
+        ],
+        "plugins": [
+            {
+                "actions": {
+                    "controllerActionCombinations": "Address => ajaxSearch",
+                    "noncacheableActions": "",
+                    "switchableActions": ""
+                },
+                "key": "ajaxsearch",
+                "name": "MyTTAddressMap (Ajaxsearch)"
+            }
+        ],
+        "vendorName": "WSR"
+    },
+    "wires": [],
+    "log": {
+        "last_modified": "2018-02-01 06:22",
+        "extension_builder_version": "7.6.17",
+        "be_user": " (1)"
+    }
+}

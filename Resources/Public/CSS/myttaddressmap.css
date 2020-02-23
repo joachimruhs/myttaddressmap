@@ -1,0 +1,42 @@
+
+.tx-myttaddressmap .clearer {
+	clear: both;
+}
+.tx-myttaddressmap .error {
+	background-color: #0000f0;
+	padding: 10px;
+	color: white;
+}
+
+.tx-myttaddressmap .hidden {
+	display: none;
+}
+
+.tx-myttaddressmap .searchResultContainer {
+	position: relative;
+	float: left;
+}
+.tx-myttaddressmap .searchResultTile {
+	border: 1px solid gray;
+	min-width: 250px;
+	min-height: 250px;
+	position: relative;
+	float: left;
+}
+.tx-myttaddressmap .searchResultTile:nth-child(2n) {
+	background-color: #f0f0f0;
+}
+
+
+.tx-myttaddressmap .infoWindow .locationName {
+	font-weight: bold;
+}
+.tx-myttaddressmap .infoWindow .categories {
+	font-weight: bold;
+	color: #00a000;
+}
+.tx-myttaddressmap .categories {
+	font-weight: bold;
+	color: #00a000;
+}
+

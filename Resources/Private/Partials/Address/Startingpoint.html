@@ -1,0 +1,31 @@
+
+
+
+<script type="text/javascript">
+	var myLatLng = new google.maps.LatLng({startingPoint.lat},{startingPoint.lon});
+	var startMarker = new google.maps.Marker({
+					                position: myLatLng,
+					                map: map,
+					                title: '<f:translate key="youAreHere" />',
+					                icon: "/typo3conf/ext/myttaddressmap/Resources/Public/Icons/pointerRed.png"
+					                });
+	startMarker.addListener('click', toggleBounce);
+					                
+
+	mapBounds.extend(myLatLng);
+	if (mapBounds!= undefined) {
+		map.fitBounds(mapBounds);
+	}
+
+	function toggleBounce() {
+	  if (startMarker.getAnimation() !== null) {
+	    startMarker.setAnimation(null);
+	  } else {
+	    startMarker.setAnimation(google.maps.Animation.BOUNCE);
+	  }
+	}
+
+
+</script>
+
+

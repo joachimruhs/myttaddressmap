@@ -1,0 +1,210 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	  xmlns:map="http://typo3.org/ns/WSR/Myttaddressmap/ViewHelpers"
+	  data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+This template displays a EDIT form for the current domain object.
+
+If you modify this template, do not forget to change the overwrite settings
+in /Configuration/ExtensionBuilder/settings.yaml:
+  Resources:
+    Private:
+      Templates:
+        Edit.html: keep
+
+Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+
+<f:section name="main">
+
+
+
+<f:if condition="{settings.googleBrowserApiKey} > ''">
+	<f:then>
+		<script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3&libraries=places&key={settings.googleBrowserApiKey}"></script>
+	</f:then>
+	<f:else>
+		<div class="typo3-message message-warning">Please insert a Google maps browser API key with the constant editor first!</div>
+		<script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3&libraries=places"></script>
+	</f:else>
+</f:if>
+
+
+
+
+
+<h1>Searchresult</h1>
+
+<div id="flashMessages">
+	<f:flashMessages />
+</div>
+
+<f:render partial="FormErrors" arguments="{object:location}" />
+
+<f:comment>
+<f:debug>{_all}</f:debug>
+</f:comment>
+
+
+<div class="searchResultContainer">
+	<f:for each="{locations}" as="location" iteration="iter">
+		<div class="searchResultTile" onclick="infoWindow[{iter.index}].open(map,marker[{iter.index}]);">
+
+			<f:for each="{location.images}" as="image">
+				<div><f:image src="fileadmin/{image.originalResource.originalFile.identifier}"  width="50" alt=""/></div>			
+			</f:for>
+
+			<div>
+				<f:link.action action="singleView" pluginName="SingleView" pageUid="{settings.detailsPageId}" arguments="{locationUid : location.uid}"> {location.name} {location.additionalname}
+				</f:link.action>
+			</div>
+	
+			<div>{location.categories}</div>
+
+		
+			<div><f:format.raw>{location.address}</f:format.raw></div>
+			<div>{location.zip}</div>
+			<div>{location.city}</div>
+			<div>{location.phone}</div>
+
+			<div>{location.email}</div>
+			<div>{location.fax}</div>
+			<div><f:format.htmlentitiesDecode>{location.description}</f:format.htmlentitiesDecode></div>
+
+			<div><f:format.number decimals="2">{location.distance}</f:format.number> km</div>
+
+		</div>
+	</f:for>
+</div>
+<div class="clearer"></div>
+
+
+
+
+
+
+
+<!-- map is shown only if city or zipcode given -->
+<f:if condition="{showMap}">
+
+	<!-- get the map javascript -->
+<f:format.raw>
+	<map:mapJS locations="{locations}" city="{location.storename}" settings="{settings}"/>
+</f:format.raw>
+
+	<div id="mapContainer" style="width:100%; height: 100%;">
+		<div id="map">MAP</div>
+	</div>	
+
+
+	<script type="text/javascript">
+		load();
+
+	</script>
+
+</f:if>
+
+
+
+
+<!-- Google infoWindow -->
+<script type="text/javascript">
+
+	<f:for each="{locations}" as="location" iteration="iter">
+		var info = "<div class='infoWindow'>";
+		<f:if condition="{location.image}">
+			<f:then>
+				<f:for each="{location.images}" as="image">
+					info += '<f:image src="fileadmin/{image.originalResource.originalFile.identifier}"  width="50" alt=""/><br />';
+				</f:for>
+			</f:then>
+			<f:else>
+	
+			</f:else>
+		</f:if>
+	
+
+		info += '<div class="locationName"><f:link.action action="singleView" pageUid="{settings.detailsPageId}" arguments="{locationUid : location.uid}">' +
+			"{location.name}</f:link.action></div>";
+			
+		
+		info += '<div class="categories">{location.categories}</div>';
+		
+		info += "<div><f:format.raw><map:addSlashes text="{location.address}"/></f:format.raw></div>";
+
+		info += "<div>{location.zip} {location.city}</div>";
+
+		<f:comment>
+		////////// use this with caution ///////////
+		info += '<f:format.htmlentitiesDecode>{location.description}</f:format.htmlentitiesDecode>';
+		</f:comment>
+
+		info += "</div>";
+	
+		infoWindow[{iter.index}] = new google.maps.InfoWindow({
+	      content: info
+		});
+	
+		google.maps.event.addListener(marker[{iter.index}], 'click', function() {
+		    infoWindow[{iter.index}].open(map,marker[{iter.index}]);
+		});
+	
+	</f:for>
+
+
+</script>	
+
+
+
+
+<!-- the startingpoint marker -->
+<f:render partial="Address/Startingpoint" arguments="{startingPoint:startingPoint}" />
+
+
+
+
+
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		jQuery('#flashMessages').fadeIn(2000);
+		
+<f:if condition="{settings.enableMarkerClusterer}" >
+		var markerCluster = new MarkerClusterer(map, marker, {imagePath: '/typo3conf/ext/myttaddressmap/Resources/Public/Icons/Clusterer/m'});
+</f:if>
+
+//	load();
+
+	});
+
+<!-- responsive map -->
+	function resizeMap() {
+	    var mapContainerWidth = $('#mapContainer').width();
+	    var mapContainerHeight = $('#mapContainer').height();
+	    $('#map').width(mapContainerWidth - 30);
+	    $('#map').height(mapContainerWidth/4*3);
+	    google.maps.event.trigger($('#map'), 'resize');
+	    //console.log(mapContainerWidth);
+		if (marker.length > 0) map.fitBounds(mapBounds);
+
+		if (marker.length == 0) {
+			zoomChangeBoundsListener = 
+				google.maps.event.addListenerOnce(map, 'bounds_changed', function(event) {
+					if ( this.getZoom() ) {   // or set a minimum
+						this.setZoom(16);  // set zoom here
+					}
+			});
+			setTimeout(function(){google.maps.event.removeListener(zoomChangeBoundsListener)}, 2000);
+		}
+	}
+
+	$(window).resize(resizeMap);
+	resizeMap();
+
+</script>
+
+
+
+
+
+</f:section>
+</html>

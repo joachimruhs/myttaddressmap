@@ -1,0 +1,32 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<table class="tx-myttaddressmap" >
+	<tr>
+		<td>
+			<f:translate key="tx_myttaddressmap_domain_model_address.name" />
+		</td>
+		<td>
+		{address.name}
+		</td>
+		<td>
+			<f:for each="{address.categories}" as="category" iteration="iterator">
+				{category.title}
+			</f:for>
+		</td>
+
+		<td>
+			{address.address}
+		</td>
+		<td>
+			{address.zip} {address.city}
+		</td>
+	</tr>
+</table>
+
+<f:for each="{address.image}" as="image">
+	<li><f:image src="fileadmin/{image.originalResource.originalFile.identifier}"  width="50" alt=""/></li>			
+</f:for>
+
+</html>
+
+

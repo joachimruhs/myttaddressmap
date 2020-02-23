@@ -1,0 +1,43 @@
+
+
+<f:comment>Template for the infoWindow in AjaxSearch</f:comment>
+
+
+info = '<div class="infoWindow">';
+	info += '<div>AjaxLocationListInfoWindow</div>';
+
+	<f:for each="{location.images}" as="image">
+		info += '<f:image src="fileadmin/{image.originalResource.originalFile.identifier}"  width="50" alt=""/>';
+	</f:for>
+
+	info += '<f:link.action action="singleView" extensionName="myttaddressmap" pluginName="SingleView" controller="Address" pageUid="{settings.detailsPageId}" arguments="{locationUid : location.uid}">' + "<strong><f:format.htmlentities>{location.name}</f:format.htmlentities></strong></f:link.action>";
+	
+	info += "<div>{location.name}</div>";
+
+
+	info += "<div class='categories'>{location.categories}</div>";
+
+	info += "<div>{location.www}</div>";
+	
+	info += "<div><f:format.raw>{location.infoWindowAddress}</f:format.raw></div>";
+
+	info += "<div>{location.zip} {location.city}</div>";
+	info += "<div>{location.phone}</div>";
+
+	<f:comment>
+	////////// use this with caution ///////////
+	info += '<f:format.htmlentitiesDecode>{location.description}</f:format.htmlentitiesDecode>';
+	</f:comment>
+	info += '</div>';
+
+	infoWindow[{i}] = new google.maps.InfoWindow({
+	  content: info
+	});
+
+	google.maps.event.addListener(marker[{i}], "click", function() {
+		infoWindow[{i}].open(map,marker[{i}]);
+});
+
+
+
+

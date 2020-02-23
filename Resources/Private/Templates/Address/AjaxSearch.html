@@ -1,0 +1,291 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	  xmlns:map="http://typo3.org/ns/WSR/Myttaddressmap/ViewHelpers"
+	  data-namespace-typo3-fluid="true">
+
+
+
+<f:layout name="Default" />
+
+This template displays a EDIT form for the current domain object.
+
+If you modify this template, do not forget to change the overwrite settings
+in /Configuration/ExtensionBuilder/settings.yaml:
+  Resources:
+    Private:
+      Templates:
+        Edit.html: keep
+
+Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+
+<f:section name="main">
+
+	<div class="ajaxSearch">
+	
+	<f:comment>
+	<f:debug>{_all}</f:debug>
+	</f:comment>
+	
+	<div id="Lvar" style="display: none;">{Lvar}</div>
+
+	
+	
+	<f:if condition="{settings.googleBrowserApiKey} > ''">
+		<f:then>
+			<script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3&libraries=places&key={settings.googleBrowserApiKey}"></script>
+		</f:then>
+		<f:else>
+			<div class="typo3-message message-warning">Please insert a Google maps browser API key with the constant editor first!</div>
+			<script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3&libraries=places"></script>
+		</f:else>
+	</f:if>
+
+
+	<h1>Ajax Search Myttaddressmap</h1>
+	
+	<div id="flashMessages">
+		<f:flashMessages />
+	</div>
+	
+	<f:render partial="FormErrors" arguments="{object:location}" />
+	
+	
+		<!-- get the map javascript -->
+	<f:format.raw>
+		<map:mapJS locations="{locations}" city="{location.storename}" settings="{settings}"/>
+	</f:format.raw>
+
+
+	<div id="mapContainer" style="width: 100%;">
+		<div id="map">MAP</div>
+	</div>	
+
+
+
+	<input id="tx_myttaddressmap_city" type="text" value="" size="30" onchange="$('#tx_myttaddressmap_lat').val('');$('#tx_myttaddressmap_lon').val('');$('#tx_myttaddressmap_page').val('0');"/>
+	<select id="tx_myttaddressmap_country" onchange="$('#tx_myttaddressmap_page').val('0');geocodeByClient();">
+		<option value="Germany" selected="selected">Land</option>
+		<option value="Germany">DE</option>
+		<option value="Austria">AT</option>
+		<option value="USA">US</option>	
+		<option value="Switzerland">CH</option>
+		<option value="France">FR</option>
+		<option value="Netherland">NL</option>
+		<option value="Great Britain">UK</option>
+		<option value="Australia">AU</option>
+		<option value="Canada">CA</option>
+		<option value="Italy">IT</option>
+	</select>
+
+
+
+
+	<input id="tx_myttaddressmap_lat" type="text" value="" class="hidden"/>
+	<input id="tx_myttaddressmap_lon" type="text" value="" class="hidden"/>
+
+
+	<input id="tx_myttaddressmap_radius" type="text" value="50" class="hidden"/>
+	<input id="tx_myttaddressmap_message" type="text" value="DE" class="hidden"/>
+	
+	<input id="tx_myttaddressmap_page" type="text" value="0" class="hidden"/>
+	<input id="tx_myttaddressmap_language" type="text" value="{L}" class="hidden"/>
+
+	<div class="clearer"></div>
+
+	<f:render section="categoryList" arguments="{categories: categories}" />
+	<f:section name="categoryList">
+		<ul>
+			<f:for each="{categories}" as="category">
+				<li>
+					<input type="checkbox" id="{category.title}" name="tx_myttaddressmap_categories"  value="{category.uid}" onclick="$('#tx_myttaddressmap_page').val(0); geocodeByClient();"/>
+					<label for="{category.title}">{category.title}</label>
+					<f:if condition="{category.children}">
+						<f:render section="categoryList" arguments="{categories: category.children}" />
+					</f:if>
+				</li>
+			</f:for>
+		</ul>
+	</f:section>
+
+
+
+	<button id="ajaxSearchButton"><f:translate key="search" /></button>
+	<button id="tx_myttaddressmap_more" onclick="geocodeByClient(); scrollto('#map');"><f:translate key="showMore" /></button>
+
+	<div id="ajaxResult"></div>
+
+	<div class="clearer"></div>
+
+
+<script>
+	var marker;
+	var maxPage = Math.ceil({locationsCount}/{settings.resultLimit});
+
+	function scrollto(element){
+		 $('html, body').animate({ scrollTop: ($(element).offset().top)}, 'slow');
+	};
+
+
+  // Googles autocomplete  
+	var input = document.getElementById('tx_myttaddressmap_city');
+	var options = {
+	    types: ['(regions)']
+	  //  componentRestrictions: {country: 'de'}
+	};
+	autocomplete = new google.maps.places.Autocomplete(input, options);
+	
+	google.maps.event.addListener(autocomplete, 'place_changed', function() {
+		//    show_submit_data(data);
+//		geocodeByClient();
+	});
+	
+
+	function geocodeByClient() {
+		var id = <f:format.raw>{id}</f:format.raw>;
+	
+		var country = $('#tx_myttaddressmap_country').val();
+		var address = $('#tx_myttaddressmap_city').val();
+
+		var categories  = new Array();
+
+
+
+		$("input[name='tx_myttaddressmap_categories']:checked").each(function() {
+			categories.push($(this).val());
+		});		
+ 		
+		var ajaxRequestUrl = "index.php?eIDx=myttaddressmap&id=" + id,
+			requestParameter = {
+				tx_myttaddressmap_ajax : {
+					controller : 'Ajax',
+					action : 'ajaxPsr',
+					address: address,
+					country: country,
+					
+					lat: $('#tx_myttaddressmap_lat').val(),
+					lon: $('#tx_myttaddressmap_lon').val(),
+					radius: $('#tx_myttaddressmap_radius').val(),
+					page: $('#tx_myttaddressmap_page').val(),
+					language: $('#tx_myttaddressmap_language').val(),
+					categories: categories,				
+					
+					b : location.href
+				}
+			};
+
+		mapBounds = new google.maps.LatLngBounds();
+
+		$.post(ajaxRequestUrl, requestParameter, function (data) {
+			$('#ajaxResult').html(data);
+			
+			$('#tx_myttaddressmap_more').css('display', 'none');
+			var page = parseInt($('#tx_myttaddressmap_page').val());
+			if(page != -1)	{		
+						if (page + 1 < maxPage) {
+							var n = page + 1;
+							$('#tx_myttaddressmap_page').val(n);
+							$('#tx_myttaddressmap_more').css('display', 'block');
+						} else {
+							$('#tx_myttaddressmap_more').css('display', 'none');
+						}
+			}
+
+			
+			if (marker.length <= 1)
+				map.setZoom(16);
+
+		});
+
+		return false;
+
+	}
+
+	function openInfoWindow(i) {
+		infoWindow[i].open(map,marker[i]);
+	}
+
+	
+	$(document).ready(function () {
+
+		// show all locations when page is loaded
+		// if this is activated then a radial search is done
+		// otherwise the locations of the country are shown
+		$('#tx_myttaddressmap_city').val('Freiburg');
+
+		$('#tx_myttaddressmap_country').val('Germany');
+		// if you want manually set the search radius comment the following line and
+		// set the text field tx_myttaddressmap_radius to another class, not hidden!
+		$('#tx_myttaddressmap_radius').val('20000');
+	
+		$('#tx_myttaddressmap_page').val('-1'); //  shows all locations in the map without result list
+//		$('#tx_myttaddressmap_page').val('0'); //  shows all locations in the map with result list
+
+
+		// if you don't want to show POI's at page onload comment the following line
+		geocodeByClient();
+
+		$('#tx_myttaddressmap_city').val('');
+	
+		// do the ajax-call on click
+		$("#ajaxSearchButton").click(function (evt) {
+			$('#tx_myttaddressmap_page').val(0);
+			geocodeByClient();
+			evt.preventDefault();
+		});
+
+	});
+
+</script>
+
+
+<script type="text/javascript">
+	load();
+
+	// panning for mobile devices
+	google.maps.event.addListener(map, "click",function(event) {
+		//map.setZoom(9);
+		// map.setCenter(event.latLng);
+   });
+
+</script>
+
+
+
+<!-- the startingpoint marker -->
+<f:comment>
+render partial="Location/Startingpoint" arguments="{startingPoint:startingPoint}"
+</f:comment>
+
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#flashMessages').fadeIn(2000);
+
+	});
+
+<!-- responsive map -->
+	function resizeMap() {
+	    var mapContainerWidth = $('#mapContainer').width();
+	    var mapContainerHeight = $('#mapContainer').height();
+	    $('#map').width(mapContainerWidth - 30);
+	    $('#map').height(mapContainerWidth/4*3);
+	    google.maps.event.trigger($('#map'), 'resize');
+	    //console.log(mapContainerWidth);
+		if (marker.length > 0) map.fitBounds(mapBounds);
+	}
+	
+	$(window).resize(resizeMap);
+	resizeMap();
+
+</script>
+
+
+
+</div>
+
+<f:comment><div class="ajaxSearch"></f:comment>
+
+
+
+</f:section>
+</html>

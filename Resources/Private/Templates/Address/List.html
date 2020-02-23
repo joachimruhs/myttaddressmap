@@ -1,0 +1,85 @@
+
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	  xmlns:map="http://typo3.org/ns/WSR/Mymap/ViewHelpers"
+	  xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+	  data-namespace-typo3-fluid="true">
+
+
+
+<f:layout name="Default" />
+
+This Template is responsible for creating a table of domain objects.
+
+If you modify this template, do not forget to change the overwrite settings
+in /Configuration/ExtensionBuilder/settings.yaml:
+  Resources:
+    Private:
+      Templates:
+        List.html: keep
+
+Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+
+<f:section name="main">
+<h1>Listing for Address</h1>
+
+<f:debug>{_all}</f:debug>
+
+
+<f:flashMessages />
+
+
+			<f:render section="categoryList" arguments="{categories: categories}" />
+			<f:section name="categoryList">
+				<ul>
+					<f:for each="{categories}" as="category">
+						<li>
+							<input type="checkbox" id="{category.name}" name="tx_myttaddressmap_search[categories][]"  value="{category.uid}"/>
+							<label for="{category.name}">{category.title}</label>
+							<f:if condition="{category.children}">
+								<f:render section="categoryList" arguments="{categories: category.children}" />
+							</f:if>
+						</li>
+					</f:for>
+				</ul>
+			</f:section>
+
+
+
+
+<table  class="tx_myttaddressmap" >
+	<tr>
+		<th><f:translate key="tx_myttaddressmap_domain_model_address.name" /></th>
+		<th> </th>
+		<th> </th>
+	</tr>
+
+	<f:for each="{addresses}" as="address">
+		<tr>
+			<td><f:link.action action="show" arguments="{address : address}"> {address.name}</f:link.action></td>
+<td>{address.middleName}</td>
+<td>{address.address}</td>
+<td>{address.zip}</td>
+<td>{address.city}</td>
+<td>{address.latitude}</td>
+<td>{address.longitude}</td>
+<td>{address.firstCategory.title}</td>
+
+<f:for each="{address.image->v:iterator.sort(order: 'DESC', sortBy: 'originalResource.originalFile.identifier')}" as="im">
+<td><f:image src="fileadmin/{im.originalResource.originalFile.identifier}" width="80"/></td>
+</f:for>
+
+
+
+			<td><f:link.action action="edit" arguments="{address : address}">Edit</f:link.action></td>
+			<td><f:link.action action="delete" arguments="{address : address}">Delete</f:link.action></td>
+		</tr>
+	</f:for>
+</table>
+
+<f:link.action action="new">New Address</f:link.action>
+</f:section>
+
+
+
+
+</html>
