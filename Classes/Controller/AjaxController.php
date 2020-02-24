@@ -55,7 +55,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	public function __construct()
 	{
 		/** @var LanguageService $languageService */
-		$this->languageService = GeneralUtility::makeInstance('TYPO3\\CMS\\Lang\\LanguageService');
+		$this->languageService = GeneralUtility::makeInstance('TYPO3\CMS\Core\Localization\LanguageService');
 		$this->languageService->init(trim($_POST['tx_myttaddressmap_ajax']['language']));
 	}
 
