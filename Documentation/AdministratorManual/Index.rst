@@ -49,7 +49,6 @@ The country selector in template AjaxSearch.html use 2 chars for the country. If
 to change the select options in template AjaxSearch.html.
 
 
-
 When everything is ok - go test it...
 
 
@@ -373,6 +372,11 @@ Set the Default Storage Pid of the locations in the constant editor.
 
 FAQ
 ^^^
+
+To use your own mapIcons insert your mapIcons into the directory fileadmin/ext/myleaflet/Resources/Public/Icons.
+Insert in this directory your icons which then can be selected in your tt_address data records.
+The directory is automatically created if ajaxSearch or searchForm is called.
+
 
 *Custom templates and files*
 

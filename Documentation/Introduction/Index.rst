@@ -21,6 +21,9 @@ Within the Ajaxsearch you can show all address-POIs of a country if you leave th
 What's new?
 ^^^^^^^^^^^
 
+To use your own mapIcons insert your mapIcons into the directory fileadmin/ext/myleaflet/Resources/Public/Icons.
+This directy is created and populated with some map icons of the extension.
+
 Google map themes implemented - you can set a map theme file in the constant editor.
 
 
