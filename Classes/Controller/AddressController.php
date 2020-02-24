@@ -1,8 +1,10 @@
 <?php
 namespace WSR\Myttaddressmap\Controller;
 
+use TYPO3\CMS\Extbase\Annotation\Inject;
+
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Core\Environment;
+
 
 /***************************************************************
  *
@@ -42,7 +44,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
 	/** 
 	* @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher 
-	* @inject
+	* @Inject
 	*/ 
 	protected $signalSlotDispatcher; 
 
@@ -98,7 +100,25 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->categoryRepository = $categoryRepository;
     }
 	
+
+	/**
+	 * TTAddressRepository
+	 *
+	 * @var \FriendsOfTYPO3\TtAddress\Domain\Repository\AddressRepository
+	 */
+	protected $ttaddressRepository;
+
 	
+    /**
+     * Inject a ttaddressRepository to enable DI
+     *
+     * @param \FriendsOfTYPO3\TtAddress\Domain\Repository\AddressRepository $ttaddressRepository
+     * @return void
+     */
+    public function injectTtAddressRepository(\FriendsOfTYPO3\TtAddress\Domain\Repository\AddressRepository $ttaddressRepository) {
+        $this->ttaddressRepository = $ttaddressRepository;
+    }
+
 
 
 	/**
@@ -179,31 +199,12 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	}
 
 	/**
-	 * populate map icon directory
-	 *
-	 * @return void
-	 */
-	public function populateMapIconDirectory() {
-		$iconPath = 'fileadmin/ext/myttaddressmap/Resources/Public/Icons/';
-		if (!is_dir(Environment::getPublicPath() . '/' . $iconPath)) {
-			$this->addFlashMessage('Directory ' . $iconPath . ' created for use with own mapIcons!', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
-			GeneralUtility::mkdir_deep(Environment::getPublicPath() . '/' . $iconPath);
-			$sourceDir = 'typo3conf/ext/myttaddressmap/Resources/Public/Icons/';
-			$files = GeneralUtility::getFilesInDir($sourceDir, 'png,gif,jpg');			
-			foreach ($files as $file) {
-				copy($sourceDir . $file, $iconPath . $file);
-			}
-		}
-	}
-
-	/**
 	 * action ajaxSearch
 	 *
 	 * @return void
 	 */
 	public function ajaxSearchAction()
 	{
-		$this->populateMapIconDirectory();
 		$this->updateLatLon();
 
 		// check mapTheme
@@ -231,10 +232,15 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		
 		$addresses = $this->addressRepository->findAll();
 
-		$this->categoryRepository->setDefaultQuerySettings($querySettings);
-		$categories = $this->categoryRepository->findAll();
+//		$this->categoryRepository->setDefaultQuerySettings($querySettings);
+//		$categories = $this->categoryRepository->findAll();
 
-
+		$this->typo3CategoryRepository->setDefaultQuerySettings($querySettings);
+		$categories = $this->typo3CategoryRepository->findAll();
+		
+		
+		
+		$categories = $this->typo3CategoryRepository->findAll();
 
 		$arr = [];
 		for($i = 0; $i < count($categories); $i++) {
@@ -297,7 +303,6 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	 * @return void
 	 */
 	public function searchFormAction($post = null) {
-		$this->populateMapIconDirectory();
 
 	   	$configuration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 
@@ -313,8 +318,11 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		$querySettings->setRespectStoragePage(true);
 		$querySettings->setStoragePageIds(GeneralUtility::intExplode(',', $customStoragePid));
 
-		$this->categoryRepository->setDefaultQuerySettings($querySettings);
-		$categories = $this->categoryRepository->findAll();
+//		$this->categoryRepository->setDefaultQuerySettings($querySettings);
+//		$categories = $this->categoryRepository->findAll();
+
+		$this->typo3CategoryRepository->setDefaultQuerySettings($querySettings);
+		$categories = $this->typo3CategoryRepository->findAll();
 		
 		// sanitizing categories						 
 		if ($this->_GP['categories'] && preg_match('/^[0-9,]*$/', @implode(',', $this->_GP['categories'])) != 1) {
@@ -430,12 +438,12 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 			$locations[$i]['address'] = str_replace(array("\r\n", "\r", "\n"), '<br />', htmlspecialchars($locations[$i]['address'], ENT_QUOTES));
 			
 			if ($locations[$i]['image'] > 0) {
-				$images = $this->addressRepository->findByUid($locations[$i]['uid'])->getImage();
+				if ($this->ttaddressRepository->findByUid($locations[$i]['uid'])) {
+						$images = $this->ttaddressRepository->findByUid($locations[$i]['uid'])->getImage();
+				}
 				$locations[$i]['images'] =	$images;				
 			}
 		}
-
-
 
 		if (is_array($locations)) {					
 			if (count($locations) == 0) {

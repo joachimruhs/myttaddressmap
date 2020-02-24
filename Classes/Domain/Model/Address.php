@@ -1,6 +1,9 @@
 <?php
 namespace WSR\Myttaddressmap\Domain\Model;
 
+//use TYPO3\CMS\Extbase\Annotation\Lazy;
+
+
 /***************************************************************
  *
  *  Copyright notice
@@ -32,10 +35,12 @@ namespace WSR\Myttaddressmap\Domain\Model;
 class Address extends \FriendsOfTYPO3\TtAddress\Domain\Model\Address 
 {
 
+//     * @Extbase\ORM\Lazy
+
+
 
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
-     * @lazy
      */
     protected $categories;
 

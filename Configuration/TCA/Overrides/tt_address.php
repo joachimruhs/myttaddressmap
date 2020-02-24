@@ -7,19 +7,33 @@ $tmp_myttaddressmap_columns = array(
 	'mapicon' => array(
 		'exclude' => 1,
 		'label' => 'LLL:EXT:myttaddressmap/Resources/Private/Language/locallang_db.xlf:tx_myttaddressmap_domain_model_address.mapicon',
-		'config' => array(
-			"type" => "group",
-			"internal_type" => "file",
-			"allowed" => "gif,png,jpeg,jpg",	
-			"max_size" => 500,	
-			"uploadfolder" => "uploads/tx_myttaddressmap/icons",
-			"show_thumbs" => 1,	
-			"size" => 1,	
-			"minitems" => 0,
-			"maxitems" => 1,
-			"default" => '',
+		'config' => [
 
-		),
+		    'type' => 'select',
+
+			'renderType' => 'selectSingle',
+
+		    'items' => [
+
+		        [ '', 0 ],
+
+			],
+
+			'fileFolder' => 'fileadmin/ext/myleaflet/Resources/Public/Icons/',
+
+			'fileFolder_extList' => 'png,jpg,jpeg,gif',
+
+			'fileFolder_recursions' => 0,
+
+			'showIconTable' => 1,
+
+		    'size' => 1,
+
+		    'minitems' => 0,
+
+		    'maxitems' => 1,
+
+		],
 	),
 	'mapgeocode' => array(
 		'exclude' => 1,

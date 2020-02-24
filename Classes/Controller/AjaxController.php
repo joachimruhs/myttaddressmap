@@ -55,7 +55,12 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	public function __construct()
 	{
 		/** @var LanguageService $languageService */
+/** @var LanguageService $this->languageService */
 		$this->languageService = GeneralUtility::makeInstance('TYPO3\CMS\Core\Localization\LanguageService');
+
+//		$this->languageService->init(trim($_POST['tx_myleaflet_ajax']['language']));
+		
+//		$this->languageService = GeneralUtility::makeInstance('TYPO3\\CMS\\Lang\\LanguageService');
 		$this->languageService->init(trim($_POST['tx_myttaddressmap_ajax']['language']));
 	}
 
@@ -455,7 +460,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 									position: myLatLng,
 									map: map,
 									title: "' . str_replace('"', '\"', $locations[$i]['name']) .'",
-									icon: "/uploads/tx_myttaddressmap/icons/' . $locations[$i]['mapicon'] .'"
+									icon: "fileadmin/ext/myttaddressmap/Resources/Public/Icons/' . $locations[$i]['mapicon'] .'"
 									});
 									mapBounds.extend(myLatLng);
 									';

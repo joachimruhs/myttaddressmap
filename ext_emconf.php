@@ -20,13 +20,13 @@ $EM_CONF[$_EXTKEY] = array (
   'uploadfolder' => true,
   'createDirs' => 'uploads/tx_myttaddressmap/icons',
   'clearCacheOnLoad' => 0,
-  'version' => '0.9.6',
+  'version' => '0.9.7',
   'constraints' => 
   array (
     'depends' => 
     array (
       'typo3' => '9.5.0-10.4.99',
-      'tt_address' => '5.0.0-5.0.99',
+      'tt_address' => '5.0.0-5.1.99',
     ),
     'conflicts' => 
     array (
