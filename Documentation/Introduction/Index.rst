@@ -22,7 +22,7 @@ What's new?
 ^^^^^^^^^^^
 
 To use your own mapIcons insert your mapIcons into the directory fileadmin/ext/myleaflet/Resources/Public/Icons.
-This directy is created and populated with some map icons of the extension.
+The directory is automatically created if ajaxSearch or searchForm is called.
 
 Google map themes implemented - you can set a map theme file in the constant editor.
 
