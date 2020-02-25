@@ -23,14 +23,14 @@ Otherwise your changes will be overwritten the next time you save the extension 
 	
 	<f:flashMessages />
 
-	
-	<f:for each="{location.images}" as="image">
+<f:debug>{_all}</f:debug>
+
+	<f:for each="{location.image}" as="image">
 		<f:image src="fileadmin/{image.originalResource.originalFile.identifier}"
 			 title="{image.originalResource.title}" 
 			 alt="{image.originalResource.title}" />
 	{image.originalResource.description}	
 	</f:for>
-	
 
 	
 	<f:render partial="Address/Properties" arguments="{address:location}" />
@@ -78,13 +78,15 @@ Otherwise your changes will be overwritten the next time you save the extension 
 	
 			</f:else>
 		</f:if>
-		
+
 		info += "<br /><div class='title'>{location.name}</div>";
 		
 		info += '<div class="categories">';	
 		<f:for each="{location.categories}" as="category" iteration="iterator">
 			info += "{category.title} ";
 		</f:for>
+
+		
 		info += '</div>';
 
 		info += "<div><f:format.raw><map:nl2br text="<f:format.raw>{location.address}</f:format.raw>" htmlSpecialChars="1"/></f:format.raw></div>";

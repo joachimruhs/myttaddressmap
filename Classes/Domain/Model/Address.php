@@ -8,7 +8,7 @@ namespace WSR\Myttaddressmap\Domain\Model;
  *
  *  Copyright notice
  *
- *  (c) 2018 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
+ *  (c) 2018-2020 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
  *
  *  All rights reserved
  *
@@ -42,7 +42,7 @@ class Address extends \FriendsOfTYPO3\TtAddress\Domain\Model\Address
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
      */
-    protected $categories;
+    protected $categoriesX;
 
 
     /**
@@ -116,7 +116,7 @@ class Address extends \FriendsOfTYPO3\TtAddress\Domain\Model\Address
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
      */
-    public function getCategories()
+    public function getCategoriesX()
     {
         return $this->categories;
     }

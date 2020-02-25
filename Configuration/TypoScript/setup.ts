@@ -14,6 +14,7 @@ plugin.tx_myttaddressmap {
     storagePid = {$plugin.tx_myttaddressmap.persistence.storagePid}
     #recursive = 1
 
+ # only needed for TYPO3 9.x
        classes{
 
             WSR\Myttaddressmap\Domain\Model\Address {
@@ -73,8 +74,6 @@ plugin.tx_myttaddressmap {
 
 
 }
-
-
 
 plugin.tx_myttaddressmap._CSS_DEFAULT_STYLE (
     textarea.f3-form-error {

@@ -63,7 +63,7 @@ call_user_func(
             ],
             // non-cacheable actions
             [
-                'Address' => ''
+                'Address' => 'singleView'
             ]
         );
 

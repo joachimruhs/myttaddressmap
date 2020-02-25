@@ -277,7 +277,6 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	public function singleViewAction() {
 		$this->_GP = $this->request->getArguments();
 
-
 		if ($this->_GP['locationUid']) {// called from list link
 			$location = $this->addressRepository->findByUid(intval($this->_GP['locationUid']));
 		}

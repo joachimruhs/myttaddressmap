@@ -53,7 +53,7 @@ class MapShowJSViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
 		 $location = $arguments['location'];
 		 $city = $arguments['city'];
 		 $settings = $arguments['settings'];
-	 
+
 		$out = self::getMapJavascript($location, $arguments['settings']);
 		$out .= '<script type="text/javascript">function getMarkers() {';
 			$lat = $location->getLatitude();
