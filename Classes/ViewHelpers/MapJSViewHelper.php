@@ -82,7 +82,7 @@ class MapJSViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelpe
 											position: myLatLng,
 											map: map,
 											title: "' . str_replace('"', '\"', $locationName) .'",
-											icon: "/uploads/tx_myttaddressmap/icons/' . $mapIcon .'",
+											icon: "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/' . $mapIcon .'",
 											' . $animation . '
 											map: map
 											});
