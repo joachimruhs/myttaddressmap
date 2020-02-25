@@ -460,7 +460,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 									position: myLatLng,
 									map: map,
 									title: "' . str_replace('"', '\"', $locations[$i]['name']) .'",
-									icon: "fileadmin/ext/myttaddressmap/Resources/Public/Icons/' . $locations[$i]['mapicon'] .'"
+									icon: "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/' . $locations[$i]['mapicon'] .'"
 									});
 									mapBounds.extend(myLatLng);
 									';
