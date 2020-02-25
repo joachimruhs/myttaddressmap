@@ -12,10 +12,16 @@ $tmp_myttaddressmap_columns = array(
 		    'items' => [
 		        [ '', 0 ],
 			],
-			'fileFolder' => 'fileadmin/ext/myleaflet/Resources/Public/Icons/',
+			'fileFolder' => 'fileadmin/ext/myttaddressmap/Resources/Public/Icons/',
 			'fileFolder_extList' => 'png,jpg,jpeg,gif',
 			'fileFolder_recursions' => 0,
 			'showIconTable' => 1,
+			'fieldWizard' => [
+	            'selectIcons' => [
+	                'disabled' => false,
+	            ],
+	        ],
+
 		    'size' => 1,
 		    'minitems' => 0,
 		    'maxitems' => 1,

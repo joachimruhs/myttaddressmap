@@ -66,7 +66,7 @@ class MapShowJSViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
 					                position: myLatLng,
 					                map: map,
 					                title: "' . str_replace('"', '\"', $location->getName()) .'",
-					                icon: "/uploads/tx_myttaddressmap/icons/' . $location->getMapicon() .'"
+					                icon: "fileadmin/ext/myttaddressmap/Resources/Public/Icons/' . $location->getMapicon() .'"
 					                });
 									//mapBounds.extend(myLatLng);
 
