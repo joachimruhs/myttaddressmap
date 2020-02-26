@@ -48,7 +48,8 @@ assign them to sys_categories.
 The country selector in template AjaxSearch.html use 2 chars for the country. If you have inserted full country names in your tt_address records you have
 to change the select options in template AjaxSearch.html.
 
-
+To use your own mapIcons insert your mapIcons into the directory fileadmin/ext/myttaddressmap/Resources/Public/Icons.
+Insert in this directory your icons which then can be selected in your tt_address data records.
 
 When everything is ok - go test it...
 

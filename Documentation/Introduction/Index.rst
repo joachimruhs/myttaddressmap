@@ -20,9 +20,8 @@ Within the Ajaxsearch you can show all address-POIs of a country if you leave th
 
 What's new?
 ^^^^^^^^^^^
-
-Google map themes implemented - you can set a map theme file in the constant editor.
-
+The directories fileadmin/ext/myttaddressmap/Resources/Public/Icons are created if they don't exist. Insert here your mapIcons. 
+These icons can then be selected in the tt_address record (Mapicon).
 
 Screenshots
 ^^^^^^^^^^^
