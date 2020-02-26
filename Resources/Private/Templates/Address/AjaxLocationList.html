@@ -11,11 +11,7 @@
 		<div class="searchResultTile" onclick="openInfoWindow({iter.index});">
 		
 			<f:for each="{location.images}" as="image">
-<f:comment>
-may be slug issue when used with slugs like /myttaddressmap/ajaxmap
 				<div><f:image src="/fileadmin/{image.originalResource.originalFile.identifier}"  width="50" alt=""/></div>			
-</f:comment>
-				<div><img src="/fileadmin/{image.originalResource.originalFile.identifier}"  width="50" alt=""/></div>			
 			</f:for>
 
 			<div>
