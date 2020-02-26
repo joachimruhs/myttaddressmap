@@ -4,7 +4,7 @@ namespace WSR\Myttaddressmap\Controller;
 use TYPO3\CMS\Extbase\Annotation\Inject;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-
+use TYPO3\CMS\Core\Core\Environment;
 
 /***************************************************************
  *
@@ -198,6 +198,25 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		$this->view->assign('address', $address);
 	}
 
+	
+	/**
+	 * populate map icon directory
+	 *
+	 * @return void
+	 */
+	public function populateMapIconDirectory() {
+		$iconPath = 'fileadmin/ext/myttaddressmap/Resources/Public/Icons/';
+		if (!is_dir(Environment::getPublicPath() . '/' . $iconPath)) {
+			$this->addFlashMessage('Directory ' . $iconPath . ' created for use with own mapIcons!', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+			GeneralUtility::mkdir_deep(Environment::getPublicPath() . '/' . $iconPath);
+			$sourceDir = 'typo3conf/ext/myttaddressmap/Resources/Public/Icons/';
+			$files = GeneralUtility::getFilesInDir($sourceDir, 'png,gif,jpg');			
+			foreach ($files as $file) {
+				copy($sourceDir . $file, $iconPath . $file);
+			}
+		}
+	}
+	
 	/**
 	 * action ajaxSearch
 	 *
@@ -205,6 +224,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	 */
 	public function ajaxSearchAction()
 	{
+		$this->populateMapIconDirectory();
 		$this->updateLatLon();
 
 		// check mapTheme
@@ -302,6 +322,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	 * @return void
 	 */
 	public function searchFormAction($post = null) {
+		$this->populateMapIconDirectory();
 
 	   	$configuration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 
