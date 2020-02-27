@@ -253,32 +253,5 @@ class AddressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 		return $queryBuilder;
 	}
 
-
-	/**
-	 * findByUidNew
-	 * 
-	 * @return array
-	 */
-	public function findByUidNew($uid) {
-
-		$queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)
-			->getQueryBuilderForTable('tt_address');
-
-		$queryBuilder->select('*')->from('tt_address', 'a');
-
-
-		$queryBuilder->where(
-			$queryBuilder->expr()->eq(
-				'a.uid',
-				$queryBuilder->createNamedParameter($uid, \PDO::PARAM_INT
-				)
-			)
-		);		
-
-		$result = $queryBuilder->execute()->fetchAll();
-		return $result[0];
-	}
-
-
     
 }
