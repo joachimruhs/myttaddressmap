@@ -182,22 +182,6 @@ googleServerApiKey
    Default
          -
 
-defaultIcon
-"""""""""""
-
-.. container:: table-row
-
-   Property
-        defaultIcon
-
-   Data type
-         string
-
-   Description
-         Default map icon (example: plugin.tx_myttaddressmap.settings.defaultIcon = fileadmin/includes/icons/myDefaultIcon.png)
-
-   Default
-        -
 
 resultPageId
 """"""""""""
