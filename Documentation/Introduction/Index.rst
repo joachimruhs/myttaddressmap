@@ -23,9 +23,8 @@ What's new?
 **New mapIcon handling**
 
 The directories  fileadmin/ext/myttaddressmap/Resources/Public/Icons are created if they don't exist. Insert here your mapIcons. 
-
-**New mapIcon handling**
-The directories  fileadmin/ext/myttaddressmap/Resources/Public/Icons are created if they don't exist. Insert here your mapIcons. 
+When updating and if you used your own mapIcons, you have to copy your mapIcons to the created directory and reassign your tt_address
+records with your mapIcons.
 These icons can then be selected in the tt_address record (Mapicon).
 
 Screenshots
