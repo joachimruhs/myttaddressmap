@@ -9,12 +9,13 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Core\Environment;
 
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) Joachim Ruhs 2018
+ *  (c) Joachim Ruhs 2018-2020
  *  
  *  All rights reserved
  *
@@ -55,12 +56,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	public function __construct()
 	{
 		/** @var LanguageService $languageService */
-/** @var LanguageService $this->languageService */
 		$this->languageService = GeneralUtility::makeInstance('TYPO3\CMS\Core\Localization\LanguageService');
-
-//		$this->languageService->init(trim($_POST['tx_myleaflet_ajax']['language']));
-		
-//		$this->languageService = GeneralUtility::makeInstance('TYPO3\\CMS\\Lang\\LanguageService');
 		$this->languageService->init(trim($_POST['tx_myttaddressmap_ajax']['language']));
 	}
 
@@ -456,7 +452,8 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 			$out .= 'var myLatLng = new google.maps.LatLng(' . $lat . ', ' . $lon .');';
 
 			if ($locations[$i]['mapicon']) {
-			$out .= 'marker[' . $i . '] = new google.maps.Marker({
+				if (!is_file(Environment::getPublicPath() . "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/" . $locations[$i]['mapicon'])) $locations[$i]['mapicon'] = 'questionmark.png';  
+				$out .= 'marker[' . $i . '] = new google.maps.Marker({
 									position: myLatLng,
 									map: map,
 									title: "' . str_replace('"', '\"', $locations[$i]['name']) .'",
@@ -468,7 +465,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 			
 			} else {
 
-			$out .= 'marker[' . $i . '] = new google.maps.Marker({
+				$out .= 'marker[' . $i . '] = new google.maps.Marker({
 									position: myLatLng,
 									map: map,
 									title: "' . str_replace('"', '\"', $locations[$i]['name']) .'",
