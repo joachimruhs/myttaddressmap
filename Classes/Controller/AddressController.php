@@ -303,7 +303,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		else {
 			$location = $this->addressRepository->findByUid(intval($this->settings['singleViewUid']));
 		}
-
+		
 		// signal
 		$signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
 		$ret = $signalSlotDispatcher->dispatch(__CLASS__, 'beforeSingleRenderView', array(&$location, &$this));
@@ -462,6 +462,9 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 						$images = $this->ttaddressRepository->findByUid($locations[$i]['uid'])->getImage();
 				}
 				$locations[$i]['images'] =	$images;				
+			}
+			if ($locations[$i]['mapicon']) {			
+				if (!is_file(Environment::getPublicPath() . "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/" . $locations[$i]['mapicon'])) $locations[$i]['mapicon'] = 'questionmark.png';  
 			}
 		}
 

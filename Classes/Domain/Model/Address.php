@@ -2,6 +2,7 @@
 namespace WSR\Myttaddressmap\Domain\Model;
 
 //use TYPO3\CMS\Extbase\Annotation\Lazy;
+use TYPO3\CMS\Core\Core\Environment;
 
 
 /***************************************************************
@@ -73,6 +74,9 @@ class Address extends \FriendsOfTYPO3\TtAddress\Domain\Model\Address
 	 * @return string $mapicon
 	 */
 	public function getMapicon() {
+		if ($this->mapicon) {
+			if (!is_file(Environment::getPublicPath() . "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/" . $this->mapicon)) $this->mapicon = 'questionmark.png';
+		}
 		return $this->mapicon;
 	}
 
