@@ -74,9 +74,10 @@ class Address extends \FriendsOfTYPO3\TtAddress\Domain\Model\Address
 	 * @return string $mapicon
 	 */
 	public function getMapicon() {
-		if ($this->mapicon) {
-			if (!is_file(Environment::getPublicPath() . "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/" . $this->mapicon)) $this->mapicon = 'questionmark.png';
-		}
+//		if ($this->mapicon) {
+//			if (!is_file(Environment::getPublicPath() . "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/" . $this->mapicon)) $this->mapicon = 'questionmark.png';
+//		}
+		
 		return $this->mapicon;
 	}
 
