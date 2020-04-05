@@ -25,7 +25,7 @@ Create some pages as shown below.
 	:width: 200px
 	:alt: Pages for myttaddressmap
 
-On the page 'Ajax Map' install plugin MyTTAddressMap (Map), on page 'Search' install plugin MyTTAddressMap (Searchform) , on
+On the  page 'Ajax Map' install plugin MyTTAddressMap (Map), on page 'Search' install plugin MyTTAddressMap (Searchform) , on
 page 'Searchresult' install plugin MyTTAddressMap (Searchresult) and plugin MyTTAddressmap (Searchform) in the sidebar. Finally on page 'Details' install plugin MyTTAddressMap (SingleView).
 
 
