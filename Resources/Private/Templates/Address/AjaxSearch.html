@@ -60,22 +60,20 @@ Otherwise your changes will be overwritten the next time you save the extension 
 	</div>	
 
 
-
 	<input id="tx_myttaddressmap_city" type="text" value="" size="30" onchange="$('#tx_myttaddressmap_lat').val('');$('#tx_myttaddressmap_lon').val('');$('#tx_myttaddressmap_page').val('0');"/>
 	<select id="tx_myttaddressmap_country" onchange="$('#tx_myttaddressmap_page').val('0');geocodeByClient();">
-		<option value="Germany" selected="selected">Land</option>
-		<option value="Germany">DE</option>
-		<option value="Austria">AT</option>
-		<option value="USA">US</option>	
-		<option value="Switzerland">CH</option>
-		<option value="France">FR</option>
-		<option value="Netherland">NL</option>
-		<option value="Great Britain">UK</option>
-		<option value="Australia">AU</option>
-		<option value="Canada">CA</option>
-		<option value="Italy">IT</option>
+		<option value="DE" selected="selected">Land</option>
+		<option value="DE">DE</option>
+		<option value="AT">AT</option>
+		<option value="US">US</option>	
+		<option value="CH">CH</option>
+		<option value="FR">FR</option>
+		<option value="NL">NL</option>
+		<option value="UK">UK</option>
+		<option value="AU">AU</option>
+		<option value="CA">CA</option>
+		<option value="IT">IT</option>
 	</select>
-
 
 
 
@@ -211,7 +209,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 		// otherwise the locations of the country are shown
 		$('#tx_myttaddressmap_city').val('Freiburg');
 
-		$('#tx_myttaddressmap_country').val('Germany');
+		$('#tx_myttaddressmap_country').val('DE');
 		// if you want manually set the search radius comment the following line and
 		// set the text field tx_myttaddressmap_radius to another class, not hidden!
 		$('#tx_myttaddressmap_radius').val('20000');
