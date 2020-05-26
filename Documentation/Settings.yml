@@ -7,7 +7,7 @@ conf.py:
   copyright: 2020
   project: Myttaddressmap
   version: 1.0
-  release: 1.0.5
+  release: 1.0.6
   latex_documents:
   - - Index
     - myttaddressmap.tex
