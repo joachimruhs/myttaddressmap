@@ -2,7 +2,7 @@
 
 #### Google maps for tt_address
 
-![Icon](/ext_icon.gif "Extension icon")
+![Icon](/Resources/Public/Icons/Extension.svg "Extension icon")
 
 
 What does it do
