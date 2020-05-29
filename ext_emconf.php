@@ -20,7 +20,7 @@ $EM_CONF[$_EXTKEY] = array (
   'uploadfolder' => true,
   'createDirs' => 'uploads/tx_myttaddressmap/icons',
   'clearCacheOnLoad' => 0,
-  'version' => '1.0.6',
+  'version' => '1.0.7',
   'constraints' => 
   array (
     'depends' => 

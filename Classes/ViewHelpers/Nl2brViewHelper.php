@@ -37,7 +37,7 @@ use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
  */
 
 
-class Nl2brViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class Nl2brViewHelper extends AbstractViewHelper {
 	
 	public function initializeArguments() {
 		$this->registerArgument('text', 'string', 'text for nl2br', true, 0);

@@ -28,7 +28,7 @@ use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-class RouteJSViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class RouteJSViewHelper extends AbstractViewHelper {
 	/**
 	* Arguments Initialization
 	*/

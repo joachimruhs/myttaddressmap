@@ -30,7 +30,7 @@ use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
  ***************************************************************/
 
 
-class MapShowJSViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class MapShowJSViewHelper extends AbstractViewHelper {
 	/**
 	* Arguments Initialization
 	*/
