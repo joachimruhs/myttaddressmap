@@ -1,5 +1,5 @@
 {
-  "name": "WSR/myttaddressmap",
+  "name": "wsr/myttaddressmap",
   "description": "Google maps for tt_address with radial search and categories",
   "keywords": ["TYPO3", "Google maps", "tt_address", "extension", "radial search"],
   "homepage": "https://www.web-services-ruhs.de",
