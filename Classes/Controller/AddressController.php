@@ -451,8 +451,13 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		$page = 0;
 
 		$orderBy = 'distance';
+
+		$context = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class);
+		$sys_language_uid = $context->getPropertyFromAspect('language', 'id'); 
+
+
 		$locations = $this->addressRepository->findLocationsInRadius($latLon, $this->_GP['radius'], $categoryList,
-						$this->conf['storagePid'], $this->settings['resultLimit'], $page);
+						$this->conf['storagePid'], $sys_language_uid, $this->settings['resultLimit'], $page);
 
 		// field images
 		for ($i = 0; $i < count($locations); $i++) {
