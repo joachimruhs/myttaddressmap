@@ -280,11 +280,11 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		$categories = $this->buildTree($arr);
 
 		$this->view->assign('id', $GLOBALS['TSFE']->id);
-
+		
 		$context = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class);
 		$sys_language_uid = $context->getPropertyFromAspect('language', 'id'); 
-		$this->view->assign('Lvar', $sys_language_uid);
-		
+		$this->view->assign('L', $sys_language_uid);
+	
 //		$this->view->assign('locations', $addresses);
 		$this->view->assign('categories', $categories);
 

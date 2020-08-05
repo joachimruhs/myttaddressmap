@@ -351,11 +351,11 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
 
 		if ($requestArguments['address'] == '') { // search locations of country
-			$locations = $this->addressRepository->findLocationsOfCountry($latLon, $requestArguments['country'], $categoryList, $this->conf['storagePid'], $limit, $page, $orderBy);
-			$allLocations = $this->addressRepository->findLocationsOfCountry($latLon, $requestArguments['country'], $categoryList, $this->conf['storagePid'], 1000, 0);
+			$locations = $this->addressRepository->findLocationsOfCountry($latLon, $requestArguments['country'], $categoryList, $this->conf['storagePid'], $this->language, $limit, $page, $orderBy);
+			$allLocations = $this->addressRepository->findLocationsOfCountry($latLon, $requestArguments['country'], $categoryList, $this->conf['storagePid'], $this->language, 1000, 0);
 		} else {
-			$locations = $this->addressRepository->findLocationsInRadius($latLon, $this->_GP['radius'], $categoryList, $this->conf['storagePid'], $limit, $page);
-			$allLocations = $this->addressRepository->findLocationsInRadius($latLon, $this->_GP['radius'], $categoryList, $this->conf['storagePid'], 1000, 0);
+			$locations = $this->addressRepository->findLocationsInRadius($latLon, $this->_GP['radius'], $categoryList, $this->conf['storagePid'], $this->language, $limit, $page);
+			$allLocations = $this->addressRepository->findLocationsInRadius($latLon, $this->_GP['radius'], $categoryList, $this->conf['storagePid'], $this->language, 1000, 0);
 		}
 
 		// get all locations for the more-button
