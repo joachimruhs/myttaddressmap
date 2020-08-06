@@ -352,6 +352,24 @@ defaultIcon
         /typo3conf/ext/myttaddressmap/Resources/Public/Icons/pointerBlue.png
 
 
+defaultLanguageUid
+""""""""""""""""""
+
+.. container:: table-row
+
+   Property
+        defaultLanguageUid
+
+   Data type
+         string
+
+   Description
+         Use 0 in multi language sites to override selected language in Frontend and if tt_adress record are not localized. Leave it blank to use TYPO3 localization.
+
+   Default
+        
+
+
 
 Known problems
 ^^^^^^^^^^^^^^

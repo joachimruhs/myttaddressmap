@@ -65,6 +65,9 @@ plugin.tx_myttaddressmap {
 		# cat=plugin.tx_myttaddressmap/googlemaps; type=string; label=Google map theme: File with Google map theme in json format. You can generate your own here: https://mapstyle.withgoogle.com/
 		mapTheme = 
 
+		# cat=plugin.tx_myttaddressmap/googlemaps; type=string; label=Default languageUid: Use 0 in multi language sites to override selected language in Frontend and if tt_adress record are not localized. Leave it blank to use TYPO3 localization.
+		defaultLanguageUid = 
+
 	}
 
 

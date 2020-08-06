@@ -69,6 +69,9 @@ plugin.tx_myttaddressmap {
 		initialMapCoordinates = {$plugin.tx_myttaddressmap.settings.initialMapCoordinates}
 
 		mapTheme = {$plugin.tx_myttaddressmap.settings.mapTheme}
+		
+		defaultLanguageUid = {$plugin.tx_myttaddressmap.settings.defaultLanguageUid}
+		
 	}
 
 

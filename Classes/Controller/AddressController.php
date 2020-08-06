@@ -255,6 +255,11 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 //		$this->categoryRepository->setDefaultQuerySettings($querySettings);
 //		$categories = $this->categoryRepository->findAll();
 
+		if ($this->settings['defaultLanguageUid'] > '') {
+			$querySettings->setLanguageUid($this->settings['defaultLanguageUid']);
+		}
+
+
 		$this->typo3CategoryRepository->setDefaultQuerySettings($querySettings);
 		$categories = $this->typo3CategoryRepository->findAll();
 		
@@ -277,6 +282,11 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 			$arr[$i]['title'] = $categories[$i]->getTitle();
 		}
 
+		if (!$arr) {
+			$this->addFlashMessage('Please insert some sys_categories first!', 'Myttaddressmap', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+			return;
+		}
+		
 		$categories = $this->buildTree($arr);
 
 		$this->view->assign('id', $GLOBALS['TSFE']->id);

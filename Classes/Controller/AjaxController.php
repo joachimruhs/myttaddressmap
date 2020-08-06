@@ -300,7 +300,11 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 			$categoryList = '';
 		}		
 	
-		$this->language = $requestArguments['language'];		
+		if ($this->settings['defaultLanguageUid'] > '') {
+			$this->language = $this->settings['defaultLanguageUid'];
+		} else {
+			$this->language = $requestArguments['language'];		
+		}		
 
 // NEW
 		// to minimize Google Server API requests
