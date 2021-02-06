@@ -401,7 +401,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		$this->updateLatLon();
 		
 		$this->_GP = $this->request->getArguments();
-	
+
 		// now get the startingpoint coordinates 
 		$theAddress = array (
 			'address' => $this->_GP['address'],
