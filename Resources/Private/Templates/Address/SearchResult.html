@@ -29,6 +29,9 @@ Otherwise your changes will be overwritten the next time you save the extension 
 	</f:else>
 </f:if>
 
+	<f:if condition="{settings.enableMarkerClusterer} > '0'">
+		<script type="text/javascript" src="/typo3conf/ext/myttaddressmap/Resources/Public/JavaScript/markerclusterer.js"></script>
+	</f:if>
 
 
 
@@ -151,7 +154,10 @@ Otherwise your changes will be overwritten the next time you save the extension 
 	
 	</f:for>
 
-
+	<f:if condition="{settings.enableMarkerClusterer} > '0'">
+		markerClusterer = new MarkerClusterer(map, marker, {imagePath: '/typo3conf/ext/myttaddressmap/Resources/Public/Icons/Clusterer/m'});
+	</f:if>
+	
 </script>	
 
 

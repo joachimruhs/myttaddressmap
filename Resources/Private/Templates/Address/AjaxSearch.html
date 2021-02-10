@@ -37,6 +37,9 @@ Otherwise your changes will be overwritten the next time you save the extension 
 		</f:else>
 	</f:if>
 
+	<f:if condition="{settings.enableMarkerClusterer} > '0'">
+		<script type="text/javascript" src="/typo3conf/ext/myttaddressmap/Resources/Public/JavaScript/markerclusterer.js"></script>
+	</f:if>
 
 	<h1>Ajax Search Myttaddressmap</h1>
 	
@@ -114,6 +117,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 <script>
 	var marker;
+	var markerClusterer = [];
 	var maxPage = Math.ceil({locationsCount}/{settings.resultLimit});
 
 	function scrollto(element){
@@ -169,9 +173,16 @@ Otherwise your changes will be overwritten the next time you save the extension 
 			};
 
 		mapBounds = new google.maps.LatLngBounds();
+			<f:if condition="{settings.enableMarkerClusterer} > '0'">
+				if (marker.length > 0) markerClusterer.clearMarkers();
+			</f:if>
 
 		$.post(ajaxRequestUrl, requestParameter, function (data) {
 			$('#ajaxResult').html(data);
+
+			<f:if condition="{settings.enableMarkerClusterer} > '0'">
+				markerClusterer = new MarkerClusterer(map, marker, {imagePath: '/typo3conf/ext/myttaddressmap/Resources/Public/Icons/Clusterer/m'});
+			</f:if>
 			
 			$('#tx_myttaddressmap_more').css('display', 'none');
 			var page = parseInt($('#tx_myttaddressmap_page').val());

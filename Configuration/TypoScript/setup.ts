@@ -65,6 +65,8 @@ plugin.tx_myttaddressmap {
 		detailsPageId = {$plugin.tx_myttaddressmap.settings.detailsPageId}
 		singleViewUid = {$plugin.tx_myttaddressmap.settings.singleViewUid}
 
+		enableMarkerClusterer = {$plugin.tx_myttaddressmap.settings.enableMarkerClusterer}
+
 		resultLimit = {$plugin.tx_myttaddressmap.settings.resultLimit}
 		initialMapCoordinates = {$plugin.tx_myttaddressmap.settings.initialMapCoordinates}
 

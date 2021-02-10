@@ -311,6 +311,27 @@ enableBicyclingLayer
    Default
         -
 
+.. _enableMarkerClusterer:
+
+enableMarkerClusterer
+"""""""""""""""""""""
+
+.. container:: table-row
+
+   Property
+         enableMarkerClusterer
+
+   Data type
+         boolean
+
+   Description
+         Enables the clustering of markers
+
+   Default
+         -
+
+
+
 
 .. _mapTheme:
 

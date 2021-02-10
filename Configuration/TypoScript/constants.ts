@@ -56,6 +56,9 @@ plugin.tx_myttaddressmap {
 		# cat=plugin.tx_myttaddressmap/googlemaps; type=string; label=Initial map coordinates: Initial map coordinates
 		initialMapCoordinates = 48,8
 
+		# cat=plugin.tx_myttaddressmap/googlemaps; type=boolean; label=Enable marker clusterer: Show clustered POI's on the map
+		enableMarkerClusterer = 0
+
 		# cat=plugin.tx_myttaddressmap/googlemaps; type=boolean; label=Enable traffic layer: Add traffic layer to the maps
 		enableTrafficLayer = 0
 
