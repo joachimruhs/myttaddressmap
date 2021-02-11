@@ -100,10 +100,11 @@ class MapShowJSViewHelper extends AbstractViewHelper {
 		      mapTypeId: google.maps.MapTypeId.ROADMAP,
 		      scaleControl: 1,
 			  zoomControl: 1,
+			  gestureHandling: "cooperative",
 
 		//	  panControl: false,
 		      disableDoubleClickZoom: 1,
-			  scrollwheel: true,
+//			  scrollwheel: true,
 			';
 
             if ($settings['mapTheme']) {

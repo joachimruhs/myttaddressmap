@@ -163,7 +163,6 @@ class MapJSViewHelper extends AbstractViewHelper {
             }
         
             $out .= '
-//              scrollwheel: true
             };
         
             map = new google.maps.Map(document.getElementById("map"), myOptions);
