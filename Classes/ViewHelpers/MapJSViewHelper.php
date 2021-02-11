@@ -124,7 +124,8 @@ class MapJSViewHelper extends AbstractViewHelper {
               center: latlng,
         //		      mapTypeId: google.maps.MapTypeId.ROADMAP,
               scaleControl: true,
-              zoomControl: true,
+			  gestureHandling: "cooperative",
+			  zoomControl: true,
               zoomControlOptions: {
                     position: google.maps.ControlPosition.LEFT_TOP
                 },
@@ -162,7 +163,7 @@ class MapJSViewHelper extends AbstractViewHelper {
             }
         
             $out .= '
-              scrollwheel: true
+//              scrollwheel: true
             };
         
             map = new google.maps.Map(document.getElementById("map"), myOptions);
