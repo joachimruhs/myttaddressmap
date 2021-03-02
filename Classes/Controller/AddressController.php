@@ -521,8 +521,8 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
 			$latLon = $this->geocode($theAddress);
 
+			$address = $this->addressRepository->findByUid($theAddress['uid']);
 			if ($latLon->status == 'OK') {
-				$address = $this->addressRepository->findByUid($theAddress['uid']);
 				$address->setLatitude($latLon->lat);
 				$address->setLongitude($latLon->lon);
 				$this->addressRepository->update($address);
