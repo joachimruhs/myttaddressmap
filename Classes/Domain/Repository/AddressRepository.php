@@ -64,8 +64,8 @@ class AddressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 						$queryBuilder->expr()->eq('longitude', $queryBuilder->createNamedParameter('', \PDO::PARAM_STR))
 					),
 					$queryBuilder->expr()->andX(
-						$queryBuilder->expr()->eq('latitude', $queryBuilder->createNamedParameter(NULL, \PDO::PARAM_NULL)),
-						$queryBuilder->expr()->eq('longitude', $queryBuilder->createNamedParameter(NULL, \PDO::PARAM_NULL))
+						$queryBuilder->expr()->isNull('latitude', $queryBuilder->createNamedParameter(NULL, \PDO::PARAM_NULL)),
+						$queryBuilder->expr()->isNull('longitude', $queryBuilder->createNamedParameter(NULL, \PDO::PARAM_NULL))
 					)
 				)
 				
