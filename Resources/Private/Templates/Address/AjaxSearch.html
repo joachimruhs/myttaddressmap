@@ -179,7 +179,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 		$.post(ajaxRequestUrl, requestParameter, function (data) {
 			$('#ajaxResult').html(data);
-
+			
 			<f:if condition="{settings.enableMarkerClusterer} > '0'">
 				markerClusterer = new MarkerClusterer(map, marker, {imagePath: '/typo3conf/ext/myttaddressmap/Resources/Public/Icons/Clusterer/m'});
 			</f:if>

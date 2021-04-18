@@ -20,12 +20,9 @@ Within the Ajaxsearch you can show all address-POIs of a country if you leave th
 
 What's new?
 ^^^^^^^^^^^
-**New mapIcon handling**
 
-The directories  fileadmin/ext/myttaddressmap/Resources/Public/Icons are created if they don't exist. Insert here your mapIcons. 
-When updating and if you used your own mapIcons, you have to copy your mapIcons to the created directory and reassign your tt_address
-records with your mapIcons.
-These icons can then be selected in the tt_address record (Mapicon).
+TYPO3 9.x compatibility dropped. Signals removed and events PSR-14 implemented.
+
 
 Screenshots
 ^^^^^^^^^^^

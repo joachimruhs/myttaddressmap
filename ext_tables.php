@@ -6,25 +6,25 @@ call_user_func(
     {
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-            'WSR.Myttaddressmap',
+            'Myttaddressmap',
             'Map',
             'MyTTAddressMap (Map)'
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-            'WSR.Myttaddressmap',
+            'Myttaddressmap',
             'SearchForm',
             'MyTTAddressMap (SearchForm)'
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-            'WSR.Myttaddressmap',
+            'Myttaddressmap',
             'SearchResult',
             'MyTTAddressMap (SearchResult)'
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-            'WSR.Myttaddressmap',
+            'Myttaddressmap',
             'SingleView',
             'MyTTAddressMap (SingleView)'
         );

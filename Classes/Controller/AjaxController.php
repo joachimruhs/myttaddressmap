@@ -10,7 +10,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Core\Environment;
-
+use TYPO3\CMS\Core\Http\Response;
 
 /***
  *
@@ -166,16 +166,16 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
 	/**
 	 * @param \Psr\Http\Message\ServerRequestInterface $request
-	 * @param \Psr\Http\Message\ResponseInterface      $response
+	 * @param TYPO3\CMS\Core\Http\Response      $response
 	 */
-	public function indexAction(ServerRequestInterface $request)
+	public function indexAction(ServerRequestInterface $request, Response $response)
 	{
 		switch ($request->getMethod()) {
 			case 'GET':
-				$this->processGetRequest($request, $response);
+				$response = $this->processGetRequest($request, $response);
 				break;
 			case 'POST':
-				$this->processPostRequest($request, $response);
+				$response = $this->processPostRequest($request, $response);
 				break;
 			default:
 				$response->withStatus(405, 'Method not allowed');
@@ -186,18 +186,18 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
 	/**
 	 * @param \Psr\Http\Message\ServerRequestInterface $request
-	 * @param \Psr\Http\Message\ResponseInterface      $response
+	 * @param \Psr\Http\Message\Response $response
 	 */
-	protected function processGetRequest(ServerRequestInterface $request, ResponseInterface $response) {
+	protected function processGetRequest(ServerRequestInterface $request, Response $response) {
 		$response->withHeader('Content-type', ['text/html; charset=UTF-8']);
 		$response->getBody()->write($view->render());
 	}
 
 	/**
 	 * @param \Psr\Http\Message\ServerRequestInterface $request
-	 * @param \Psr\Http\Message\ResponseInterface      $response
+	 * @param TYPO3\CMS\Core\Http\Response      $response
 	 */
-	protected function processPostRequest(ServerRequestInterface $request, $response)
+	protected function processPostRequest(ServerRequestInterface $request, Response $response)
 	{
 		$queryParams = $request->getQueryParams();
 	
@@ -212,8 +212,8 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$this->request = $request;
 		$out = $this->ajaxEidAction();
 	
-		echo $out;
-		return $response;
+	    $response->getBody()->write($out);
+		return;
 
 		//    $response->getBody()->write(json_encode($queryParams));
 		//    $response->getBody()->write($out);
@@ -221,7 +221,6 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		/** @var Response $response */
 		//$response = GeneralUtility::makeInstance(Response::class);
 		//$response->getBody()->write($out);
-		
 		//return $response;
 /*		
 		$view = $this->getView();

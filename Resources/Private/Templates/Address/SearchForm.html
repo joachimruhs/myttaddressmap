@@ -13,10 +13,10 @@
 	<div id="searchform">
 		<f:if condition="{settings.resultPageId}">
 			<f:then>
-			<form method="post" action='<f:uri.action action="searchResult" pluginName="searchResult" noCacheHash="1" pageUid="{settings.resultPageId}" />' name="searchform">
+			<form method="post" action='<f:uri.action action="searchResult" pluginName="searchResult" pageUid="{settings.resultPageId}" />' name="searchform">
 			</f:then>
 			<f:else>
-			<form method="post" action='<f:uri.action action="searchResult" pluginName="searchResult" noCacheHash="1" />' name="searchform">
+			<form method="post" action='<f:uri.action action="searchResult" pluginName="searchResult" />' name="searchform">
 			</f:else>
 		</f:if>	
 		<table>

@@ -3,7 +3,7 @@
 /***************************************************************
  * Extension Manager/Repository config file for ext "myttaddressmap".
  *
- * Auto generated 04-12-2019 18:31
+ * Auto generated 10-04-2021 10:01
  *
  * Manual updates:
  * Only the data in the array - everything else is removed by next
@@ -18,14 +18,13 @@ $EM_CONF[$_EXTKEY] = array (
   'author_email' => 'postmaster@joachim.ruhs.de',
   'state' => 'beta',
   'uploadfolder' => true,
-  'createDirs' => 'uploads/tx_myttaddressmap/icons',
   'clearCacheOnLoad' => 0,
-  'version' => '1.3.6',
+  'version' => '1.5.2',
   'constraints' => 
   array (
     'depends' => 
     array (
-      'typo3' => '9.5.0-10.4.99',
+      'typo3' => '9.5.0-11.2.99',
       'tt_address' => '5.0.0-5.2.99',
     ),
     'conflicts' => 

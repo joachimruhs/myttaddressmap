@@ -48,11 +48,15 @@ class MapUtilities implements MiddlewareInterface {
 
 		$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');		
 		$ajaxController = $objectManager->get('WSR\Myttaddressmap\Controller\AjaxController');
-		$ajaxController->indexAction($request);
-		// when this exit is missing an infinite loop will result
 
-		exit;
 
+		$response = GeneralUtility::makeInstance(Response::class);
+		$response->withHeader('Content-type', ['text/html; charset=UTF-8']);
+
+
+		$out = $ajaxController->indexAction($request, $response);
+		$response->getBody()->write($out);
+        return $response;
 
 	
 //		$response = GeneralUtility::makeInstance(Response::class);

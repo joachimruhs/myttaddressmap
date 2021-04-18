@@ -2,69 +2,53 @@
 defined('TYPO3_MODE') || die('Access denied.');
 
 call_user_func(
-    function($extKey)
+    function()
 	{
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            'WSR.Myttaddressmap',
+            'Myttaddressmap',
             'Map',
             [
-                'Address' => 'ajaxSearch, list',
-            ],
+				\WSR\Myttaddressmap\Controller\AddressController::class => 'ajaxSearch, list'
+			],
             // non-cacheable actions
             [
-                'Address' => 'ajaxSearch, list'
-            ]
+				\WSR\Myttaddressmap\Controller\AddressController::class => 'ajaxSearch, list'
+			]
         );
 
 		// Plugin for AJAX-calls
 		\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-				'WSR.' . $extKey,
-				'Ajax',
-				array(
-						'Ajax' => 'ajaxEid'
-				),
-				// non-cacheable actions
-				array(
-						'Ajax' => 'ajaxEid'
-				)
+            'Myttaddressmap',
+			'Ajax',
+			[\WSR\Myttaddressmap\Controller\AjaxController::class => 'ajaxEid'],
+			// non-cacheable actions
+			[\WSR\Myttaddressmap\Controller\AjaxController::class => 'ajaxEid']
 		);
 
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            'WSR.Myttaddressmap',
+            'Myttaddressmap',
             'SearchForm',
-            [
-                'Address' => 'searchForm',
-            ],
+            [\WSR\Myttaddressmap\Controller\AddressController::class => 'searchForm'],
             // non-cacheable actions
-            [
-                'Address' => 'searchForm'
-            ]
+            [\WSR\Myttaddressmap\Controller\AddressController::class => 'searchForm']
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            'WSR.Myttaddressmap',
+            'Myttaddressmap',
             'SearchResult',
-            [
-                'Address' => 'searchResult, searchForm',
-            ],
+            [\WSR\Myttaddressmap\Controller\AddressController::class => 'searchResult, searchForm'],
             // non-cacheable actions
-            [
-                'Address' => 'searchResult, searchForm'
-            ]
+            [\WSR\Myttaddressmap\Controller\AddressController::class => 'searchResult, searchForm']
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            'WSR.Myttaddressmap',
+            'Myttaddressmap',
             'SingleView',
-            [
-                'Address' => 'singleView',
-            ],
+            [\WSR\Myttaddressmap\Controller\AddressController::class => 'singleView'],
             // non-cacheable actions
-            [
-                'Address' => 'singleView'
-            ]
+            [\WSR\Myttaddressmap\Controller\AddressController::class => 'singleView']
         );
 
 
@@ -92,8 +76,7 @@ call_user_func(
 	);
 
 	
-    },
-    $_EXTKEY
+    }
 );
 
 

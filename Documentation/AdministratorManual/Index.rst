@@ -390,6 +390,16 @@ defaultLanguageUid
    Default
         
 
+Events
+^^^^^^
+
+Existing events in LocationController.php to modify location(s) by third party extension.
+
+> WSR\Myttaddressmap\Event\SingleViewEvent
+>
+> WSR\Myttaddressmap\Event\SearchViewEvent
+
+
 
 
 Known problems

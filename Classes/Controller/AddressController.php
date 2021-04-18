@@ -6,6 +6,9 @@ use TYPO3\CMS\Extbase\Annotation\Inject;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Core\Environment;
 
+use Psr\EventDispatcher\EventDispatcherInterface;
+
+
 /***
  *
  * This file is part of the "Myttaddressmap" Extension for TYPO3 CMS.
@@ -22,11 +25,27 @@ use TYPO3\CMS\Core\Core\Environment;
  */
 class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
+
+
 	public function initializeObject() {
 		//		$this->_GP = $this->request->getArguments();
 		$configuration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 		$this->conf['storagePid'] = $configuration['persistence']['storagePid'];
 	}
+
+    /**
+     * @var EventDispatcherInterface
+     */
+/*
+    protected $eventDispatcher;
+
+    public function __construct(EventDispatcherInterface $eventDispatcher)
+    {
+        $this->eventDispatcher = $eventDispatcher;
+    }
+*/
+
+
 
 	/** 
 	* @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher 
@@ -247,6 +266,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
 
 		$this->typo3CategoryRepository->setDefaultQuerySettings($querySettings);
+		$this->typo3CategoryRepository->setDefaultOrderings(array('sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING));
 		$categories = $this->typo3CategoryRepository->findAll();
 		
 		
@@ -275,7 +295,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		
 		$categories = $this->buildTree($arr);
 
-		$this->view->assign('id', $GLOBALS['TSFE']->id);
+		$this->view->assign('id', $GLOBALS['TSFE']->page['uid']);
 		
 		$context = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class);
 		$sys_language_uid = $context->getPropertyFromAspect('language', 'id'); 
@@ -302,10 +322,17 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		else {
 			$location = $this->addressRepository->findByUid(intval($this->settings['singleViewUid']));
 		}
-		
+/*		
 		// signal
 		$signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
 		$ret = $signalSlotDispatcher->dispatch(__CLASS__, 'beforeSingleRenderView', array(&$location, &$this));
+*/
+		// event dispatch
+		$event = GeneralUtility::makeInstance('WSR\Myttaddressmap\Event\SingleViewEvent');
+		$event->setLocation($location);
+		$this->eventDispatcher = GeneralUtility::getContainer()->get(EventDispatcherInterface::class);		
+		$this->eventDispatcher->dispatch($event);
+		
 
 		$this->view->assign('location', $location);
 		$this->view->assign('Lvar', $GLOBALS['TSFE']->config['config']['sys_language_uid']);
@@ -341,6 +368,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 //		$categories = $this->categoryRepository->findAll();
 
 		$this->typo3CategoryRepository->setDefaultQuerySettings($querySettings);
+		$this->typo3CategoryRepository->setDefaultOrderings(array('sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING));
 		$categories = $this->typo3CategoryRepository->findAll();
 		
 		// sanitizing categories						 
@@ -485,10 +513,19 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 			}
 		}
 
+		/*
 		// signal
 		$ret = $this->signalSlotDispatcher->dispatch(__CLASS__, 'beforeSearchRenderView', array(&$locations, &$this));
+		*/
+
+		// event dispatch
+		$event = GeneralUtility::makeInstance('WSR\Myttaddressmap\Event\SearchViewEvent');
+		$event->setLocations($locations);
+		$this->eventDispatcher = GeneralUtility::getContainer()->get(EventDispatcherInterface::class);		
+		$this->eventDispatcher->dispatch($event);
+		$locations = $event->getLocations();
 		
-		
+
 		
 		$this->view->assign('startingPoint', $latLon);
 		$this->view->assign('categories', $categories);
@@ -586,6 +623,12 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
 	function get_webpage($url) {
 		//global $db;
+
+
+/*
+ to do 
+ did we use this
+ 
 		if (ini_get('allow_url_fopen'))
 			$this->conf['useCurl'] = 0;
 		else
@@ -601,6 +644,8 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		} else {
 			$data = \TYPO3\CMS\Core\Utility\GeneralUtility::getURL($url); 
 		}
+*/		
+		$data = \TYPO3\CMS\Core\Utility\GeneralUtility::getURL($url); 
 		return $data;
 	}
 
