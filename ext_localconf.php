@@ -51,10 +51,6 @@ call_user_func(
             [\WSR\Myttaddressmap\Controller\AddressController::class => 'singleView']
         );
 
-
-
-
-
 	// wizards
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
 		'mod {
