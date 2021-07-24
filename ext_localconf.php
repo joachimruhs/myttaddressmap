@@ -1,6 +1,9 @@
 <?php
-defined('TYPO3_MODE') || die('Access denied.');
 
+// Prevent script from being called directly
+defined('TYPO3') or die();
+
+// encapsulate all locally defined variables
 call_user_func(
     function()
 	{
