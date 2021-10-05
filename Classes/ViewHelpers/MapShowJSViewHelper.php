@@ -53,7 +53,7 @@ class MapShowJSViewHelper extends AbstractViewHelper {
 					                position: myLatLng,
 					                map: map,
 					                title: "' . str_replace('"', '\"', $location->getName()) .'",
-					                icon: "fileadmin/ext/myttaddressmap/Resources/Public/Icons/' . $location->getMapicon() .'"
+					                icon: "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/' . $location->getMapicon() .'"
 					                });
 									//mapBounds.extend(myLatLng);
 
