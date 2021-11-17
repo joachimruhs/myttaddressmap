@@ -19,7 +19,7 @@ $EM_CONF[$_EXTKEY] = array (
   'state' => 'beta',
   'uploadfolder' => true,
   'clearCacheOnLoad' => 0,
-  'version' => '1.6.0',
+  'version' => '1.6.1',
   'constraints' => 
   array (
     'depends' => 
@@ -37,4 +37,4 @@ $EM_CONF[$_EXTKEY] = array (
   'clearcacheonload' => false,
   'author_company' => 'Web Services Ruhs',
 );
-
+    
