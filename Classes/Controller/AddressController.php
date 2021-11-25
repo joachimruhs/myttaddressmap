@@ -260,11 +260,6 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 //		$this->categoryRepository->setDefaultQuerySettings($querySettings);
 //		$categories = $this->categoryRepository->findAll();
 
-		if ($this->settings['defaultLanguageUid'] > '') {
-			$querySettings->setLanguageUid($this->settings['defaultLanguageUid']);
-		}
-
-
 		$this->typo3CategoryRepository->setDefaultQuerySettings($querySettings);
 		$this->typo3CategoryRepository->setDefaultOrderings(array('sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING));
 		$categories = $this->typo3CategoryRepository->findAll();

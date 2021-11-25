@@ -93,6 +93,9 @@ class AddressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 		$lat = $latLon->lat;
 		$lon =  $latLon->lon;
 
+        $context = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class);
+        $sys_language_uid = $context->getPropertyFromAspect('language', 'id'); 
+        
 		$queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)
 			->getQueryBuilderForTable('tx_myttaddressmap_domain_model_address');
 
@@ -100,8 +103,8 @@ class AddressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
 		$arrayOfPids = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $storagePid, TRUE);
 		$storagePidList = implode(',', $arrayOfPids);
-		
-		if ($language) {
+
+		if ($language  && $sys_language_uid) {
 		$queryBuilder->selectLiteral(
 			'distinct a.*', '(acos(sin(' . floatval($lat * M_PI / 180) . ') * sin(latitude * ' . floatval(M_PI / 180) . ') + cos(' . floatval($lat * M_PI / 180) . ') *
 			cos(latitude * ' . floatval(M_PI / 180) . ') * cos((' . floatval($lon) . ' - longitude) * ' . floatval(M_PI / 180) . '))) * 6370 as `distance`,
@@ -109,11 +112,12 @@ class AddressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 			(SELECT GROUP_CONCAT(e.title ORDER BY e.title SEPARATOR \', \') from tt_address d, sys_category 
 						e , sys_category_record_mm m
 						where  m.uid_foreign = d.uid
-						and e.sys_language_uid = ' . intval($language) . '
+						and e.sys_language_uid = ' . intval($sys_language_uid) . '
 						and e.l10n_parent = m.uid_local
 						and d.uid = a.uid
 						and e.pid in (' . $storagePidList  . ')
 					) as categories			
+
 			');
 		} else {
 		$queryBuilder->selectLiteral(
@@ -127,7 +131,7 @@ class AddressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 						and e.sys_language_uid = 0
 						and d.uid = a.uid
 						and e.pid in (' . $storagePidList  . ')
-					) as categories			
+					) as categories
 			');
 			
 		}			
@@ -174,6 +178,9 @@ class AddressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 		$lat = $latLon->lat;
 		$lon =  $latLon->lon;
 
+        $context = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class);
+        $sys_language_uid = $context->getPropertyFromAspect('language', 'id'); 
+        
 		$queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)
 			->getQueryBuilderForTable('tx_myttaddressmap_domain_model_address');
 
@@ -196,7 +203,7 @@ class AddressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 			'
 		);
 */
-		if ($language) {
+		if ($language  && $sys_language_uid) {
 		$queryBuilder->selectLiteral(
 			'distinct a.*', '(acos(sin(' . floatval($lat * M_PI / 180) . ') * sin(latitude * ' . floatval(M_PI / 180) . ') + cos(' . floatval($lat * M_PI / 180) . ') *
 			cos(latitude * ' . floatval(M_PI / 180) . ') * cos((' . floatval($lon) . ' - longitude) * ' . floatval(M_PI / 180) . '))) * 6370 as `distance`,
@@ -204,7 +211,7 @@ class AddressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 			(SELECT GROUP_CONCAT(e.title ORDER BY e.title SEPARATOR \', \') from tt_address d, sys_category 
 						e , sys_category_record_mm m
 						where  m.uid_foreign = d.uid
-						and e.sys_language_uid = ' . intval($language) . '
+						and e.sys_language_uid = ' . intval($sys_language_uid) . '
 						and e.l10n_parent = m.uid_local
 						and d.uid = a.uid
 						and e.pid in (' . $storagePidList  . ')
