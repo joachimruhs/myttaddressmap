@@ -16,7 +16,6 @@
 	"typo3/cms-frontend": ">=10.4.18 || ^11.5"
   },
   "replace": {
-    "wsr/myttaddressmap": "self.version",
     "typo3-ter/myttaddressmap": "self.version"
   },
   "autoload": {
