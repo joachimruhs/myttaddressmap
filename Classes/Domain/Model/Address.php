@@ -97,11 +97,6 @@ class Address extends \FriendsOfTYPO3\TtAddress\Domain\Model\Address
 		$this->mapgeocode = $mapgeocode;
 	}
 
-
-
-
-
-
     /**
      * Get categories
      *
@@ -112,50 +107,4 @@ class Address extends \FriendsOfTYPO3\TtAddress\Domain\Model\Address
         return $this->categories;
     }
 
-    /**
-     * Get first category
-     *
-     * @return Category
-     */
-    public function getFirstCategory()
-    {
-        $categories = $this->getCategories();
-        if (!is_null($categories)) {
-            $categories->rewind();
-            return $categories->current();
-        } else {
-            return null;
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-    /**
-     * Returns the name
-     * 
-     * @return string $name
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Sets the name
-     * 
-     * @param string $name
-     * @return void
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
 }
