@@ -40,6 +40,7 @@ class MapJSViewHelper extends AbstractViewHelper {
 		$locations = $arguments['locations'];
 		$city = $arguments['city'];
 		$settings = $arguments['settings'];
+        $animation = '';
 		
 		$out = self::getMapJavascript($locations, $settings);
 		
@@ -154,7 +155,7 @@ class MapJSViewHelper extends AbstractViewHelper {
 			}
 
 
-            if ($settings['enableStreetViewLayer']) {                
+            if ($settings['enableStreetViewLayer'] ?? '') {                
                 $out .= '  streetViewControl: 1,
                             streetViewControlOptions: {
                                 position: google.maps.ControlPosition.LEFT_TOP

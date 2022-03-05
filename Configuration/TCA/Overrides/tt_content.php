@@ -1,6 +1,8 @@
 <?php
 defined('TYPO3_MODE') or die();
 
+$_EXTKEY = 'mymap';
+
 call_user_func(
     function($extKey)
     {

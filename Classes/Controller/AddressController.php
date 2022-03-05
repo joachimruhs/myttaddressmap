@@ -326,7 +326,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		
 
 		$this->view->assign('location', $location);
-		$this->view->assign('Lvar', $GLOBALS['TSFE']->config['config']['sys_language_uid']);
+		$this->view->assign('Lvar', $GLOBALS['TSFE']->config['config']['sys_language_uid'] ?? 0);
 		
 	}
 
@@ -343,10 +343,10 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
 	   	$configuration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 
-	    $this->view->assign('GP', $_POST['tx_myttaddressmap_searchresult']);
-	    $this->view->assign('radius', intval($_POST['tx_myttaddressmap_searchresult']['radius']));
+	    $this->view->assign('GP', $_POST['tx_myttaddressmap_searchresult'] ?? []);
+	    $this->view->assign('radius', intval($_POST['tx_myttaddressmap_searchresult']['radius'] ?? 0));
 
-		$this->_GP['categories'] = $_POST['tx_myttaddressmap_searchresult']['categories'];		
+		$this->_GP['categories'] = $_POST['tx_myttaddressmap_searchresult']['categories'] ?? [];		
 		
 		// Get the default Settings
 		$customStoragePid = $this->conf['storagePid'];
@@ -363,7 +363,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		$categories = $this->typo3CategoryRepository->findAll();
 		
 		// sanitizing categories						 
-		if ($this->_GP['categories'] && preg_match('/^[0-9,]*$/', @implode(',', $this->_GP['categories'])) != 1) {
+		if ($this->_GP['categories'] && preg_match('/^[0-9,]*$/', $this->_GP['categories']) != 1) {
 			$this->_GP['categories'] = '';
 		}		
 		$categoryList = @implode(',', $this->_GP['categories']);
@@ -409,10 +409,10 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
 		// now get the startingpoint coordinates 
 		$theAddress = array (
-			'address' => $this->_GP['address'],
-			'zip' => $this->_GP['zipcode'],
-			'city' => $this->_GP['city'],
-			'country' => $this->_GP['country'],
+			'address' => $this->_GP['address'] ?? '',
+			'zip' => $this->_GP['zipcode'] ?? '',
+			'city' => $this->_GP['city'] ?? '',
+			'country' => $this->_GP['country'] ?? '',
 		);
 		$latLon = $this->geocode($theAddress);
 
@@ -461,8 +461,8 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 			return;
 		}						
 
-		$categoryList = @implode(',', $this->_GP['categories']);
-		
+        $categoryList = @implode(',', $this->_GP['categories'] ?? []);
+        
 		$page = 0;
 
 		$orderBy = 'distance';
@@ -500,7 +500,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 			}
 
 			for ($i = 0; $i < count($locations); $i++) {
-				$categories[$i] = $category[$i][0]['categories'];
+				$categories[$i] = $category[$i][0]['categories'] ?? 0;
 			}
 		}
 
@@ -581,33 +581,31 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 			$theAddress[$v] = urlencode($theAddress[$v]);
 		}
 		
-		$address = $theAddress['address'];
-		$city = $theAddress['city'];
-		$country = $theAddress['country'];
-		$zipcode = $theAddress['zipcode'];
+		$address = $theAddress['address'] ?? '';
+		$city = $theAddress['city'] ?? '';
+		$country = $theAddress['country'] ?? '';
+		$zipcode = $theAddress['zipcode'] ?? '';
 
 
 		######################################Main Geocoders#####################################
-		if (!$lat_lon->lat && !$lat_lon->lon) {
 
-			// for geocoding we need a server API key not a browser key
-			if ($this->settings['googleServerApiKey']) {
-				$key = '&key=' . $this->settings['googleServerApiKey'];
-			}				
+        // for geocoding we need a server API key not a browser key
+        if ($this->settings['googleServerApiKey']) {
+            $key = '&key=' . $this->settings['googleServerApiKey'];
+        }				
 
-			$apiURL = "https://maps.googleapis.com/maps/api/geocode/json?address=$address,+$zipcode+$city,+$country&sensor=false" . $key;
+        $apiURL = "https://maps.googleapis.com/maps/api/geocode/json?address=$address,+$zipcode+$city,+$country&sensor=false" . $key;
 
-			$addressData = $this->get_webpage($apiURL);
+        $addressData = $this->get_webpage($apiURL);
 
-			$coordinates[1] = json_decode($addressData)->results[0]->geometry->location->lat;
-			$coordinates[0] = json_decode($addressData)->results[0]->geometry->location->lng;
+        $coordinates[1] = json_decode($addressData)->results[0]->geometry->location->lat;
+        $coordinates[0] = json_decode($addressData)->results[0]->geometry->location->lng;
 
-			$latLon = new \stdClass();
-			$latLon->lat = $coordinates[1];
-			$latLon->lon = $coordinates[0];
-			$latLon->status = json_decode($addressData)->status;
+        $latLon = new \stdClass();
+        $latLon->lat = $coordinates[1];
+        $latLon->lon = $coordinates[0];
+        $latLon->status = json_decode($addressData)->status;
 
-		}
 
 		return $latLon;
 	}
