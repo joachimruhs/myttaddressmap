@@ -128,7 +128,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 			$key = '&key=' . $this->settings['googleServerApiKey'];
 		}				
 
-		$apiURL = "https://maps.googleapis.com/maps/api/geocode/json?address=$address,+$zipcode+$city,+$country" . $key;
+		$apiURL = "https://maps.googleapis.com/maps/api/geocode/json?address=$address,+$country" . $key;
 		$addressData = $this->get_webpage($apiURL);
 
 		$coordinates[1] = json_decode($addressData)->results[0]->geometry->location->lat;
@@ -278,8 +278,9 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 */
 	public function ajaxEidAction() {
 		$requestArguments = $this->request->getParsedBody()['tx_myttaddressmap_ajax'];
-
-		if ($requestArguments['categories'])
+        $categoryList = '';
+        $categories = [];
+		if ($requestArguments['categories'] ?? [])
 			$categoryList = @implode(',', $requestArguments['categories']);
 		// sanitizing categories						 
 		if ($categoryList && preg_match('/^[0-9,]*$/', $categoryList) != 1) {
@@ -380,7 +381,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 			return $out;
 		}
 			
-		$out .= $this->getMarkerJS($locations, $categories, $latLon, $this->_GP['radius']);
+		$out = $this->getMarkerJS($locations, $categories, $latLon, $this->_GP['radius']);
 		
 		// get  the loctions list
 		
