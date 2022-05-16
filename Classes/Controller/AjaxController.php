@@ -19,7 +19,7 @@ use TYPO3\CMS\Core\Http\Response;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2018 - 2020 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
+ *  (c) 2018 - 2022 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
  *
  ***/
 
@@ -374,7 +374,9 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 			$out .= '<script	type="text/javascript">';
 			// remove marker from map
 			$out .= 'for (var i = 0; i < marker.length; i++) {
-				marker[i].setMap(null);
+				if (marker[i] !== undefined) {
+					marker[i].setMap(null);
+				}
 			}
 			$(".ajaxMessage").fadeIn(2000);
 			</script>';
@@ -426,7 +428,9 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
 		// remove marker from map
 		$out .= 'for (i = 0; i < marker.length; i++) {
-			marker[i].setMap(null);
+			if (marker[i] !== undefined) {
+				marker[i].setMap(null);
+			}
 		}
 		marker = [];
 		';
