@@ -454,7 +454,8 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		// may be this can be commented
 		//		$allCategories = $this->categoryRepository->findAllOverwrite();
 
-		// sanitizing categories						 
+		// sanitizing categories
+        $this->_GP['categories'] = $this->_GP['categories'] ?? null;
 		if ($this->_GP['categories'] && preg_match('/^[0-9,]*$/', implode(',', $this->_GP['categories'])) != 1) {
 			$this->flashMessage('Extension: myttaddressmap', \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('errorInCategories', 'myttaddressmap'), \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
 //			$this->forward("searchForm", NULL, NULL, $this->request->getArguments());
@@ -519,7 +520,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
 		
 		$this->view->assign('startingPoint', $latLon);
-		$this->view->assign('categories', $categories);
+		$this->view->assign('categories', $categories ?? '');
 		$this->view->assign('locations', $locations);
 
 //		$this->view->assign("sys_language_uid", $GLOBALS['TSFE']->sys_language_uid);
