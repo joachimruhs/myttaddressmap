@@ -1,60 +1,77 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2015-11-16T16:57:13Z" product-name="myttaddressmap">
-		<header/>
-		<body>
-
-<!-- messages -->
-			<trans-unit id="noStartingPointCoordinatesFound">
-				<target>Konnte die Ausgangspunktkoordinaten nicht ermitteln! Bitte überprüfen Sie Ihre Eingaben für PLZ, Stadt und Land.</target>
-			</trans-unit>
-
-			<trans-unit id="noLocationsFound">
-				<target>Es wurden keine Lokationen gefunden!</target>
-			</trans-unit>
-			<trans-unit id="errorInCategories">
-				<target>Kategorieeingabefehler!</target>
-			</trans-unit>
-			
-			<trans-unit id="address">
-				<target>Adresse</target>
-			</trans-unit>
-			<trans-unit id="zip">
-				<target>PLZ</target>
-			</trans-unit>
-			<trans-unit id="city">
-				<target>Stadt</target>
-			</trans-unit>
-			<trans-unit id="country">
-				<target>Land</target>
-			</trans-unit>
-			<trans-unit id="search">
-				<target>Suchen</target>
-			</trans-unit>
-			<trans-unit id="noStartingPointCoordinatesFound">
-				<target>Keine Ausgangspunktkoordinaten gefunden!</target>
-			</trans-unit>
-			<trans-unit id="distance">
-				<target>Entfernung</target>
-			</trans-unit>
-			<trans-unit id="youAreHere">
-				<target>Sie befinden sich hier</target>
-			</trans-unit>
-
-
-
-			<trans-unit id="showMore">
-				<target>Mehr anzeigen...</target>
-			</trans-unit>
-
-			<trans-unit id="themeFileNotFound">
-				<target>Die Map-Theme Datei wurde nicht gefunden</target>
-			</trans-unit>
-			<trans-unit id="invalidThemeFile">
-				<target>Das Format der Map-Theme Datei ist ungültig</target>
-			</trans-unit>
-
-
-		</body>
-	</file>
+  <file source-language="en" datatype="plaintext" original="messages" date="2018-02-01T18:22:55Z" product-name="myttaddressmap" target-language="de">
+    <header/>
+    <body>
+      <trans-unit id="tx_myttaddressmap_domain_model_ajaxsearch" approved="yes">
+        <source>MyTTAddressMap (Ajaxsearch)</source>
+        <target state="final">MyTTAddressMap (Ajaxsearch)</target>
+      </trans-unit>
+      <trans-unit id="tx_myttaddressmap_domain_model_ajaxsearch.description" approved="yes">
+        <source>Google maps for tt_address</source>
+        <target state="final">Google Maps für tt_address</target>
+      </trans-unit>
+      <trans-unit id="address">
+        <source>Address</source>
+        <target state="translated">Adresse</target>
+      </trans-unit>
+      <trans-unit id="zip" approved="yes">
+        <source>Zip</source>
+        <target state="final">PLZ</target>
+      </trans-unit>
+      <trans-unit id="city">
+        <source>City</source>
+        <target state="translated">Stadt</target>
+      </trans-unit>
+      <trans-unit id="country">
+        <source>Country</source>
+        <target state="translated">Land</target>
+      </trans-unit>
+      <trans-unit id="search">
+        <source>Search</source>
+        <target state="translated">Suchen</target>
+      </trans-unit>
+      <trans-unit id="noStartingPointCoordinatesFound" approved="yes">
+        <source>No starting point coordinates found!</source>
+        <target state="final">Keine Ausgangspunkt Koordinaten gefunden!</target>
+      </trans-unit>
+      <trans-unit id="distance">
+        <source>Distance</source>
+        <target state="translated">Entfernung</target>
+      </trans-unit>
+      <trans-unit id="youAreHere">
+        <source>You are here</source>
+        <target state="translated">Sie befinden sich hier</target>
+      </trans-unit>
+      <!-- messages -->
+      <trans-unit id="noStartingPointCoordinatesFound" approved="yes">
+        <source>No starting point coordinates found!</source>
+        <target state="final">Keine Ausgangspunkt Koordinaten gefunden!</target>
+      </trans-unit>
+      <trans-unit id="noLocationsFound">
+        <source>No locations found!</source>
+        <target state="translated">Keine Lokationen gefunden!</target>
+      </trans-unit>
+      <trans-unit id="errorInCategories" approved="yes">
+        <source>Error in categories!</source>
+        <target state="final">Kategoriefehler!</target>
+      </trans-unit>
+      <trans-unit id="kWp">
+        <source>kWp</source>
+        <target state="translated">kWp</target>
+      </trans-unit>
+      <trans-unit id="showMore">
+        <source>Show more</source>
+        <target state="translated">Mehr anzeigen</target>
+      </trans-unit>
+      <trans-unit id="themeFileNotFound" approved="yes">
+        <source>Map theme file not found</source>
+        <target state="final">Map theme file nicht gefunden</target>
+      </trans-unit>
+      <trans-unit id="invalidThemeFile" approved="yes">
+        <source>The theme file format is invalid</source>
+        <target state="final">Das theme file Format ist ungültig</target>
+      </trans-unit>
+    </body>
+  </file>
 </xliff>
