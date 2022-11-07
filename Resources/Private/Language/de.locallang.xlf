@@ -5,11 +5,11 @@
     <body>
       <trans-unit id="tx_myttaddressmap_domain_model_ajaxsearch">
         <source>MyTTAddressMap (Ajaxsearch)</source>
-        <target state="needs-translation">MyTTAddressMap (Ajaxsearch)</target>
+        <target state="translated">MyTTAddressMap (Ajaxsearch)</target>
       </trans-unit>
       <trans-unit id="tx_myttaddressmap_domain_model_ajaxsearch.description">
         <source>Google maps for tt_address</source>
-        <target state="needs-translation">Google maps for tt_address</target>
+        <target state="translated">Google Maps für tt_address</target>
       </trans-unit>
       <trans-unit id="address">
         <source>Address</source>
@@ -17,7 +17,7 @@
       </trans-unit>
       <trans-unit id="zip">
         <source>Zip</source>
-        <target state="needs-translation">Zip</target>
+        <target state="translated">PLZ</target>
       </trans-unit>
       <trans-unit id="city">
         <source>City</source>
