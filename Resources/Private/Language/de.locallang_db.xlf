@@ -11,13 +11,13 @@
         <source>Google maps for tt_address</source>
         <target state="final">Google maps füt tt_address</target>
       </trans-unit>
-      <trans-unit id="tx_myttaddressmap_domain_model_address">
+      <trans-unit id="tx_myttaddressmap_domain_model_address" approved="yes">
         <source>Address</source>
-        <target state="translated">Adresse</target>
+        <target state="final">Adresse</target>
       </trans-unit>
-      <trans-unit id="tx_myttaddressmap_domain_model_address.name">
+      <trans-unit id="tx_myttaddressmap_domain_model_address.name" approved="yes">
         <source>Name</source>
-        <target state="translated">Name</target>
+        <target state="final">Name</target>
       </trans-unit>
       <trans-unit id="tx_myttaddressmap_domain_model_address.mapicon" approved="yes">
         <source>Mapicon</source>
