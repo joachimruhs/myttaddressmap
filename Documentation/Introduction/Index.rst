@@ -21,7 +21,7 @@ Within the Ajaxsearch you can show all address-POIs of a country if you leave th
 What's new?
 ^^^^^^^^^^^
 
-Mixed localizations implemented. To use this localize tt_address records with sys_language_uid = -1 and sys_category records with the
+Mixed localizations implemented.  To use this localize tt_address records with sys_language_uid = -1 and sys_category records with the
 normal sys_language_uid and in the constant editor set defaultLanguageUid = -1.
 
 TYPO3 9.x compatibility dropped. Signals removed and events PSR-14 implemented.
