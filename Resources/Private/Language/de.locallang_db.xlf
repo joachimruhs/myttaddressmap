@@ -5,27 +5,27 @@
     <body>
       <trans-unit id="tx_myttaddressmap_domain_model_ajaxsearch">
         <source>MyTTAddressMap (Ajaxsearch)</source>
-        <target state="needs-translation">MyTTAddressMap (Ajaxsearch)</target>
+        <target state="translated">MyTTAddressmap</target>
       </trans-unit>
       <trans-unit id="tx_myttaddressmap_domain_model_ajaxsearch.description">
         <source>Google maps for tt_address</source>
-        <target state="needs-translation">Google maps for tt_address</target>
+        <target state="translated">Google maps füt tt_address</target>
       </trans-unit>
       <trans-unit id="tx_myttaddressmap_domain_model_address">
         <source>Address</source>
-        <target state="needs-translation">Address</target>
+        <target state="translated">Adresse</target>
       </trans-unit>
       <trans-unit id="tx_myttaddressmap_domain_model_address.name">
         <source>Name</source>
-        <target state="needs-translation">Name</target>
+        <target state="translated">Name</target>
       </trans-unit>
       <trans-unit id="tx_myttaddressmap_domain_model_address.mapicon">
         <source>Mapicon</source>
-        <target state="needs-translation">Mapicon</target>
+        <target state="translated">Mapicon</target>
       </trans-unit>
       <trans-unit id="tx_myttaddressmap_domain_model_address.geocode">
         <source>Geocode</source>
-        <target state="needs-translation">Geocode</target>
+        <target state="translated">Geocode</target>
       </trans-unit>
     </body>
   </file>
