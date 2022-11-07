@@ -13,7 +13,7 @@
       </trans-unit>
       <trans-unit id="address">
         <source>Address</source>
-        <target state="needs-translation">Address</target>
+        <target state="translated">Adresse</target>
       </trans-unit>
       <trans-unit id="zip">
         <source>Zip</source>
@@ -21,15 +21,15 @@
       </trans-unit>
       <trans-unit id="city">
         <source>City</source>
-        <target state="needs-translation">City</target>
+        <target state="translated">Stadt</target>
       </trans-unit>
       <trans-unit id="country">
         <source>Country</source>
-        <target state="needs-translation">Country</target>
+        <target state="translated">Land</target>
       </trans-unit>
       <trans-unit id="search">
         <source>Search</source>
-        <target state="needs-translation">Search</target>
+        <target state="translated">Suchen</target>
       </trans-unit>
       <trans-unit id="noStartingPointCoordinatesFound">
         <source>No starting point coordinates found!</source>
@@ -37,7 +37,7 @@
       </trans-unit>
       <trans-unit id="distance">
         <source>Distance</source>
-        <target state="needs-translation">Distance</target>
+        <target state="translated">Entfernung</target>
       </trans-unit>
       <trans-unit id="youAreHere">
         <source>You are here</source>
