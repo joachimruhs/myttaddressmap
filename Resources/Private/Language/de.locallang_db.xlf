@@ -3,29 +3,29 @@
   <file source-language="en" datatype="plaintext" original="messages" date="2018-02-01T18:22:55Z" product-name="myttaddressmap" target-language="de">
     <header/>
     <body>
-      <trans-unit id="tx_myttaddressmap_domain_model_ajaxsearch" approved="yes">
+      <trans-unit id="tx_myttaddressmap_domain_model_ajaxsearch">
         <source>MyTTAddressMap (Ajaxsearch)</source>
-        <target state="final">MyTTAddressmap</target>
+        <target state="needs-translation">MyTTAddressMap (Ajaxsearch)</target>
       </trans-unit>
-      <trans-unit id="tx_myttaddressmap_domain_model_ajaxsearch.description" approved="yes">
+      <trans-unit id="tx_myttaddressmap_domain_model_ajaxsearch.description">
         <source>Google maps for tt_address</source>
-        <target state="final">Google maps füt tt_address</target>
+        <target state="needs-translation">Google maps for tt_address</target>
       </trans-unit>
-      <trans-unit id="tx_myttaddressmap_domain_model_address" approved="yes">
+      <trans-unit id="tx_myttaddressmap_domain_model_address">
         <source>Address</source>
-        <target state="final">Adresse</target>
+        <target state="needs-translation">Address</target>
       </trans-unit>
-      <trans-unit id="tx_myttaddressmap_domain_model_address.name" approved="yes">
+      <trans-unit id="tx_myttaddressmap_domain_model_address.name">
         <source>Name</source>
-        <target state="final">Name</target>
+        <target state="needs-translation">Name</target>
       </trans-unit>
-      <trans-unit id="tx_myttaddressmap_domain_model_address.mapicon" approved="yes">
+      <trans-unit id="tx_myttaddressmap_domain_model_address.mapicon">
         <source>Mapicon</source>
-        <target state="final">Mapicon</target>
+        <target state="needs-translation">Mapicon</target>
       </trans-unit>
-      <trans-unit id="tx_myttaddressmap_domain_model_address.geocode" approved="yes">
+      <trans-unit id="tx_myttaddressmap_domain_model_address.geocode">
         <source>Geocode</source>
-        <target state="final">Geocode</target>
+        <target state="needs-translation">Geocode</target>
       </trans-unit>
     </body>
   </file>
