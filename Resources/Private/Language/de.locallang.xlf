@@ -3,66 +3,66 @@
   <file source-language="en" datatype="plaintext" original="messages" date="2018-02-01T18:22:55Z" product-name="myttaddressmap" target-language="de">
     <header/>
     <body>
-      <trans-unit id="tx_myttaddressmap_domain_model_ajaxsearch" approved="yes">
+      <trans-unit id="tx_myttaddressmap_domain_model_ajaxsearch">
         <source>MyTTAddressMap (Ajaxsearch)</source>
-        <target state="final">MyTTAddressMap (Ajaxsearch)</target>
+        <target state="needs-translation">MyTTAddressMap (Ajaxsearch)</target>
       </trans-unit>
       <trans-unit id="tx_myttaddressmap_domain_model_ajaxsearch.description" approved="yes">
         <source>Google maps for tt_address</source>
         <target state="final">Google Maps für tt_address</target>
       </trans-unit>
-      <trans-unit id="address" approved="yes">
+      <trans-unit id="address">
         <source>Address</source>
-        <target state="final">Adresse</target>
+        <target state="translated">Adresse</target>
       </trans-unit>
       <trans-unit id="zip" approved="yes">
         <source>Zip</source>
         <target state="final">PLZ</target>
       </trans-unit>
-      <trans-unit id="city" approved="yes">
+      <trans-unit id="city">
         <source>City</source>
-        <target state="final">Stadt</target>
+        <target state="translated">Stadt</target>
       </trans-unit>
-      <trans-unit id="country" approved="yes">
+      <trans-unit id="country">
         <source>Country</source>
-        <target state="final">Land</target>
+        <target state="translated">Land</target>
       </trans-unit>
-      <trans-unit id="search" approved="yes">
+      <trans-unit id="search">
         <source>Search</source>
-        <target state="final">Suchen</target>
+        <target state="translated">Suchen</target>
       </trans-unit>
       <trans-unit id="noStartingPointCoordinatesFound" approved="yes">
         <source>No starting point coordinates found!</source>
         <target state="final">Keine Ausgangspunkt Koordinaten gefunden!</target>
       </trans-unit>
-      <trans-unit id="distance" approved="yes">
+      <trans-unit id="distance">
         <source>Distance</source>
-        <target state="final">Entfernung</target>
+        <target state="translated">Entfernung</target>
       </trans-unit>
-      <trans-unit id="youAreHere" approved="yes">
+      <trans-unit id="youAreHere">
         <source>You are here</source>
-        <target state="final">Sie befinden sich hier</target>
+        <target state="translated">Sie befinden sich hier</target>
       </trans-unit>
       <!-- messages -->
       <trans-unit id="noStartingPointCoordinatesFound" approved="yes">
         <source>No starting point coordinates found!</source>
         <target state="final">Keine Ausgangspunkt Koordinaten gefunden!</target>
       </trans-unit>
-      <trans-unit id="noLocationsFound" approved="yes">
+      <trans-unit id="noLocationsFound">
         <source>No locations found!</source>
-        <target state="final">Keine Lokationen gefunden!</target>
+        <target state="translated">Keine Lokationen gefunden!</target>
       </trans-unit>
       <trans-unit id="errorInCategories" approved="yes">
         <source>Error in categories!</source>
         <target state="final">Kategoriefehler!</target>
       </trans-unit>
-      <trans-unit id="kWp" approved="yes">
+      <trans-unit id="kWp">
         <source>kWp</source>
-        <target state="final">kWp</target>
+        <target state="needs-translation">kWp</target>
       </trans-unit>
-      <trans-unit id="showMore" approved="yes">
+      <trans-unit id="showMore">
         <source>Show more</source>
-        <target state="final">Mehr anzeigen</target>
+        <target state="translated">Mehr anzeigen</target>
       </trans-unit>
       <trans-unit id="themeFileNotFound" approved="yes">
         <source>Map theme file not found</source>
