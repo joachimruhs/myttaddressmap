@@ -49,7 +49,6 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
 	/** 
 	* @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher 
-	* @Inject
 	*/ 
 	protected $signalSlotDispatcher; 
 
@@ -69,23 +68,6 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function injectAddressRepository(\WSR\Myttaddressmap\Domain\Repository\AddressRepository $addressRepository) {
         $this->addressRepository = $addressRepository;
-    }
-
-	/**
-	 * typo3CategoryRepository
-	 *
-	 * @var \TYPO3\CMS\Extbase\Domain\Repository\CategoryRepository
-	 */
-	protected $typo3CategoryRepository;
-	
-    /**
-     * Inject a categoryRepository to enable DI
-     *
-     * @param \TYPO3\CMS\Extbase\Domain\Repository\CategoryRepository $typo3CategoryRepository
-     * @return void
-     */
-    public function injectTypo3CategoryRepository(\TYPO3\CMS\Extbase\Domain\Repository\CategoryRepository $typo3CategoryRepository) {
-        $this->typo3CategoryRepository = $typo3CategoryRepository;
     }
 
 	/**
@@ -123,7 +105,6 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function injectTtAddressRepository(\FriendsOfTYPO3\TtAddress\Domain\Repository\AddressRepository $ttaddressRepository) {
         $this->ttaddressRepository = $ttaddressRepository;
     }
-
 
 
 	/**
@@ -245,40 +226,38 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 				return;
 			}
 		}		
-
-	
 	
 		// Get the default Settings
 		$customStoragePid = $this->conf['storagePid'];
-		$querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-
+        $querySettings = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
 		$querySettings->setRespectStoragePage(true);
 		$querySettings->setStoragePageIds(array($customStoragePid));
 		
 		$addresses = $this->addressRepository->findAll();
 
-//		$this->categoryRepository->setDefaultQuerySettings($querySettings);
-//		$categories = $this->categoryRepository->findAll();
+		$context = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class);
+		$sys_language_uid = $context->getPropertyFromAspect('language', 'id'); 
 
-		$this->typo3CategoryRepository->setDefaultQuerySettings($querySettings);
-		$this->typo3CategoryRepository->setDefaultOrderings(array('sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING));
-		$categories = $this->typo3CategoryRepository->findAll();
+
+    	$categories = $this->categoryRepository->findAllOverride($this->conf['storagePid'], $sys_language_uid);
+
+//   		$this->typo3CategoryRepository->setDefaultQuerySettings($querySettings);
+//		$this->typo3CategoryRepository->setDefaultOrderings(array('sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING));
+//		$categories = $this->typo3CategoryRepository->findAll();
 
 		$arr = [];
 		for($i = 0; $i < count($categories); $i++) {
 
 			// process only sys_categories of storagePid
-			if (! GeneralUtility::inList($customStoragePid, $categories[$i]->getPid())) continue;
-
+			if (! GeneralUtility::inList($customStoragePid, $categories[$i]['pid'])) continue;
 				
-			$arr[$i]['uid']= $categories[$i]->getUid();
-			if ($categories[$i]->getParent()) {
-				$arr[$i]['parent'] = $categories[$i]->getParent()->getUid();
+			$arr[$i]['uid']= $categories[$i]['uid'];
+			if ($categories[$i]['parent']) {
+				$arr[$i]['parent'] = $categories[$i]['parent'];
 			} else $arr[$i]['parent'] = 0;
 				
-			$arr[$i]['title'] = $categories[$i]->getTitle();
+			$arr[$i]['title'] = $categories[$i]['title'];
 		}
-
 		if (!$arr) {
 			$this->addFlashMessage('Please insert some sys_categories first!', 'Myttaddressmap', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
 			return;
@@ -288,14 +267,15 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
 		$this->view->assign('id', $GLOBALS['TSFE']->page['uid']);
 		
-		$context = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class);
-		$sys_language_uid = $context->getPropertyFromAspect('language', 'id'); 
 		$this->view->assign('L', $sys_language_uid);
 	
 //		$this->view->assign('locations', $addresses);
 		$this->view->assign('categories', $categories);
 
 		$this->view->assign('locationsCount', count($addresses));
+        return $this->responseFactory->createResponse()
+            ->withAddedHeader('Content-Type', 'text/html; charset=utf-8')
+            ->withBody($this->streamFactory->createStream($this->view->render()));
 	}
 
 
@@ -327,7 +307,9 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
 		$this->view->assign('location', $location);
 		$this->view->assign('Lvar', $GLOBALS['TSFE']->config['config']['sys_language_uid'] ?? 0);
-		
+        return $this->responseFactory->createResponse()
+            ->withAddedHeader('Content-Type', 'text/html; charset=utf-8')
+            ->withBody($this->streamFactory->createStream($this->view->render()));
 	}
 
 
@@ -350,39 +332,42 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		
 		// Get the default Settings
 		$customStoragePid = $this->conf['storagePid'];
-		$querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+//		$querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
 
-		$querySettings->setRespectStoragePage(true);
-		$querySettings->setStoragePageIds(GeneralUtility::intExplode(',', $customStoragePid));
+//		$querySettings->setRespectStoragePage(true);
+//		$querySettings->setStoragePageIds(GeneralUtility::intExplode(',', $customStoragePid));
 
 //		$this->categoryRepository->setDefaultQuerySettings($querySettings);
 //		$categories = $this->categoryRepository->findAll();
 
-		$this->typo3CategoryRepository->setDefaultQuerySettings($querySettings);
-		$this->typo3CategoryRepository->setDefaultOrderings(array('sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING));
-		$categories = $this->typo3CategoryRepository->findAll();
-		
+//		$this->typo3CategoryRepository->setDefaultQuerySettings($querySettings);
+//		$this->typo3CategoryRepository->setDefaultOrderings(array('sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING));
+		$context = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class);
+		$sys_language_uid = $context->getPropertyFromAspect('language', 'id'); 
+
+		$categories = $this->categoryRepository->findAllOverride($this->conf['storagePid'], $sys_language_uid);
+//		$categories = $this->categoryRepository->findAll();
+
 		// sanitizing categories						 
 		if ($this->_GP['categories'] && preg_match('/^[0-9,]*$/', $this->_GP['categories']) != 1) {
 			$this->_GP['categories'] = '';
 		}		
 		$categoryList = @implode(',', $this->_GP['categories']);
 
-
-		if (is_object($categories)) {
+		if (is_array($categories)) {
 			for($i = 0; $i < count($categories); $i++) {
 				// process only sys_categories of storagePid
-				if (! GeneralUtility::inList($customStoragePid, $categories[$i]->getPid())) continue;
+				if (! GeneralUtility::inList($customStoragePid, $categories[$i]['pid'])) continue;
 
-				$arr[$i]['uid']= $categories[$i]->getUid();
+				$arr[$i]['uid']= $categories[$i]['uid'];
 	
 				if (GeneralUtility::inList($categoryList, $arr[$i]['uid'])) $arr[$i]['selected'] = 1;
 	
-				if ($categories[$i]->getParent()) {
-					$arr[$i]['parent'] = $categories[$i]->getParent()->getUid();
+				if ($categories[$i]['parent']) {
+					$arr[$i]['parent'] = $categories[$i]['parent'];
 				} else $arr[$i]['parent'] = 0;
 					
-				$arr[$i]['title'] = $categories[$i]->getTitle();
+				$arr[$i]['title'] = $categories[$i]['title'];
 
 			}
 		}		
@@ -394,6 +379,10 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		}
 
 		$this->view->assign('categories', $categories);
+        return $this->responseFactory->createResponse()
+            ->withAddedHeader('Content-Type', 'text/html; charset=utf-8')
+            ->withBody($this->streamFactory->createStream($this->view->render()));
+        
 	}
 
 
@@ -454,8 +443,8 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		// may be this can be commented
 		//		$allCategories = $this->categoryRepository->findAllOverwrite();
 
-		// sanitizing categories
-        $this->_GP['categories'] = $this->_GP['categories'] ?? null;
+		// sanitizing categories						 
+        $this->_GP['categories'] = $this->_GP['categories'] ?? [];
 		if ($this->_GP['categories'] && preg_match('/^[0-9,]*$/', implode(',', $this->_GP['categories'])) != 1) {
 			$this->flashMessage('Extension: myttaddressmap', \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('errorInCategories', 'myttaddressmap'), \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
 //			$this->forward("searchForm", NULL, NULL, $this->request->getArguments());
@@ -463,7 +452,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		}						
 
         $categoryList = @implode(',', $this->_GP['categories'] ?? []);
-        
+
 		$page = 0;
 
 		$orderBy = 'distance';
@@ -471,6 +460,9 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		$context = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class);
 		$sys_language_uid = $context->getPropertyFromAspect('language', 'id'); 
 
+        $categoryList = $this->categoryRepository->getCategoryList($categoryList, $this->conf['storagePid']);
+
+        if ($this->settings['defaultLanguageUid'] > '') $sys_language_uid = $this->settings['defaultLanguageUid'];
 
 		$locations = $this->addressRepository->findLocationsInRadius($latLon, $this->_GP['radius'], $categoryList,
 						$this->conf['storagePid'], $sys_language_uid, $this->settings['resultLimit'], $page);
@@ -520,7 +512,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
 		
 		$this->view->assign('startingPoint', $latLon);
-		$this->view->assign('categories', $categories ?? '');
+		$this->view->assign('categories', $categories);
 		$this->view->assign('locations', $locations);
 
 //		$this->view->assign("sys_language_uid", $GLOBALS['TSFE']->sys_language_uid);
@@ -529,6 +521,10 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('_GP', $this->_GP);
         if ( ($this->_GP['city'] || $this->_GP['zipcode'] ) || ($this->_GP['lat'] && $this->_GP['lon'] )) // from autocompleter ($this->_GP['lat'] && $this->_GP['lon'] )
             $this->view->assign('showMap', 1);
+
+        return $this->responseFactory->createResponse()
+            ->withAddedHeader('Content-Type', 'text/html; charset=utf-8')
+            ->withBody($this->streamFactory->createStream($this->view->render()));
 	}
 
 

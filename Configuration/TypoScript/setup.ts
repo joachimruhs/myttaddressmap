@@ -21,20 +21,8 @@ plugin.tx_myttaddressmap {
                 mapping {
                     tableName = tt_address
 					recordType >
-
-
                 }
             }
-
-			WSR\Myttaddressmap\Domain\Model\Category {
-			  mapping {
-				tableName = sys_category
-				columns {
-
-				}
-			  }
-			}
-
     	}
 
   }

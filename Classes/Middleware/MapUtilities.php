@@ -46,9 +46,7 @@ class MapUtilities implements MiddlewareInterface {
 		// continue only if action is ajaxPsr of extension myleaflet
 		if (!isset($requestArguments['action']) || $requestArguments['action'] != 'ajaxPsr') return $handler->handle($request);
 
-		$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');		
-		$ajaxController = $objectManager->get('WSR\Myttaddressmap\Controller\AjaxController');
-
+		$ajaxController = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('WSR\Myttaddressmap\Controller\AjaxController');
 
 		$response = GeneralUtility::makeInstance(Response::class);
 		$response->withHeader('Content-type', ['text/html; charset=UTF-8']);

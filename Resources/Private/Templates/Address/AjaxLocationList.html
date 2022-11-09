@@ -15,8 +15,7 @@
 			</f:for>
 
 			<div>
-				<f:link.action action="singleView" extensionName="myttaddressmap" pluginName="SingleView" controller="Address" pageUid="{settings.detailsPageId}" arguments="{locationUid : location.uid}"><strong>{location.name}</strong>
-				</f:link.action>
+				<a href="?id={settings.detailsPageId}&tx_myttaddressmap_singleview[action]=singleView&tx_myttaddressmap_singleview[locationUid]={location.uid}"><strong>{location.name}</strong></a>
 			</div>
 	
 			<div class="categories">{location.categories}</div>

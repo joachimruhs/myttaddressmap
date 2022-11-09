@@ -11,7 +11,7 @@ info = '<div class="infoWindow">';
 
 	</f:for>
 
-	info += '<f:link.action action="singleView" extensionName="myttaddressmap" pluginName="SingleView" controller="Address" pageUid="{settings.detailsPageId}" arguments="{locationUid : location.uid}">' + "<strong><f:format.htmlentities>{location.name}</f:format.htmlentities></strong></f:link.action>";
+	info += '<a href="?id={settings.detailsPageId}&tx_myttaddressmap_singleview[action]=singleView&tx_myttaddressmap_singleview[locationUid]={location.uid}"><strong>{location.name}</strong></a>';
 	
 	info += "<div>{location.name}</div>";
 

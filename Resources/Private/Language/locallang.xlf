@@ -1,68 +1,56 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2018-02-01T18:22:55Z" product-name="myttaddressmap">
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" datatype="plaintext" original="EXT:myttaddressmap/Resources/Private/Language/locallang.xlf" date="2022-11-03T11:30:17Z" product-name="myttaddressmap">
 		<header/>
 		<body>
-			<trans-unit id="tx_myttaddressmap_domain_model_ajaxsearch">
+			<trans-unit id="tx_myttaddressmap_domain_model_ajaxsearch" resname="tx_myttaddressmap_domain_model_ajaxsearch">
 				<source>MyTTAddressMap (Ajaxsearch)</source>
 			</trans-unit>
-			<trans-unit id="tx_myttaddressmap_domain_model_ajaxsearch.description">
+			<trans-unit id="tx_myttaddressmap_domain_model_ajaxsearch.description" resname="tx_myttaddressmap_domain_model_ajaxsearch.description">
 				<source>Google maps for tt_address</source>
 			</trans-unit>
-			
-			<trans-unit id="address">
+			<trans-unit id="address" resname="address">
 				<source>Address</source>
 			</trans-unit>
-			<trans-unit id="zip">
+			<trans-unit id="zip" resname="zip">
 				<source>Zip</source>
 			</trans-unit>
-			<trans-unit id="city">
+			<trans-unit id="city" resname="city">
 				<source>City</source>
 			</trans-unit>
-			<trans-unit id="country">
+			<trans-unit id="country" resname="country">
 				<source>Country</source>
 			</trans-unit>
-
-			<trans-unit id="search">
+			<trans-unit id="search" resname="search">
 				<source>Search</source>
 			</trans-unit>
-
-			<trans-unit id="noStartingPointCoordinatesFound">
+			<trans-unit id="noStartingPointCoordinatesFound" resname="noStartingPointCoordinatesFound">
 				<source>No starting point coordinates found!</source>
 			</trans-unit>
-
-			<trans-unit id="distance">
+			<trans-unit id="distance" resname="distance">
 				<source>Distance</source>
 			</trans-unit>
-			<trans-unit id="youAreHere">
+			<trans-unit id="youAreHere" resname="youAreHere">
 				<source>You are here</source>
 			</trans-unit>
-
-<!-- messages -->
-			<trans-unit id="noStartingPointCoordinatesFound">
-				<source>No starting point coordinates found!</source>
-			</trans-unit>
-			<trans-unit id="noLocationsFound">
+			<trans-unit id="noLocationsFound" resname="noLocationsFound">
 				<source>No locations found!</source>
 			</trans-unit>
-			<trans-unit id="errorInCategories">
+			<trans-unit id="errorInCategories" resname="errorInCategories">
 				<source>Error in categories!</source>
 			</trans-unit>
-
-			<trans-unit id="kWp">
+			<trans-unit id="kWp" resname="kWp">
 				<source>kWp</source>
 			</trans-unit>
-			<trans-unit id="showMore">
+			<trans-unit id="showMore" resname="showMore">
 				<source>Show more</source>
 			</trans-unit>
-
-			<trans-unit id="themeFileNotFound">
+			<trans-unit id="themeFileNotFound" resname="themeFileNotFound">
 				<source>Map theme file not found</source>
 			</trans-unit>
-			<trans-unit id="invalidThemeFile">
+			<trans-unit id="invalidThemeFile" resname="invalidThemeFile">
 				<source>The theme file format is invalid</source>
 			</trans-unit>
-
 		</body>
 	</file>
 </xliff>

@@ -3,7 +3,7 @@
 /***************************************************************
  * Extension Manager/Repository config file for ext "myttaddressmap".
  *
- * Auto generated 10-04-2021 10:01
+ * Auto generated 30-07-2022 14:47
  *
  * Manual updates:
  * Only the data in the array - everything else is removed by next
@@ -14,19 +14,20 @@ $EM_CONF[$_EXTKEY] = array (
   'title' => 'MyTTAddressMap',
   'description' => 'Google maps for tt_address with radial search and categories',
   'category' => 'plugin',
-  'author' => 'Joachim Ruhs',
-  'author_email' => 'postmaster@joachim.ruhs.de',
+  'version' => '2.0.7',
   'state' => 'beta',
   'uploadfolder' => true,
-  'clearCacheOnLoad' => 0,
-  'version' => '1.7.0',
+  'clearcacheonload' => false,
+  'author' => 'Joachim Ruhs',
+  'author_email' => 'postmaster@joachim.ruhs.de',
+  'author_company' => 'Web Services Ruhs',
   'constraints' => 
   array (
     'depends' => 
     array (
-      'typo3' => '10.4.0-11.5.99',
-      'tt_address' => '5.0.0-6.1.99',
-      'vhs' => '6.0.5'
+      'typo3' => '11.5.0-12.5.99',
+      'tt_address' => '6.1.99-7.5.99',
+//      'vhs' => '6.0.5',
     ),
     'conflicts' => 
     array (
@@ -35,7 +36,5 @@ $EM_CONF[$_EXTKEY] = array (
     array (
     ),
   ),
-  'clearcacheonload' => false,
-  'author_company' => 'Web Services Ruhs',
 );
-    
+

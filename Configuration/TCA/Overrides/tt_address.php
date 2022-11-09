@@ -1,6 +1,5 @@
 <?php
-defined('TYPO3_MODE') || die('Access denied.');
-
+defined('TYPO3') or die();
 
 $tmp_myttaddressmap_columns = array(
 	'mapicon' => array(

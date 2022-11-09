@@ -8,6 +8,9 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 
+use TYPO3\CMS\Core\Localization\LanguageService;
+use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
+
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Http\Response;
@@ -43,8 +46,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	public function __construct()
 	{
 		/** @var LanguageService $languageService */
-		$this->languageService = GeneralUtility::makeInstance('TYPO3\CMS\Core\Localization\LanguageService');
-		$this->languageService->init(trim($_POST['tx_myttaddressmap_ajax']['language']));
+//        $this->languageService = GeneralUtility::makeInstance(LanguageServiceFactory::class)->create('de');
 	}
 
 	/**
@@ -110,7 +112,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 */
 	public function ajaxPageAction() {
 		// not used yet 
-		$requestArguments = $this->request->getArguments();
+		$requestArguments = $this->request1->getArguments();
 		return json_encode($requestArguments);
 	}
 	
@@ -119,14 +121,14 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return \stdclass $latLon
 	 */
 	public function ajaxEidGeocodeAction() {
-		$requestArguments = $this->request->getParsedBody()['tx_myttaddressmap_ajax'];
+		$requestArguments = $this->request1->getParsedBody()['tx_myttaddressmap_ajax'];
 
 		$address = urlencode($requestArguments['address']);
 		$country = urlencode($requestArguments['country']);
 		
 		if ($this->settings['googleServerApiKey']) {
 			$key = '&key=' . $this->settings['googleServerApiKey'];
-		}				
+		} else $key = '';				
 
 		$apiURL = "https://maps.googleapis.com/maps/api/geocode/json?address=$address,+$country" . $key;
 		$addressData = $this->get_webpage($apiURL);
@@ -209,7 +211,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$this->settings = $this->configuration['settings'];
 		$this->conf['storagePid'] = $this->configuration['persistence']['storagePid'];
 	
-		$this->request = $request;
+		$this->request1 = $request;
 		$out = $this->ajaxEidAction();
 	
 	    $response->getBody()->write($out);
@@ -265,19 +267,22 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		return $fluidView;
 	}
 
-
-
-
-
-
-
-
 	/**
 	 * action ajaxEid
 	 * @return string html
 	 */
 	public function ajaxEidAction() {
-		$requestArguments = $this->request->getParsedBody()['tx_myttaddressmap_ajax'];
+		$requestArguments = $this->request1->getParsedBody()['tx_myttaddressmap_ajax'];
+
+        // fetching correct language for locallang labels
+        $siteConfiguration = $this->request1->getAttribute('site')->getConfiguration();
+        for ($i = 0; $i < count($siteConfiguration['languages']); $i++) {
+            if ($siteConfiguration['languages'][$i]['languageId'] == $requestArguments['language']) {
+                $this->language = $siteConfiguration['languages'][$i]['typo3Language'];
+                $this->languageService = GeneralUtility::makeInstance(LanguageServiceFactory::class)->create($this->language);
+            }
+        }
+
         $categoryList = '';
         $categories = [];
 		if ($requestArguments['categories'] ?? [])
@@ -286,6 +291,10 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		if ($categoryList && preg_match('/^[0-9,]*$/', $categoryList) != 1) {
 			$categoryList = '';
 		}		
+
+        $categoryList = $this->categoryRepository->getCategoryList($categoryList, $this->conf['storagePid']);
+
+
 	
 		if ($this->settings['defaultLanguageUid'] > '') {
 			$this->language = $this->settings['defaultLanguageUid'];
@@ -337,8 +346,6 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		} else {
 			$orderBy = 'distance';
 		}			
-
-
 
 
 		if ($requestArguments['address'] == '') { // search locations of country
@@ -487,7 +494,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	
 	function getLocationsList($locations, $categories, $allLocations, $labels) {
 
-		$out .= $this->renderFluidTemplate('AjaxLocationList.html', array('locations' => $locations, 'categories' => $categories, 'labels' => $labels,
+		$out = $this->renderFluidTemplate('AjaxLocationList.html', array('locations' => $locations, 'categories' => $categories, 'labels' => $labels,
 																		  'settings' => $this->settings, 'locationsCount' => count($allLocations)));
 		return $out;
 	}
@@ -506,14 +513,11 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
 		if (!$templateRootPath) 	
 		$templateRootPath = $this->configuration['view']['templateRootPath'][0];
-
 		
 		$templatePath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($templateRootPath . 'Address/' . $template);
 		$view = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
 		$view->setTemplatePathAndFilename($templatePath);
 		$view->assignMultiple($assign);
-
-
 		return $view->render();
 	}
 

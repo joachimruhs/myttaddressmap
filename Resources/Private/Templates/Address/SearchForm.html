@@ -9,11 +9,10 @@
 	<h1>SearchForm</h1>
 	
 	<f:flashMessages />
-	
 	<div id="searchform">
 		<f:if condition="{settings.resultPageId}">
 			<f:then>
-			<form method="post" action='<f:uri.action action="searchResult" pluginName="searchResult" pageUid="{settings.resultPageId}" />' name="searchform">
+    			<form method="post" action='?id={settings.resultPageId}&tx_myttaddressmap_searchresult[action]=searchResult&tx_myttaddressmap_searchresult[controller]=Address'">
 			</f:then>
 			<f:else>
 			<form method="post" action='<f:uri.action action="searchResult" pluginName="searchResult" />' name="searchform">
