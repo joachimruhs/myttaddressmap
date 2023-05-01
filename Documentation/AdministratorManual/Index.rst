@@ -407,34 +407,9 @@ Route enhancer example
 This works only with the Searchform and not with the AjaxSearch!
 Use something like this in sites/.../config.yaml. 
 
-
-routeEnhancers:
-
-routeEnhancers:
-
-  MapsAddressPlugin2:
-    type:      Extbase  
-#    limitToPages: [120]  
-#    namespace: 'WSR\Myttaddressmap\Controller'  
-    extension: Myttaddressmap  
-    plugin:    SingleView  
-    
-    routes:  
-      - routePath:   '{address_slug}'  
-        _controller: 'Address::singleView'  
-        _arguments:  
-          address_slug: 'locationUid'  
-#    defaultController: 'Address::singleView'  
-    aspects:  
-      address_slug:  
-#        type: PersistedAliasMapper  
-#        tableName: tt_address  
-#        routeFieldName: slug  
-#        routeValuePrefix: '/'  
-        type: PersistedPatternMapper  
-        tableName: 'tt_address'  
-        routeFieldPattern: '^(?P<slug>.+)-(?P<uid>\d+)$'  
-        routeFieldResult: '{slug}-{uid}'  
+.. figure:: ../Images/AdministratorManual/RouteEnhancer.png
+	:width: 400px
+	:alt: Route enhancer example
 
 
 Known problems
