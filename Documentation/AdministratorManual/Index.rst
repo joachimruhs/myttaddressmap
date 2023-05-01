@@ -407,6 +407,8 @@ Route enhancer example
 This works only with the Searchform and not with the AjaxSearch!
 Use something like this in sites/.../config.yaml. 
 
+```
+
 routeEnhancers:
 
   MapsAddressPlugin2:
@@ -431,7 +433,7 @@ routeEnhancers:
         tableName: 'tt_address'
         routeFieldPattern: '^(?P<slug>.+)-(?P<uid>\d+)$'
         routeFieldResult: '{slug}-{uid}'
-        
+```        
 
 
 Known problems
