@@ -408,7 +408,6 @@ This works only with the Searchform and not with the AjaxSearch!
 Use something like this in sites/.../config.yaml. 
 
 ```
-
 routeEnhancers:
 
   MapsAddressPlugin2:
