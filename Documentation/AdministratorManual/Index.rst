@@ -410,6 +410,8 @@ Use something like this in sites/.../config.yaml.
 
 routeEnhancers:
 
+routeEnhancers:
+
   MapsAddressPlugin2:
     type:      Extbase
 #    limitToPages: [120]
@@ -431,8 +433,7 @@ routeEnhancers:
         type: PersistedPatternMapper
         tableName: 'tt_address'
         routeFieldPattern: '^(?P<slug>.+)-(?P<uid>\d+)$'
-        routeFieldResult: '{slug}-{uid}'
-        
+        routeFieldResult: '{slug}-{uid}'  
 
 
 Known problems
