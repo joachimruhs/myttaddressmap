@@ -413,27 +413,27 @@ routeEnhancers:
 routeEnhancers:
 
   MapsAddressPlugin2:
-    type:      Extbase
-#    limitToPages: [120]
-#    namespace: 'WSR\Myttaddressmap\Controller'
-    extension: Myttaddressmap
-    plugin:    SingleView
+    type:      Extbase  
+#    limitToPages: [120]  
+#    namespace: 'WSR\Myttaddressmap\Controller'  
+    extension: Myttaddressmap  
+    plugin:    SingleView  
     
-    routes:
-      - routePath:   '{address_slug}'
-        _controller: 'Address::singleView'
-        _arguments:
-          address_slug: 'locationUid'
-#    defaultController: 'Address::singleView'
-    aspects:
-      address_slug:
-#        type: PersistedAliasMapper
-#        tableName: tt_address
-#        routeFieldName: slug
-#        routeValuePrefix: '/'
-        type: PersistedPatternMapper
-        tableName: 'tt_address'
-        routeFieldPattern: '^(?P<slug>.+)-(?P<uid>\d+)$'
+    routes:  
+      - routePath:   '{address_slug}'  
+        _controller: 'Address::singleView'  
+        _arguments:  
+          address_slug: 'locationUid'  
+#    defaultController: 'Address::singleView'  
+    aspects:  
+      address_slug:  
+#        type: PersistedAliasMapper  
+#        tableName: tt_address  
+#        routeFieldName: slug  
+#        routeValuePrefix: '/'  
+        type: PersistedPatternMapper  
+        tableName: 'tt_address'  
+        routeFieldPattern: '^(?P<slug>.+)-(?P<uid>\d+)$'  
         routeFieldResult: '{slug}-{uid}'  
 
 
