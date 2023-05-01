@@ -418,6 +418,7 @@ routeEnhancers:
 #    namespace: 'WSR\Myttaddressmap\Controller'
     extension: Myttaddressmap
     plugin:    SingleView
+    
     routes:
       - routePath:   '{address_slug}'
         _controller: 'Address::singleView'
