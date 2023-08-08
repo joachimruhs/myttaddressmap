@@ -22,7 +22,7 @@ use TYPO3\CMS\Core\Http\Response;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2018 - 2022 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
+ *  (c) 2018 - 2023 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
  *
  ***/
 
@@ -450,7 +450,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 			if (!$lat) continue;
 
 			$out .= 'var myLatLng = new google.maps.LatLng(' . $lat . ', ' . $lon .');';
-
+            $locations[$i]['mapicon'] = $locations[$i]['mapicon'] ?? '';
 			if ($locations[$i]['mapicon']) {
 				//if (!is_file(Environment::getPublicPath() . "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/" . $locations[$i]['mapicon'])) $locations[$i]['mapicon'] = 'questionmark.png';  
 				$out .= 'marker[' . $i . '] = new google.maps.Marker({

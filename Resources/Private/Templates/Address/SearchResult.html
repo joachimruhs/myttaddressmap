@@ -30,7 +30,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 </f:if>
 
 	<f:if condition="{settings.enableMarkerClusterer} > '0'">
-		<script type="text/javascript" src="/typo3conf/ext/myttaddressmap/Resources/Public/JavaScript/markerclusterer.js"></script>
+		<script type="text/javascript" src="/fileadmin/ext/myttaddressmap/Resources/Public/JavaScript/markerclusterer.js"></script>
 	</f:if>
 
 
@@ -54,7 +54,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 		<div class="searchResultTile" onclick="infoWindow[{iter.index}].open(map,marker[{iter.index}]);">
 
 			<f:for each="{location.images}" as="image">
-				<div><f:image src="fileadmin/{image.originalResource.originalFile.identifier}"  width="50" alt=""/></div>			
+				<div><f:image src="/fileadmin/{image.originalResource.originalFile.identifier}"  width="50" alt=""/></div>			
 			</f:for>
 
 			<div>

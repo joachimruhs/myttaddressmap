@@ -8,6 +8,7 @@ use TYPO3\CMS\Core\Core\Environment;
 
 use Psr\EventDispatcher\EventDispatcherInterface;
 
+use Symfony\Component\Filesystem\Filesystem;
 
 /***
  *
@@ -192,6 +193,19 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	 */
 	public function populateMapIconDirectory() {
 		$iconPath = 'fileadmin/ext/myttaddressmap/Resources/Public/Icons/';
+   		if (!is_dir(Environment::getPublicPath() . '/' . $iconPath)) {
+            $fileSystem = new FileSystem();
+            if (Environment::getPublicPath() != Environment::getProjectPath()) {
+                //  we are in composerMode
+    			$sourceDir = Environment::getProjectPath() . '/vendor/wsr/myttaddressmap/Resources/Public/';
+            } else {
+                $sourceDir = Environment::getPublicPath() .'/typo3conf/ext/myttaddressmap/Resources/Public/';
+            }
+            $fileSystem->mirror($sourceDir, 'fileadmin/ext/myttaddressmap/Resources/Public/');
+			$this->addFlashMessage('Directory ' . $iconPath . ' created for use with own mapIcons!', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+        }
+
+/*
 		if (!is_dir(Environment::getPublicPath() . '/' . $iconPath)) {
 			$this->addFlashMessage('Directory ' . $iconPath . ' created for use with own mapIcons!', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
 			GeneralUtility::mkdir_deep(Environment::getPublicPath() . '/' . $iconPath);
@@ -201,6 +215,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 				copy($sourceDir . $file, $iconPath . $file);
 			}
 		}
+*/        
 	}
 	
 	/**

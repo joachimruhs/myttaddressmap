@@ -33,7 +33,7 @@ plugin.tx_myttaddressmap {
 	settings {
 		# customsubcategory=googlemaps=Google maps
 		# cat=plugin.tx_myttaddressmap/googlemaps; type=string; label=Default map icon: Default icon for the POI's in the map 
-		defaultIcon = /typo3conf/ext/myttaddressmap/Resources/Public/Icons/pointerBlue.png
+		defaultIcon = /fileadmin/ext/myttaddressmap/Resources/Public/Icons/pointerBlue.png
 
 		# cat=plugin.tx_myttaddressmap/googlemaps; type=string; label=Google browser API key: Insert a Google browser API key, get one at https://console.developers.google.com
 		googleBrowserApiKey = 
