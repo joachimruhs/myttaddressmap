@@ -12,12 +12,11 @@ info = '<div class="infoWindow">';
 
 <f:comment>
 	info += '<a href="?id={settings.detailsPageId}&tx_myttaddressmap_singleview[action]=singleView&tx_myttaddressmap_singleview[locationUid]={location.uid}"><strong>{location.name}</strong></a>';
-</f:comment> 
+</f:comment> 	
     info += '<form  action="/?id={settings.detailsPageId}" method="POST">';
     info += '<input class="hidden" name="tx_myttaddressmap_singleview[locationUid]" value="{location.uid}">';
     info += '<button class="submitButton" type="submit">{location.first_name} {location.name}</button>';
     info += '<form>';
-	
 	info += "<div class='categories'>{location.categories}</div>";
 
 	info += "<div><f:format.raw>{location.infoWindowAddress}</f:format.raw></div>";
