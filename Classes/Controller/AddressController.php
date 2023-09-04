@@ -611,12 +611,15 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $addressData = $this->get_webpage($apiURL);
 
-        $coordinates[1] = json_decode($addressData)->results[0]->geometry->location->lat;
-        $coordinates[0] = json_decode($addressData)->results[0]->geometry->location->lng;
-
         $latLon = new \stdClass();
-        $latLon->lat = $coordinates[1];
-        $latLon->lon = $coordinates[0];
+        if (json_decode($addressData)->status == 'OK') {
+            $coordinates[1] = json_decode($addressData)->results[0]->geometry->location->lat;
+            $coordinates[0] = json_decode($addressData)->results[0]->geometry->location->lng;
+    
+            $latLon = new \stdClass();
+            $latLon->lat = $coordinates[1];
+            $latLon->lon = $coordinates[0];
+        }
         $latLon->status = json_decode($addressData)->status;
 
 
