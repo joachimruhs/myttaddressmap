@@ -133,12 +133,14 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$apiURL = "https://maps.googleapis.com/maps/api/geocode/json?address=$address,+$country" . $key;
 		$addressData = $this->get_webpage($apiURL);
 
-		$coordinates[1] = json_decode($addressData)->results[0]->geometry->location->lat;
-		$coordinates[0] = json_decode($addressData)->results[0]->geometry->location->lng;
-
-		$latLon = new \stdClass();
-		$latLon->lat = (float) $coordinates[1];
-		$latLon->lon = (float) $coordinates[0];
+        $latLon = new \stdClass();
+        if (json_decode($addressData)->status == 'OK') {
+            $coordinates[1] = json_decode($addressData)->results[0]->geometry->location->lat;
+            $coordinates[0] = json_decode($addressData)->results[0]->geometry->location->lng;
+    
+            $latLon->lat = (float) $coordinates[1];
+            $latLon->lon = (float) $coordinates[0];
+        }        
 		$latLon->status = json_decode($addressData)->status;
 
 		return $latLon;
