@@ -27,7 +27,7 @@ use Symfony\Component\Filesystem\Filesystem;
 class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 
-
+ 
 	public function initializeObject() {
 		//		$this->_GP = $this->request->getArguments();
 		$configuration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
@@ -273,10 +273,12 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 				
 			$arr[$i]['title'] = $categories[$i]['title'];
 		}
-		if (!$arr) {
-			$this->addFlashMessage('Please insert some sys_categories first!', 'Myttaddressmap', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-			return;
-		}
+        if (!$arr) {
+            $this->addFlashMessage('Please insert some sys_categories first!', 'Myttaddressmap', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+            return $this->responseFactory->createResponse()
+                ->withAddedHeader('Content-Type', 'text/html; charset=utf-8')
+                ->withBody($this->streamFactory->createStream($this->view->render()));
+        }
 		
 		$categories = $this->buildTree($arr);
 
