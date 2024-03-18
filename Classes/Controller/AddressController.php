@@ -26,8 +26,8 @@ use Symfony\Component\Filesystem\Filesystem;
  */
 class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
-
- 
+        public $conf;
+  
 	public function initializeObject() {
 		//		$this->_GP = $this->request->getArguments();
 		$configuration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
