@@ -430,13 +430,14 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
 			$params = $this->_GP;
 			$params = array('post' => $params);
-//			$this->redirect('searchForm', 'Address', 'myttaddressmap', $params);
-			return;
+            return $this->responseFactory->createResponse()
+                ->withAddedHeader('Content-Type', 'text/html; charset=utf-8')
+                ->withBody($this->streamFactory->createStream($this->view->render()));
+
 
 		}
 
 		if ($latLon->status != 'OK') {
-
 			if ($latLon->status ==  '') $latLon->status = 'There was no status from Google returned. May be it help to set "useCurl" in install tool.';
 			$this->flashMessage('Extension: myttaddressmap',
 				$latLon->status,
@@ -444,16 +445,18 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
 			$params = $this->_GP;
 			$params = array('post' => $params);
-//			$this->redirect('searchForm', 'Address', 'myttaddressmap', $params);
-			return;
-
+            return $this->responseFactory->createResponse()
+                ->withAddedHeader('Content-Type', 'text/html; charset=utf-8')
+                ->withBody($this->streamFactory->createStream($this->view->render()));
 		}
 
 		if (!$this->conf['storagePid']) {
 			$this->flashMessage('Extension: myttaddressmap', 'No storage pid defined! Please define some in the constant
 								editor.',
 								\TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
-			return;
+            return $this->responseFactory->createResponse()
+                ->withAddedHeader('Content-Type', 'text/html; charset=utf-8')
+                ->withBody($this->streamFactory->createStream($this->view->render()));
 		}
 
 
