@@ -6,6 +6,9 @@ use TYPO3\CMS\Extbase\Annotation\Inject;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Core\Environment;
 
+use TYPO3\CMS\Extbase\Http\ForwardResponse;
+
+
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 use Symfony\Component\Filesystem\Filesystem;
@@ -17,7 +20,7 @@ use Symfony\Component\Filesystem\Filesystem;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2021 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
+ *  (c) 2024 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
  *
  ***/
 
@@ -371,7 +374,8 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		}		
 		$categoryList = @implode(',', $this->_GP['categories']);
 
-		if (is_array($categories)) {
+		$arr = [];
+        if (is_array($categories)) {
 			for($i = 0; $i < count($categories); $i++) {
 				// process only sys_categories of storagePid
 				if (! GeneralUtility::inList($customStoragePid, $categories[$i]['pid'])) continue;
@@ -388,7 +392,6 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
 			}
 		}		
-
 		$categories = $this->buildTree($arr);
 
 		if (!count($arr)) {
@@ -427,14 +430,9 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 			$this->flashMessage('Extension: myttaddressmap',
 				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('noStartingPointCoordinatesFound', 'myttaddressmap'),
 				\TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
-
-			$params = $this->_GP;
+            $params = $this->_GP;
 			$params = array('post' => $params);
-            return $this->responseFactory->createResponse()
-                ->withAddedHeader('Content-Type', 'text/html; charset=utf-8')
-                ->withBody($this->streamFactory->createStream($this->view->render()));
-
-
+            return (new ForwardResponse('searchForm'))->withArguments(['post' => $params]);
 		}
 
 		if ($latLon->status != 'OK') {
@@ -442,21 +440,16 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 			$this->flashMessage('Extension: myttaddressmap',
 				$latLon->status,
 				\TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
-
-			$params = $this->_GP;
+            $params = $this->_GP;
 			$params = array('post' => $params);
-            return $this->responseFactory->createResponse()
-                ->withAddedHeader('Content-Type', 'text/html; charset=utf-8')
-                ->withBody($this->streamFactory->createStream($this->view->render()));
+            return (new ForwardResponse('searchForm'))->withArguments(['post' => $params]);
 		}
 
 		if (!$this->conf['storagePid']) {
 			$this->flashMessage('Extension: myttaddressmap', 'No storage pid defined! Please define some in the constant
 								editor.',
 								\TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
-            return $this->responseFactory->createResponse()
-                ->withAddedHeader('Content-Type', 'text/html; charset=utf-8')
-                ->withBody($this->streamFactory->createStream($this->view->render()));
+            return (new ForwardResponse('searchForm'));
 		}
 
 
@@ -468,8 +461,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->_GP['categories'] = $this->_GP['categories'] ?? [];
 		if ($this->_GP['categories'] && preg_match('/^[0-9,]*$/', implode(',', $this->_GP['categories'])) != 1) {
 			$this->flashMessage('Extension: myttaddressmap', \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('errorInCategories', 'myttaddressmap'), \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
-//			$this->forward("searchForm", NULL, NULL, $this->request->getArguments());
-			return;
+            return (new ForwardResponse('searchForm'));
 		}						
 
         $categoryList = @implode(',', $this->_GP['categories'] ?? []);
