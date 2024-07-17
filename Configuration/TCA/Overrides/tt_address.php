@@ -43,6 +43,4 @@ $GLOBALS['TCA']['tt_address']['types']['Tx_Myttaddressmap_Address']['showitem'] 
 $GLOBALS['TCA']['tt_address']['types']['Tx_Myttaddressmap_Address']['showitem'] .= ',--div--;LLL:EXT:myttaddressmap/Resources/Private/Language/locallang_db.xlf:tx_myttaddressmap_domain_model_address,';
 
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_myttaddressmap_domain_model_address', 'EXT:myttaddressmap/Resources/Private/Language/locallang_csh_tx_myttaddressmap_domain_model_address.xlf');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_myttaddressmap_domain_model_address');
 

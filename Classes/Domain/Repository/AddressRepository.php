@@ -51,19 +51,19 @@ class AddressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 		);		
 
 		$queryBuilder->andWhere(
-				$queryBuilder->expr()->andX(
+				$queryBuilder->expr()->and(
 					$queryBuilder->expr()->eq('mapgeocode', $queryBuilder->createNamedParameter(1, \PDO::PARAM_INT))
 				),
-				$queryBuilder->expr()->orX(
-					$queryBuilder->expr()->andX(
+				$queryBuilder->expr()->or(
+					$queryBuilder->expr()->and(
 						$queryBuilder->expr()->eq('latitude', $queryBuilder->createNamedParameter('0.0', \PDO::PARAM_STR)),
 						$queryBuilder->expr()->eq('longitude', $queryBuilder->createNamedParameter('0.0', \PDO::PARAM_STR))
 					),
-					$queryBuilder->expr()->andX(
+					$queryBuilder->expr()->and(
 						$queryBuilder->expr()->eq('latitude', $queryBuilder->createNamedParameter('', \PDO::PARAM_STR)),
 						$queryBuilder->expr()->eq('longitude', $queryBuilder->createNamedParameter('', \PDO::PARAM_STR))
 					),
-					$queryBuilder->expr()->andX(
+					$queryBuilder->expr()->and(
 						$queryBuilder->expr()->isNull('latitude', $queryBuilder->createNamedParameter(NULL, \PDO::PARAM_NULL)),
 						$queryBuilder->expr()->isNull('longitude', $queryBuilder->createNamedParameter(NULL, \PDO::PARAM_NULL))
 					)
@@ -247,7 +247,7 @@ class AddressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 		->orderBy('distance');
 
 		$queryBuilder->andWhere(
-			$queryBuilder->expr()->andX(
+			$queryBuilder->expr()->and(
 				$queryBuilder->expr()->eq('a.country', $queryBuilder->createNamedParameter($country, \PDO::PARAM_STR)),
 				$queryBuilder->expr()->eq('a.sys_language_uid', $queryBuilder->createNamedParameter($language,  \PDO::PARAM_INT))
 			)
@@ -282,7 +282,7 @@ class AddressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 				'a',
 				'sys_category_record_mm',
 				'c',
-                $expression->andX(
+                $expression->and(
                     $expression->eq('a.uid', 'c.uid_foreign'),
                     $expression->eq(
 						'c.tablenames',

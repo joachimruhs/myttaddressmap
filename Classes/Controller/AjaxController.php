@@ -253,7 +253,6 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$rootLine = $rootlineUtility->get();
 	
 		// initialize template service and generate typoscript configuration
-		$templateService->init();
 		$templateService->runThroughTemplates($rootLine);
 		$templateService->generateConfig();
 	

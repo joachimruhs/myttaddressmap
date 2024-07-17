@@ -43,14 +43,14 @@ class CategoryRepository {
 				$queryBuilder->createNamedParameter($storagePid, \PDO::PARAM_INT)
 			)
 		)			
-		->andWhere($queryBuilder->expr()->andX(
-				$queryBuilder->expr()->andX(
+		->andWhere($queryBuilder->expr()->and(
+				$queryBuilder->expr()->and(
 					$queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter($sys_language_uid, \PDO::PARAM_INT))
 				),
-				$queryBuilder->expr()->andX(
+				$queryBuilder->expr()->and(
 					$queryBuilder->expr()->eq('hidden', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT))
 				),
-				$queryBuilder->expr()->andX(
+				$queryBuilder->expr()->and(
 					$queryBuilder->expr()->gte('deleted', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT))
 				)
 			)
@@ -80,8 +80,8 @@ class CategoryRepository {
                     $queryBuilder->createNamedParameter($storagePid, \PDO::PARAM_INT)
                 )
             )			
-            ->andWhere($queryBuilder->expr()->andX(
-                    $queryBuilder->expr()->andX(
+            ->andWhere($queryBuilder->expr()->and(
+                    $queryBuilder->expr()->and(
                         $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($categories[$i], \PDO::PARAM_INT))
                     )
 /*

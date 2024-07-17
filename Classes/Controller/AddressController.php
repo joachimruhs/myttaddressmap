@@ -120,7 +120,8 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		// not implemented yet
 		$this->flashMessage('Extension: myttaddressmap',
 			'Not implemented yet!',
-			\TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+            \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::INFO
+			);
 		return;
 	
 		$addresses = $this->addressRepository->findAll();
@@ -205,7 +206,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                 $sourceDir = Environment::getPublicPath() .'/typo3conf/ext/myttaddressmap/Resources/Public/';
             }
             $fileSystem->mirror($sourceDir, 'fileadmin/ext/myttaddressmap/Resources/Public/');
-			$this->addFlashMessage('Directory ' . $iconPath . ' created for use with own mapIcons!', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+			$this->addFlashMessage('Directory ' . $iconPath . ' created for use with own mapIcons!', '', \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::INFO);
         }
 
 /*
@@ -235,12 +236,12 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		if ($this->settings['mapTheme']) {
 		    $themeFile = GeneralUtility::getFileAbsFileName($this->settings['mapTheme']);
 			if (!is_file($themeFile)) {
-				$this->flashMessage('Extension: myttaddressmap', \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('themeFileNotFound', 'myttaddressmap'), \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+				$this->flashMessage('Extension: myttaddressmap', \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('themeFileNotFound', 'myttaddressmap'), \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
 				return;
 			}
 			$mapTheme = file_get_contents($themeFile);
 			if (json_decode($mapTheme) == NULL) {
-				$this->flashMessage('Extension: myttaddressmap', \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('invalidThemeFile', 'myttaddressmap'), \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+				$this->flashMessage('Extension: myttaddressmap', \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('invalidThemeFile', 'myttaddressmap'), \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
 				return;
 			}
 		}		
@@ -277,7 +278,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 			$arr[$i]['title'] = $categories[$i]['title'];
 		}
         if (!$arr) {
-            $this->addFlashMessage('Please insert some sys_categories first!', 'Myttaddressmap', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+            $this->addFlashMessage('Please insert some sys_categories first!', 'Myttaddressmap', \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::WARNING);
             return $this->responseFactory->createResponse()
                 ->withAddedHeader('Content-Type', 'text/html; charset=utf-8')
                 ->withBody($this->streamFactory->createStream($this->view->render()));
@@ -395,7 +396,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		$categories = $this->buildTree($arr);
 
 		if (!count($arr)) {
-			$this->addFlashMessage('No location categories found, please insert some first!', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+			$this->addFlashMessage('No location categories found, please insert some first!', '', \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
 		}
 
 		$this->view->assign('categories', $categories);
@@ -429,7 +430,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		if ($latLon->status == 'ZERO_RESULTS') {
 			$this->flashMessage('Extension: myttaddressmap',
 				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('noStartingPointCoordinatesFound', 'myttaddressmap'),
-				\TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+				\TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::INFO);
             $params = $this->_GP;
 			$params = array('post' => $params);
             return (new ForwardResponse('searchForm'))->withArguments(['post' => $params]);
@@ -439,7 +440,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 			if ($latLon->status ==  '') $latLon->status = 'There was no status from Google returned. May be it help to set "useCurl" in install tool.';
 			$this->flashMessage('Extension: myttaddressmap',
 				$latLon->status,
-				\TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+				\TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::INFO);
             $params = $this->_GP;
 			$params = array('post' => $params);
             return (new ForwardResponse('searchForm'))->withArguments(['post' => $params]);
@@ -448,7 +449,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		if (!$this->conf['storagePid']) {
 			$this->flashMessage('Extension: myttaddressmap', 'No storage pid defined! Please define some in the constant
 								editor.',
-								\TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+								\TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
             return (new ForwardResponse('searchForm'));
 		}
 
@@ -460,7 +461,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		// sanitizing categories						 
         $this->_GP['categories'] = $this->_GP['categories'] ?? [];
 		if ($this->_GP['categories'] && preg_match('/^[0-9,]*$/', implode(',', $this->_GP['categories'])) != 1) {
-			$this->flashMessage('Extension: myttaddressmap', \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('errorInCategories', 'myttaddressmap'), \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+			$this->flashMessage('Extension: myttaddressmap', \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('errorInCategories', 'myttaddressmap'), \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
             return (new ForwardResponse('searchForm'));
 		}						
 
@@ -499,7 +500,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
 		if (is_array($locations)) {					
 			if (count($locations) == 0) {
-				$this->flashMessage('Extension: myttaddressmap', \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('noLocationsFound', 'myttaddressmap'), \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+				$this->flashMessage('Extension: myttaddressmap', \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('noLocationsFound', 'myttaddressmap'), \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::INFO);
 				$params = $this->_GP;
 				$params = array('post' => $params);
 	//			$this->redirect('searchForm', 'Address', 'myttaddressmap', $params);
@@ -565,11 +566,11 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 				$address->setLongitude($latLon->lon);
 				$this->addressRepository->update($address);
 				$this->flashMessage('Myttaddressmap geocoder', 'Geocoded ' . $address->getName() . ' ' . $theAddress['city'] . ' ' . $theAddress['address'] . ' ' . $latLon->status,
-					\TYPO3\CMS\Core\Messaging\FlashMessage::INFO);
+					\TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::INFO);
 			}
 			else {
 				$this->flashMessage('Myttaddressmap geocoder', 'could not geocode ' . $address->getName() . ' ' . $theAddress['city'] . ' ' . $theAddress['address'] . ' ' . $latLon->status,
-					\TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
+					\TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
 				$address->setMapgeocode(0);
 				$this->addressRepository->update($address);
 			}
@@ -581,7 +582,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	public function geocode($theAddress) {
 		//for urlencoding
 		$vars = array (
-			'zip',
+			'zipcode',
 			'city',
 			'address',
 			'country'
@@ -659,7 +660,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	 * 
 	 * @return void
 	 */
-	private function flashMessage($title, $message, $severity = \TYPO3\CMS\Core\Messaging\FlashMessage::WARNING) {
+	private function flashMessage($title, $message, $severity = \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::WARNING) {
 		$this->addFlashMessage(
 			$message,
 			$title,
