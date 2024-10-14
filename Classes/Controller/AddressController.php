@@ -286,7 +286,11 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		
 		$categories = $this->buildTree($arr);
 
-		$this->view->assign('id', $GLOBALS['TSFE']->page['uid']);
+
+        $pageArguments = $this->request->getAttribute('routing');
+        $pageId = $pageArguments->getPageId();
+
+		$this->view->assign('id', $pageId);
 		
 		$this->view->assign('L', $sys_language_uid);
 	

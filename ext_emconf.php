@@ -14,7 +14,7 @@ $EM_CONF[$_EXTKEY] = array (
   'title' => 'MyTTAddressMap',
   'description' => 'Google maps for tt_address with radial search and categories',
   'category' => 'plugin',
-  'version' => '2.2.8',
+  'version' => '2.2.9',
   'state' => 'beta',
   'uploadfolder' => true,
   'clearcacheonload' => false,
@@ -25,7 +25,7 @@ $EM_CONF[$_EXTKEY] = array (
   array (
     'depends' => 
     array (
-      'typo3' => '12.4.0-13.2.99',
+      'typo3' => '12.4.0-13.4.99',
       'tt_address' => '7.0.0-8.1.99',
     ),
     'conflicts' => 
