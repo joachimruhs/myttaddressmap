@@ -48,7 +48,7 @@ class AddressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 				'a.pid',
 				$queryBuilder->createNamedParameter(
 					$arrayOfPids,
-					\Doctrine\DBAL\Connection::PARAM_INT_ARRAY
+					Connection::PARAM_INT_ARRAY
 				)
 			)
 		);		
@@ -144,7 +144,7 @@ class AddressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 				'a.pid',
 				$queryBuilder->createNamedParameter(
 				$arrayOfPids,
-				\Doctrine\DBAL\Connection::PARAM_INT_ARRAY
+				Connection::PARAM_INT_ARRAY
 				)
 			)
 		)
@@ -300,7 +300,7 @@ class AddressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 			$queryBuilder->andWhere(
 				$expression->in(
 					'c.uid_local',
-					$queryBuilder->createNamedParameter($arrayOfCategories, \Doctrine\DBAL\Connection::PARAM_INT_ARRAY)
+					$queryBuilder->createNamedParameter($arrayOfCategories, Connection::PARAM_INT_ARRAY)
 				)
 			);
 		}
