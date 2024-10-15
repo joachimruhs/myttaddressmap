@@ -7,6 +7,9 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
+use TYPO3\CMS\Core\Database\Connection;
+
+
 /***
  *
  * This file is part of the "Myttaddressmap" Extension for TYPO3 CMS.
@@ -52,25 +55,25 @@ class AddressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
 		$queryBuilder->andWhere(
 				$queryBuilder->expr()->and(
-					$queryBuilder->expr()->eq('mapgeocode', $queryBuilder->createNamedParameter(1, \PDO::PARAM_INT))
+					$queryBuilder->expr()->eq('mapgeocode', $queryBuilder->createNamedParameter(1, Connection::PARAM_INT))
 				),
 				$queryBuilder->expr()->or(
 					$queryBuilder->expr()->and(
-						$queryBuilder->expr()->eq('latitude', $queryBuilder->createNamedParameter('0.0', \PDO::PARAM_STR)),
-						$queryBuilder->expr()->eq('longitude', $queryBuilder->createNamedParameter('0.0', \PDO::PARAM_STR))
+						$queryBuilder->expr()->eq('latitude', $queryBuilder->createNamedParameter('0.0', Connection::PARAM_STR)),
+						$queryBuilder->expr()->eq('longitude', $queryBuilder->createNamedParameter('0.0', Connection::PARAM_STR))
 					),
 					$queryBuilder->expr()->and(
-						$queryBuilder->expr()->eq('latitude', $queryBuilder->createNamedParameter('', \PDO::PARAM_STR)),
-						$queryBuilder->expr()->eq('longitude', $queryBuilder->createNamedParameter('', \PDO::PARAM_STR))
+						$queryBuilder->expr()->eq('latitude', $queryBuilder->createNamedParameter('', Connection::PARAM_STR)),
+						$queryBuilder->expr()->eq('longitude', $queryBuilder->createNamedParameter('', Connection::PARAM_STR))
 					),
 					$queryBuilder->expr()->and(
-						$queryBuilder->expr()->isNull('latitude', $queryBuilder->createNamedParameter(NULL, \PDO::PARAM_NULL)),
-						$queryBuilder->expr()->isNull('longitude', $queryBuilder->createNamedParameter(NULL, \PDO::PARAM_NULL))
+						$queryBuilder->expr()->isNull('latitude', $queryBuilder->createNamedParameter(NULL, Connection::PARAM_NULL)),
+						$queryBuilder->expr()->isNull('longitude', $queryBuilder->createNamedParameter(NULL, Connection::PARAM_NULL))
 					)
 				)
 				
 		);
-		$result = $queryBuilder->execute()->fetchAll();
+		$result = $queryBuilder->executeQuery()->fetchAllAssociative();
 		return $result;
 	}
 
@@ -147,16 +150,16 @@ class AddressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 		)
 		
 		->andWhere(
-			$queryBuilder->expr()->eq('a.sys_language_uid',	$queryBuilder->createNamedParameter($language,\PDO::PARAM_INT))
+			$queryBuilder->expr()->eq('a.sys_language_uid',	$queryBuilder->createNamedParameter($language, Connection::PARAM_INT))
 		)
 		
 		->orderBy('distance');
 
-        $queryBuilder->having('`distance` <= ' . $queryBuilder->createNamedParameter($radius, \PDO::PARAM_INT));
+        $queryBuilder->having('`distance` <= ' . $queryBuilder->createNamedParameter($radius, Connection::PARAM_INT));
 		$queryBuilder = $this->addCategoryQueryPart($categoryList, $queryBuilder);
 		$queryBuilder->setMaxResults(intval($limit))->setFirstResult(intval($page * $limit));
 
-		$result =  $queryBuilder->execute()->fetchAll();
+		$result =  $queryBuilder->executeQuery()->fetchAllAssociative();
 		return $result;
 	}
     
@@ -248,8 +251,8 @@ class AddressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
 		$queryBuilder->andWhere(
 			$queryBuilder->expr()->and(
-				$queryBuilder->expr()->eq('a.country', $queryBuilder->createNamedParameter($country, \PDO::PARAM_STR)),
-				$queryBuilder->expr()->eq('a.sys_language_uid', $queryBuilder->createNamedParameter($language,  \PDO::PARAM_INT))
+				$queryBuilder->expr()->eq('a.country', $queryBuilder->createNamedParameter($country, Connection::PARAM_STR)),
+				$queryBuilder->expr()->eq('a.sys_language_uid', $queryBuilder->createNamedParameter($language,  Connection::PARAM_INT))
 			)
 		);
 		
@@ -257,7 +260,7 @@ class AddressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 		$queryBuilder = $this->addCategoryQueryPart($categoryList, $queryBuilder);
 		$queryBuilder->setMaxResults(intval($limit))->setFirstResult(intval($page * $limit));
 		
-		$result =  $queryBuilder->execute()->fetchAll();
+		$result =  $queryBuilder->executeQuery()->fetchAllAssociative();
 
 		return $result;
 

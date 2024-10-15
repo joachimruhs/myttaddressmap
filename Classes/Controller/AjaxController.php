@@ -205,13 +205,12 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	{
 		$queryParams = $request->getQueryParams();
 	
-		$frontend = $GLOBALS['TSFE'];
+//        $frontendController = $request->getAttribute('frontend.controller');
+        $fullTypoScript = $request->getAttribute('frontend.typoscript')->getSetupArray()['plugin.']['tx_myttaddressmap.'] ;
+	    $this->configuration = $request->getAttribute('frontend.typoscript')->getSetupArray()['plugin.']['tx_myttaddressmap.'];
 
-		/** @var TypoScriptService $typoScriptService */
-		$typoScriptService = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\TypoScriptService');
-		$this->configuration = $typoScriptService->convertTypoScriptArrayToPlainArray($frontend->tmpl->setup['plugin.']['tx_myttaddressmap.']);
-		$this->settings = $this->configuration['settings'];
-		$this->conf['storagePid'] = $this->configuration['persistence']['storagePid'];
+		$this->settings = $this->configuration['settings.'];
+		$this->conf['storagePid'] = $this->configuration['persistence.']['storagePid'];
 	
 		$this->request1 = $request;
 		$out = $this->ajaxEidAction();
@@ -510,10 +509,10 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	public function renderFluidTemplate($template, Array $assign = array()) {
       	$configuration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 
-		$templateRootPath = $this->configuration['view']['templateRootPaths'][1];
+		$templateRootPath = $this->configuration['view.']['templateRootPaths.'][1];
 
 		if (!$templateRootPath) 	
-		$templateRootPath = $this->configuration['view']['templateRootPath'][0];
+		$templateRootPath = $this->configuration['view.']['templateRootPath.'][0];
 		
 		$templatePath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($templateRootPath . 'Address/' . $template);
 		$view = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
