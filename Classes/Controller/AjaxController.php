@@ -277,7 +277,9 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $siteConfiguration = $this->request1->getAttribute('site')->getConfiguration();
         for ($i = 0; $i < count($siteConfiguration['languages']); $i++) {
             if ($siteConfiguration['languages'][$i]['languageId'] == $requestArguments['language']) {
-                $this->language = $siteConfiguration['languages'][$i]['typo3Language'];
+//                $this->language = $siteConfiguration['languages'][$i]['typo3Language'];
+                $this->locale = $siteConfiguration['languages'][$i]['locale'];
+                $this->language = explode('_', $this->locale)[0];
                 $this->languageService = GeneralUtility::makeInstance(LanguageServiceFactory::class)->create($this->language);
             }
         }
