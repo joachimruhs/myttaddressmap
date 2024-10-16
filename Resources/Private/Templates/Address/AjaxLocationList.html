@@ -15,9 +15,11 @@
 			</f:for>
 
 			<div>
-				<a href="?id={settings.detailsPageId}&tx_myttaddressmap_singleview[action]=singleView&tx_myttaddressmap_singleview[locationUid]={location.uid}"><strong>{location.name}</strong></a>
-			</div>
-	
+                <form  action="/?id={settings.detailsPageId}" method="POST">
+                    <input class="hidden" name="tx_myttaddressmap_singleview[locationUid]" value="{location.uid}">
+                    <button class="details-button" type="submit">{location.first_name} {location.name}</button>
+                </form>
+            </div>	
 			<div class="categories">{location.categories}</div>
 
 		

@@ -12,6 +12,10 @@
 	display: none;
 }
 
+.tx-myttaddressmap  .details-button {
+    border: none;
+}
+
 .tx-myttaddressmap .searchResultContainer {
 	position: relative;
 	float: left;
