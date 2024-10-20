@@ -3,7 +3,7 @@
 /***************************************************************
  * Extension Manager/Repository config file for ext "myttaddressmap".
  *
- * Auto generated 30-07-2022 14:47
+ * Auto generated 19-10-2024 12:41
  *
  * Manual updates:
  * Only the data in the array - everything else is removed by next
@@ -14,7 +14,7 @@ $EM_CONF[$_EXTKEY] = array (
   'title' => 'MyTTAddressMap',
   'description' => 'Google maps for tt_address with radial search and categories',
   'category' => 'plugin',
-  'version' => '2.3.2',
+  'version' => '2.3.3',
   'state' => 'beta',
   'uploadfolder' => true,
   'clearcacheonload' => false,
@@ -36,4 +36,3 @@ $EM_CONF[$_EXTKEY] = array (
     ),
   ),
 );
-
