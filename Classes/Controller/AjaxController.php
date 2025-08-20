@@ -22,7 +22,7 @@ use TYPO3\CMS\Core\Http\Response;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2018 - 2023 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
+ *  (c) 2018 - 2025 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
  *
  ***/
 
@@ -35,7 +35,25 @@ use TYPO3\CMS\Core\Http\Response;
  */
 class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
-	/**
+    /**
+     * define variables
+     * to prevent PHP Runtime Deprecation Notice: Creation of dynamic property 
+     */
+
+    protected $configuration;
+
+    protected $conf;
+
+    protected $request1;
+
+    protected $locale;
+
+    protected $language;
+
+    protected $_GP;
+
+
+    /**
 	 * @var LanguageService
 	 */
 	public $languageService;
@@ -243,7 +261,8 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return \TYPO3\CMS\Fluid\View\StandaloneView
 	 */
 	protected function getView() {
-	//    $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
+        // function not used!!!
+        //    $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
 		$templateService = GeneralUtility::makeInstance(TemplateService::class);
 		// get the rootline
 	//    $rootLine = $pageRepository->getRootLine($pageRepository->getDomainStartPage(GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY')));
@@ -256,9 +275,10 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$templateService->generateConfig();
 	
 		$fluidView = new StandaloneView();
-		$fluidView->setLayoutRootPaths($templateService->setup['plugin.']['tx_yourext.']['view.']['layoutRootPaths.']);
-		$fluidView->setTemplateRootPaths($templateService->setup['plugin.']['tx_yourext.']['view.']['templateRootPaths.']);
-		$fluidView->setPartialRootPaths($templateService->setup['plugin.']['tx_yourext.']['view.']['partialRootPaths.']);
+// commented for TYPO3 14
+//		$fluidView->setLayoutRootPaths($templateService->setup['plugin.']['tx_yourext.']['view.']['layoutRootPaths.']);
+//		$fluidView->setTemplateRootPaths($templateService->setup['plugin.']['tx_yourext.']['view.']['templateRootPaths.']);
+//		$fluidView->setPartialRootPaths($templateService->setup['plugin.']['tx_yourext.']['view.']['partialRootPaths.']);
 		$fluidView->getRequest()->setControllerExtensionName('YourExt');
 		$fluidView->setTemplate('index');
 	
