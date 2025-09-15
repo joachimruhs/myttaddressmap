@@ -243,7 +243,7 @@ class AddressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 				'a.pid',
 				$queryBuilder->createNamedParameter(
 					$arrayOfPids,
-					\Doctrine\DBAL\Connection::PARAM_INT_ARRAY
+					Connection::PARAM_INT_ARRAY
 				)
 			)
 		)		
