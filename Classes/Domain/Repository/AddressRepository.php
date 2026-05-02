@@ -107,11 +107,11 @@ class AddressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 		$arrayOfPids = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $storagePid, TRUE);
 		$storagePidList = implode(',', $arrayOfPids);
 
+$language = '';		
 		if ($language  && $sys_language_uid) {
 		$queryBuilder->selectLiteral(
 			'distinct a.*', '(acos(sin(' . floatval($lat * M_PI / 180) . ') * sin(latitude * ' . floatval(M_PI / 180) . ') + cos(' . floatval($lat * M_PI / 180) . ') *
 			cos(latitude * ' . floatval(M_PI / 180) . ') * cos((' . floatval($lon) . ' - longitude) * ' . floatval(M_PI / 180) . '))) * 6370 as `distance`,
-
 			(SELECT GROUP_CONCAT(e.title ORDER BY e.title SEPARATOR \', \') from tt_address d, sys_category 
 						e , sys_category_record_mm m
 						where  m.uid_foreign = d.uid
@@ -122,7 +122,7 @@ class AddressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 					) as categories			
 
 			');
-		} else {
+			} else {
 		$queryBuilder->selectLiteral(
 			'distinct a.*', '(acos(sin(' . floatval($lat * M_PI / 180) . ') * sin(latitude * ' . floatval(M_PI / 180) . ') + cos(' . floatval($lat * M_PI / 180) . ') *
 			cos(latitude * ' . floatval(M_PI / 180) . ') * cos((' . floatval($lon) . ' - longitude) * ' . floatval(M_PI / 180) . '))) * 6370 as `distance`,
@@ -136,8 +136,7 @@ class AddressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 						and e.pid in (' . $storagePidList  . ')
 					) as categories
 			');
-			
-		}			
+			}			
 
 		$queryBuilder->where(
 			$queryBuilder->expr()->in(

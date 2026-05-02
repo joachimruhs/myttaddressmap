@@ -26,7 +26,7 @@ use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 
 class Nl2brViewHelper extends AbstractViewHelper {
 	
-	public function initializeArguments() {
+	public function initializeArguments(): void {
 		$this->registerArgument('text', 'string', 'text for nl2br', true, 0);
 		$this->registerArgument('htmlSpecialChars', 'integer', 'flag for htmlspecialchars', true, 0);
 	}
@@ -35,16 +35,13 @@ class Nl2brViewHelper extends AbstractViewHelper {
 	* Return string with nl2br
 	*
 	* Return string with added <br />
-    * @param array $arguments 
-    * @param \Closure $renderChildrenClosure
-    * @param RenderingContextInterface $renderingContext
     * @return string
     */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext) {
-		if ($arguments['htmlSpecialChars']) {
-			return str_replace(array("\r\n", "\r", "\n"), '<br />', htmlspecialchars($arguments['text'], ENT_QUOTES));
+    public function render() {
+		if ($this->arguments['htmlSpecialChars']) {
+		return str_replace(array("\r\n", "\r", "\n"), '<br />', htmlspecialchars($this->arguments['text'], ENT_QUOTES));
 		} else {
-			return str_replace(array("\r\n", "\r", "\n"), '<br />', $arguments['text']);
+			return str_replace(array("\r\n", "\r", "\n"), '<br />', $this->arguments['text']);
 		}
 	}	 
 

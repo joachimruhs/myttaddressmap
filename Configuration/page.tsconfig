@@ -1,0 +1,17 @@
+mod {
+    wizards.newContentElement.wizardItems.plugins {
+        elements {
+            ajaxsearch {
+                iconIdentifier = extension-myttaddressmap-content-element
+                title = LLL:EXT:myttaddressmap/Resources/Private/Language/locallang_db.xlf:tx_myttaddressmap_domain_model_ajaxsearch
+                description = LLL:EXT:myttaddressmap/Resources/Private/Language/locallang_db.xlf:tx_myttaddressmap_domain_model_ajaxsearch.description
+                tt_content_defValues {
+#                    CType = list
+                    CType = myttaddressmap_map
+                    list_type = myttaddressmap_map
+                }
+            }
+        }
+        show = *
+    }
+}

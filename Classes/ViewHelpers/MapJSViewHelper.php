@@ -12,7 +12,7 @@ use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2018 - 2020 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
+ *  (c) 2018 - 2026 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
  *
  ***/
 
@@ -21,7 +21,7 @@ class MapJSViewHelper extends AbstractViewHelper {
 	/**
 	* Arguments Initialization
 	*/
-	public function initializeArguments() {
+	public function initializeArguments(): void {
 		$this->registerArgument('locations', 'array', 'The locations for the map', TRUE);
 		$this->registerArgument('city', 'string', 'The city for the map', TRUE);
 		$this->registerArgument('settings', 'mixed', 'The settings', TRUE);
@@ -30,24 +30,23 @@ class MapJSViewHelper extends AbstractViewHelper {
     /**
     * Returns the map javascript
     * 
-    * @param array $arguments 
-    * @param \Closure $renderChildrenClosure
-    * @param RenderingContextInterface $renderingContext
     * @return string
     */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): string
     {
-		$locations = $arguments['locations'];
-		$city = $arguments['city'];
-		$settings = $arguments['settings'];
-        $animation = '';
+		$locations = $this->arguments['locations'] ?? '';
+		$city = $this->arguments['city'] ?? '';
+		$settings = $this->arguments['settings'];
+
+		$animation = '';
 		
 		$out = self::getMapJavascript($locations, $settings);
 		
 		$out .= '<script type="text/javascript">
-            function getMarkers() {';
-			if (is_array($locations)) {
+        var markerIcon = [];
 
+		function getMarkers() {';
+			if (is_array($locations)) {
 
 				for ($i = 0; $i < count($locations); $i++) {
 
@@ -66,25 +65,38 @@ class MapJSViewHelper extends AbstractViewHelper {
 		
 		
 					if ($mapIcon) {
-					$out .= 'marker[' . $i . '] = new google.maps.Marker({
+// 											icon: "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/' . $mapIcon .'",
+
+					$out .= '
+							markerIcon'.$i.' = document.createElement("img");
+							markerIcon'.$i.'.src = "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/' . $mapIcon .'";
+					';
+
+					$out .= 'marker[' . $i . '] = new google.maps.marker.AdvancedMarkerElement({
 											position: myLatLng,
 											map: map,
 											title: "' . str_replace('"', '\"', $locationName) .'",
-											icon: "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/' . $mapIcon .'",
 											' . $animation . '
 											map: map
 											});
 											mapBounds.extend(myLatLng);
 		
 											';
+					$out .= 'marker[' . $i . '].append(markerIcon'.$i.');'
+					;
 					
 					
 					} else {
-		
-					$out .= 'marker[' . $i . '] = new google.maps.Marker({
+//icon: "' . $settings['defaultIcon'] . '",
+//$out .= ' . $settings["defaultIcon"];';
+
+					$out .= '
+							markerIcon'.$i.' = document.createElement("img");
+							markerIcon'.$i.'.src = "' . $settings["defaultIcon"] .'";
+						';		
+					$out .= 'marker[' . $i . '] = new google.maps.marker.AdvancedMarkerElement({
 											position: myLatLng,
 											title: "' . str_replace('"', '\"', $locationName) .'",
-											icon: "' . $settings['defaultIcon'] . '",
 
 										' . $animation . '
 											map: map
@@ -92,8 +104,10 @@ class MapJSViewHelper extends AbstractViewHelper {
 											mapBounds.extend(myLatLng);
 		
 											';
+					$out .= 'marker[' . $i . '].append(markerIcon'.$i.');'
+					;
+
 					}
-		
 		
 				}
 			}
@@ -121,6 +135,7 @@ class MapJSViewHelper extends AbstractViewHelper {
             var latlng = new google.maps.LatLng(' . $settings['initialMapCoordinates'] . ');
         
              myOptions = {
+ 			  mapId: "DEMO_MAP_ID",
               zoom: zoom1,
               center: latlng,
         //		      mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -192,7 +207,7 @@ class MapJSViewHelper extends AbstractViewHelper {
             $out .= '
 
 				function addMarker(location) {
-				  marker = new google.maps.Marker({
+				  marker = new google.maps.marker.AdvancedMarkerElement({
 					position: location,
 					
 					map: map

@@ -25,7 +25,7 @@ use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 
 class AddSlashesViewHelper extends AbstractViewHelper {
 	
-	public function initializeArguments() {
+	public function initializeArguments(): void {
 		$this->registerArgument('text', 'string', 'text for addslashes', true, 0);
 	}
 
@@ -36,9 +36,9 @@ class AddSlashesViewHelper extends AbstractViewHelper {
     * @param RenderingContextInterface $renderingContext
     * @return string
     */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): string
     {
-		return addslashes($arguments['text']);
+		return addslashes($this->arguments['text']);
 	}	 
 
 

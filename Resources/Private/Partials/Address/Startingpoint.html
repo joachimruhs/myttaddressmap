@@ -3,13 +3,22 @@
 
 <script type="text/javascript">
 	var myLatLng = new google.maps.LatLng({startingPoint.lat},{startingPoint.lon});
-	var startMarker = new google.maps.Marker({
+
+//icon: "/typo3conf/ext/myttaddressmap/Resources/Public/Icons/pointerRed.png"
+
+	startMarkerIcon = document.createElement("img");
+	startMarkerIcon.src = "/typo3conf/ext/myttaddressmap/Resources/Public/Icons/pointerRed.png";
+
+
+	var startMarker = new google.maps.marker.AdvancedMarkerElement({
 					                position: myLatLng,
 					                map: map,
 					                title: '<f:translate key="youAreHere" />',
-					                icon: "/typo3conf/ext/myttaddressmap/Resources/Public/Icons/pointerRed.png"
 					                });
-	startMarker.addListener('click', toggleBounce);
+
+	startMarker.append(startMarkerIcon);
+
+//	startMarker.addListener('click', toggleBounce);
 					                
 
 	mapBounds.extend(myLatLng);
@@ -17,6 +26,7 @@
 		map.fitBounds(mapBounds);
 	}
 
+/*
 	function toggleBounce() {
 	  if (startMarker.getAnimation() !== null) {
 	    startMarker.setAnimation(null);
@@ -24,7 +34,7 @@
 	    startMarker.setAnimation(google.maps.Animation.BOUNCE);
 	  }
 	}
-
+*/
 
 </script>
 

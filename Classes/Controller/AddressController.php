@@ -311,28 +311,35 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	 */
 	public function singleViewAction() {
 		$this->_GP = $this->request->getArguments();
-
+		$this->_GP['locationUid'] = $this->_GP['locationUid'] ?? 0; 
 		if ($this->_GP['locationUid']) {// called from list link
 			$location = $this->addressRepository->findByUid(intval($this->_GP['locationUid']));
 		}
 		else {
 			$location = $this->addressRepository->findByUid(intval($this->settings['singleViewUid']));
 		}
-/*		
+
+		$location->setAddress(str_replace(array("\r\n", "\r", "\n"), '<br />', $location->getAddress()));  
+
+		/*		
 		// signal
 		$signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
 		$ret = $signalSlotDispatcher->dispatch(__CLASS__, 'beforeSingleRenderView', array(&$location, &$this));
-*/
+		*/
 		// event dispatch
 		$event = GeneralUtility::makeInstance('WSR\Myttaddressmap\Event\SingleViewEvent');
 		$event->setLocation($location);
 		$this->eventDispatcher = GeneralUtility::getContainer()->get(EventDispatcherInterface::class);		
 		$this->eventDispatcher->dispatch($event);
-		
 
 		$this->view->assign('location', $location);
-		$this->view->assign('Lvar', $GLOBALS['TSFE']->config['config']['sys_language_uid'] ?? 0);
-        return $this->responseFactory->createResponse()
+		
+		// fetching correct language for locallang labels
+ 		$languageAspect = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getAspect('language');
+		$sys_language_uid = $languageAspect->getId();
+		$this->view->assign('Lvar', $sys_language_uid);
+
+		return $this->responseFactory->createResponse()
             ->withAddedHeader('Content-Type', 'text/html; charset=utf-8')
             ->withBody($this->streamFactory->createStream($this->view->render()));
 	}
@@ -341,11 +348,9 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	/**
 	 * action searchForm
 	 * 
-	 * @param array $post
-	 *  
 	 * @return void
 	 */
-	public function searchFormAction($post = null) {
+	public function searchFormAction() {
 		$this->populateMapIconDirectory();
 
 	   	$configuration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
@@ -374,7 +379,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 //		$categories = $this->categoryRepository->findAll();
 
 		// sanitizing categories						 
-		if ($this->_GP['categories'] && preg_match('/^[0-9,]*$/', $this->_GP['categories']) != 1) {
+		if ($this->_GP['categories'] && preg_match('/^[0-9,]*$/', implode(',', $this->_GP['categories'])) != 1) {
 			$this->_GP['categories'] = '';
 		}		
 		$categoryList = @implode(',', $this->_GP['categories']);
@@ -417,10 +422,11 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	 * @return void
 	 */
 	public function searchResultAction() {
+
 		$this->updateLatLon();
 		
 		$this->_GP = $this->request->getArguments();
-        $categories = [];
+		$categories = [];
 
 		// now get the startingpoint coordinates 
 		$theAddress = array (
@@ -456,6 +462,8 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 								\TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
             return (new ForwardResponse('searchForm'));
 		}
+
+
 
 
 		// find all categories of all children
@@ -535,9 +543,10 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
 //		$this->view->assign("sys_language_uid", $GLOBALS['TSFE']->sys_language_uid);
 		
-		
-        $this->view->assign('_GP', $this->_GP);
-        if ( ($this->_GP['city'] || $this->_GP['zipcode'] ) || ($this->_GP['lat'] && $this->_GP['lon'] )) // from autocompleter ($this->_GP['lat'] && $this->_GP['lon'] )
+// J. Ruhs		
+//        $this->view->assign('_GP', $this->_GP);
+
+		if ( ($this->_GP['city'] || $this->_GP['zipcode'] ) || ($this->_GP['lat'] && $this->_GP['lon'] )) // from autocompleter ($this->_GP['lat'] && $this->_GP['lon'] )
             $this->view->assign('showMap', 1);
 
         return $this->responseFactory->createResponse()
@@ -586,7 +595,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	public function geocode($theAddress) {
 		//for urlencoding
 		$vars = array (
-			'zipcode',
+			'zip',
 			'city',
 			'address',
 			'country'

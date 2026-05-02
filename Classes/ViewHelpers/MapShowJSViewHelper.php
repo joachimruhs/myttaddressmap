@@ -12,7 +12,7 @@ use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2018 - 2020 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
+ *  (c) 2018 - 2026 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
  *
  ***/
 
@@ -21,7 +21,7 @@ class MapShowJSViewHelper extends AbstractViewHelper {
 	/**
 	* Arguments Initialization
 	*/
-	public function initializeArguments() {
+	public function initializeArguments(): void {
 		$this->registerArgument('location', 'mixed', 'The locations for the map', TRUE);
 		$this->registerArgument('city', 'string', 'The city for the map', TRUE);
 		$this->registerArgument('settings', 'mixed', 'The settings', TRUE);
@@ -32,16 +32,14 @@ class MapShowJSViewHelper extends AbstractViewHelper {
     * Returns the map javascript
     * 
     * @param array $arguments 
-    * @param \Closure $renderChildrenClosure
-    * @param RenderingContextInterface $renderingContext
-    * @return string
+        * @return string
     */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext) {
-		 $location = $arguments['location'];
-		 $city = $arguments['city'];
-		 $settings = $arguments['settings'];
+    public function render(): string {
+		 $location = $this->arguments['location'];
+		 $city = $this->arguments['city'];
+		 $settings = $this->arguments['settings'];
 
-		$out = self::getMapJavascript($location, $arguments['settings']);
+		$out = self::getMapJavascript($location, $settings);
 		$out .= '<script type="text/javascript">function getMarkers() {';
 			$lat = $location->getLatitude();
 			$lon = $location->getLongitude();
@@ -49,27 +47,32 @@ class MapShowJSViewHelper extends AbstractViewHelper {
 			$out .= 'var myLatLng = new google.maps.LatLng(' . $lat. ',' . $lon .');';
 
 			if ($location->getMapicon()) {
- 			$out .= 'marker[0] = new google.maps.Marker({
-					                position: myLatLng,
-					                map: map,
-					                title: "' . str_replace('"', '\"', $location->getName()) .'",
-					                icon: "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/' . $location->getMapicon() .'"
-					                });
-									//mapBounds.extend(myLatLng);
-
-									';
-			
-			
+//  icon: "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/' . $location->getMapicon() .'"
+				$out .= '
+						const markerIcon = document.createElement("img");
+						markerIcon.src = "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/' . $location->getMapicon() .'";
+				';
+				$out .= 'marker[0] = new google.maps.marker.AdvancedMarkerElement({
+										position: myLatLng,
+										map: map,
+										title: "' . str_replace('"', '\"', $location->getName()) .'",
+										});
+										//mapBounds.extend(myLatLng);
+										';
+				$out .= 'marker[0].append(markerIcon);';
 			} else {
-
- 			$out .= 'marker[0] = new google.maps.Marker({
-					                position: myLatLng,
-					                map: map,
-					                title: "' . str_replace('"', '\"', $location->getName()) .'",
-									icon: "' . $settings['defaultIcon'] . '"
-					                });
-									//mapBounds.extend(myLatLng);
-									';
+				$out .= '
+						const markerIcon = document.createElement("img");
+						markerIcon.src = "' . $settings['defaultIcon'] . '";
+				';
+				$out .= 'marker[0] = new google.maps.marker.AdvancedMarkerElement({
+										position: myLatLng,
+										map: map,
+										title: "' . str_replace('"', '\"', $location->getName()) .'",
+										});
+										//mapBounds.extend(myLatLng);
+										';
+				$out .= 'marker[0].append(markerIcon);';
 			}
 
 		$out .= '}</script>';
@@ -95,6 +98,7 @@ class MapShowJSViewHelper extends AbstractViewHelper {
 
 		    var latlng = new google.maps.LatLng(' . $location->getLatitude() . ',' . $location->getLongitude() . ');
 		     myOptions = {
+			 mapId: "DEMO_MAP_ID",
 		      zoom: zoom1,
 		      center: latlng,
 		      mapTypeId: google.maps.MapTypeId.ROADMAP,

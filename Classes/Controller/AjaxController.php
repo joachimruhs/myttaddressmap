@@ -7,9 +7,15 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
+
+use TYPO3\CMS\Core\View\ViewFactoryData;
+use TYPO3\CMS\Core\View\ViewFactoryInterface;
+
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Core\Environment;
@@ -17,12 +23,12 @@ use TYPO3\CMS\Core\Http\Response;
 
 /***
  *
- * This file is part of the "Booking" Extension for TYPO3 CMS.
+ * This file is part of the "myttaddressmap" Extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2018 - 2025 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
+ *  (c) 2018 - 2026 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
  *
  ***/
 
@@ -34,6 +40,23 @@ use TYPO3\CMS\Core\Http\Response;
  * 
  */
 class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+
+	/**
+	 * CustomerServerAssignment constructor.
+	 */
+	public function __construct(
+//        private ViewFactoryInterface $viewFactory
+    ) {}
+
+    /**
+     * Inject a ViewFactoryInterface
+     *
+     * @param \TYPO3\CMS\Core\View\ViewFactoryInterface
+     * @return void
+     */
+//    public function injectViewFactoryInterface(\TYPO3\CMS\Core\View\ViewFactoryInterface $viewFactoryInterface) {
+//        $this->viewFactory = $viewFactoryInterface;
+//    }
 
     /**
      * define variables
@@ -59,20 +82,11 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	public $languageService;
 	
 	/**
-	 * CustomerServerAssignment constructor.
-	 */
-	public function __construct()
-	{
-		/** @var LanguageService $languageService */
-//        $this->languageService = GeneralUtility::makeInstance(LanguageServiceFactory::class)->create('de');
-	}
-
-	/**
 	 * AddressRepository
 	 *
 	 * @var \WSR\Myttaddressmap\Domain\Repository\AddressRepository
 	 */
-	protected $addressRepository;
+//	protected $addressRepository;
 
     /**
      * Inject a addressRepository to enable DI
@@ -80,9 +94,9 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
      * @param \WSR\Myttaddressmap\Domain\Repository\AddressRepository $addressRepository
      * @return void
      */
-    public function injectAddressRepository(\WSR\Myttaddressmap\Domain\Repository\AddressRepository $addressRepository) {
-        $this->addressRepository = $addressRepository;
-    }
+//    public function injectAddressRepository(\WSR\Myttaddressmap\Domain\Repository\AddressRepository $addressRepository) {
+//        $this->addressRepository = $addressRepository;
+//    }
 
 
 
@@ -119,11 +133,12 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
      * @param \WSR\Myttaddressmap\Domain\Repository\CategoryRepository $categoryRepository
      * @return void
      */
-    public function injectCategoryRepository(\WSR\Myttaddressmap\Domain\Repository\CategoryRepository $categoryRepository) {
-        $this->categoryRepository = $categoryRepository;
-    }
+//    public function injectCategoryRepository(\WSR\Myttaddressmap\Domain\Repository\CategoryRepository $categoryRepository) {
+//        $this->categoryRepository = $categoryRepository;
+//    }
 	
-	
+
+
 	/**
 	 * action ajaxPage
 	 * @return \string JSON
@@ -221,6 +236,12 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 */
 	protected function processPostRequest(ServerRequestInterface $request, Response $response)
 	{
+
+		$this->categoryRepository = GeneralUtility::makeInstance("WSR\Myttaddressmap\Domain\Repository\CategoryRepository");
+		$this->addressRepository = GeneralUtility::makeInstance("WSR\Myttaddressmap\Domain\Repository\AddressRepository");
+        $this->viewFactory = GeneralUtility::makeInstance("TYPO3\CMS\Core\View\ViewFactoryInterface");
+    
+
 		$queryParams = $request->getQueryParams();
 	
 //        $frontendController = $request->getAttribute('frontend.controller');
@@ -231,6 +252,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$this->conf['storagePid'] = $this->configuration['persistence.']['storagePid'];
 	
 		$this->request1 = $request;
+
 		$out = $this->ajaxEidAction();
 		return $out;;
 
@@ -290,7 +312,8 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return string html
 	 */
 	public function ajaxEidAction() {
-		$requestArguments = $this->request1->getParsedBody()['tx_myttaddressmap_ajax'];
+
+	$requestArguments = $this->request1->getParsedBody()['tx_myttaddressmap_ajax'];
 
         // fetching correct language for locallang labels
         $siteConfiguration = $this->request1->getAttribute('site')->getConfiguration();
@@ -312,10 +335,8 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 			$categoryList = '';
 		}		
 
-        $categoryList = $this->categoryRepository->getCategoryList($categoryList, $this->conf['storagePid']);
+		$categoryList = $this->categoryRepository->getCategoryList($categoryList, $this->conf['storagePid']);
 
-
-	
 		if ($this->settings['defaultLanguageUid'] > '') {
 			$this->language = $this->settings['defaultLanguageUid'];
 		} else {
@@ -389,8 +410,8 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 			$locations[$i]['infoWindowAddress'] = str_replace(array("\r\n", "\r", "\n"), '<br />', htmlspecialchars($address, ENT_QUOTES));
 
 			if ($locations[$i]['image'] > 0) {
-				if ($this->ttaddressRepository->findByUid($locations[$i]['uid'])) {
-					$images = $this->ttaddressRepository->findByUid($locations[$i]['uid'])->getImage();
+				if ($this->addressRepository->findByUid($locations[$i]['uid'])) {
+					$images = $this->addressRepository->findByUid($locations[$i]['uid'])->getImage();
 				}
 				$locations[$i]['images'] =	$images;				
 			}
@@ -409,7 +430,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 			</script>';
 			return $out;
 		}
-			
+		
 		$out = $this->getMarkerJS($locations, $categories, $latLon, $this->_GP['radius']);
 		
 		// get  the loctions list
@@ -473,28 +494,43 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
 			$out .= 'var myLatLng = new google.maps.LatLng(' . $lat . ', ' . $lon .');';
             $locations[$i]['mapicon'] = $locations[$i]['mapicon'] ?? '';
+
+// icon: "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/' . $locations[$i]['mapicon'] .'"
+// icon: "' . $this->settings['defaultIcon'] . '"
+
 			if ($locations[$i]['mapicon']) {
 				//if (!is_file(Environment::getPublicPath() . "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/" . $locations[$i]['mapicon'])) $locations[$i]['mapicon'] = 'questionmark.png';  
-				$out .= 'marker[' . $i . '] = new google.maps.Marker({
+				$out .= '
+						markerIcon'.$i.' = document.createElement("img");
+						markerIcon'.$i.'.src = "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/' . $locations[$i]['mapicon'] .'";
+				';
+
+				$out .= 'marker[' . $i . '] = new google.maps.marker.AdvancedMarkerElement({
 									position: myLatLng,
 									map: map,
 									title: "' . str_replace('"', '\"', $locations[$i]['name']) .'",
-									icon: "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/' . $locations[$i]['mapicon'] .'"
 									});
 									mapBounds.extend(myLatLng);
 									';
-			
+				$out .= 'marker[' . $i . '].append(markerIcon'.$i.');'
+				;
 			
 			} else {
+				$out .= '
+						markerIcon'.$i.' = document.createElement("img");
+						markerIcon'.$i.'.src = "' . $this->settings["defaultIcon"] .'";
+					';		
 
-				$out .= 'marker[' . $i . '] = new google.maps.Marker({
+				$out .= 'marker[' . $i . '] = new google.maps.marker.AdvancedMarkerElement({
 									position: myLatLng,
 									map: map,
 									title: "' . str_replace('"', '\"', $locations[$i]['name']) .'",
-									icon: "' . $this->settings['defaultIcon'] . '"
 									});
 									mapBounds.extend(myLatLng);
 									';
+				$out .= 'marker[' . $i . '].append(markerIcon'.$i.');'
+				;
+
 			}
 		
 
@@ -527,20 +563,27 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return string
 	 */
 	public function renderFluidTemplate($template, Array $assign = array()) {
-      	$configuration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+
+//print_r($this->configuration);
 
 		$templateRootPath = $this->configuration['view.']['templateRootPaths.'][1];
-
 		if (!$templateRootPath) 	
 		$templateRootPath = $this->configuration['view.']['templateRootPath.'][0];
 		
 		$templatePath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($templateRootPath . 'Address/' . $template);
-		$view = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
-		$view->setTemplatePathAndFilename($templatePath);
+
+//print_r($this->configuration['view.']['templateRootPaths.']);
+
+		$viewFactoryData = new ViewFactoryData(
+		    templateRootPaths: $this->configuration['view.']['templateRootPaths.'],
+       	    partialRootPaths: ['EXT:myttaddressmap/Resources/Private/Partials'],
+       	    layoutRootPaths: ['EXT:myttaddressmap/Resources/Private/Layouts'],
+        );
+
+		$view = $this->viewFactory->create($viewFactoryData);
+
 		$view->assignMultiple($assign);
-        if ((new \TYPO3\CMS\Core\Information\Typo3Version())->getMajorVersion() > 11)
-            $view->setRequest($this->request1);
-		return $view->render();
+		return $view->render('Address/' . $template);
 	}
 
 

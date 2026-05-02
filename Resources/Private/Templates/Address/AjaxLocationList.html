@@ -3,44 +3,39 @@
 <h1>Location List</h1>
 
 <script type="text/javascript">
-	maxPage = Math.ceil({locationsCount}/{settings.resultLimit});
+        maxPage = Math.ceil({locationsCount}/{settings.resultLimit});
 </script>
 
 <div class="searchResultContainer">
-	<f:for each="{locations}" as="location" iteration="iter">
-		<div class="searchResultTile" onclick="openInfoWindow({iter.index});">
-		
-			<f:for each="{location.images}" as="image">
-				<div><img src="/fileadmin/{image.originalResource.originalFile.identifier}"  width="50" alt=""/></div>			
-			</f:for>
+        <f:for each="{locations}" as="location" iteration="iter">
+                <div class="searchResultTile" onclick="openInfoWindow({iter.index});">
 
-			<div>
-                <form  action="/?id={settings.detailsPageId}" method="POST">
-                    <input class="hidden" name="tx_myttaddressmap_singleview[locationUid]" value="{location.uid}">
-                    <button class="details-button" type="submit">{location.first_name} {location.name}</button>
-                </form>
-            </div>	
-			<div class="categories">{location.categories}</div>
+                        <f:for each="{location.images}" as="image">
+                                <div><img src="/fileadmin/{image.originalResource.originalFile.identifier}"  width="50" alt=""/></div>
+                        </f:for>
 
-		
-			<div><f:format.raw>{location.address}</f:format.raw></div>
-			<div>{location.zip}</div>
-			<div>{location.city}</div>
-			<div>{location.phone}</div>
+                        <div>
+                                <a href="/index.php?id={settings.detailsPageId}&tx_myttaddressmap_singleview[action]=singleView&tx_myttaddressmap_singleview[locationUid]={location.uid}"><strong>{location.name}</strong></a>
+                        </div>
 
-			<div>{location.email}</div>
-			<div>{location.fax}</div>
-			<div><f:format.htmlentitiesDecode>{location.description}</f:format.htmlentitiesDecode></div>
+                        <div class="categories">{location.categories}</div>
 
-			<div>{labels.distance}: <f:format.number decimals="2">{location.distance}</f:format.number> km</div>
 
-		</div>
-	</f:for>
+                        <div><f:format.raw>{location.address}</f:format.raw></div>
+                        <div>{location.zip}</div>
+                        <div>{location.city}</div>
+                        <div>{location.phone}</div>
+
+                        <div>{location.email}</div>
+                        <div>{location.fax}</div>
+                        <div><f:format.htmlentitiesDecode>{location.description}</f:format.htmlentitiesDecode></div>
+
+                        <div>{labels.distance}: <f:format.number decimals="2">{location.distance}</f:format.number> km</div>
+
+                </div>
+        </f:for>
 </div>
 <div class="clearer"></div>
-
-
-
 
 
 

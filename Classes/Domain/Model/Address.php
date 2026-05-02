@@ -37,7 +37,7 @@ class Address extends \FriendsOfTYPO3\TtAddress\Domain\Model\Address
      * 
      * @var string
      */
-    protected $name = '';
+    protected string $name = '';
 
 
 	/**

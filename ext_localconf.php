@@ -3,6 +3,8 @@
 // Prevent script from being called directly
 defined('TYPO3') or die();
 
+use \TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+
 // encapsulate all locally defined variables
 call_user_func(
     function()
@@ -17,7 +19,8 @@ call_user_func(
             // non-cacheable actions
             [
 				\WSR\Myttaddressmap\Controller\AddressController::class => 'ajaxSearch, list'
-			]
+			],
+            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
         );
 
 		// Plugin for AJAX-calls
@@ -26,8 +29,9 @@ call_user_func(
 			'Ajax',
 			[\WSR\Myttaddressmap\Controller\AjaxController::class => 'ajaxEid'],
 			// non-cacheable actions
-			[\WSR\Myttaddressmap\Controller\AjaxController::class => 'ajaxEid']
-		);
+			[\WSR\Myttaddressmap\Controller\AjaxController::class => 'ajaxEid'],
+            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
+        );
 
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
@@ -35,7 +39,8 @@ call_user_func(
             'SearchForm',
             [\WSR\Myttaddressmap\Controller\AddressController::class => 'searchForm'],
             // non-cacheable actions
-            [\WSR\Myttaddressmap\Controller\AddressController::class => 'searchForm']
+            [\WSR\Myttaddressmap\Controller\AddressController::class => 'searchForm'],
+            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
@@ -43,7 +48,8 @@ call_user_func(
             'SearchResult',
             [\WSR\Myttaddressmap\Controller\AddressController::class => 'searchResult, searchForm'],
             // non-cacheable actions
-            [\WSR\Myttaddressmap\Controller\AddressController::class => 'searchResult, searchForm']
+            [\WSR\Myttaddressmap\Controller\AddressController::class => 'searchResult, searchForm'],
+            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
@@ -51,30 +57,10 @@ call_user_func(
             'SingleView',
             [\WSR\Myttaddressmap\Controller\AddressController::class => 'singleView'],
             // non-cacheable actions
-            [\WSR\Myttaddressmap\Controller\AddressController::class => 'singleView']
+            [\WSR\Myttaddressmap\Controller\AddressController::class => 'singleView'],
+            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
         );
 
-	// wizards
-	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-		'mod {
-			wizards.newContentElement.wizardItems.plugins {
-				elements {
-					ajaxsearch {
-						iconIdentifier = extension-myttaddressmap-content-element
-						title = LLL:EXT:myttaddressmap/Resources/Private/Language/locallang_db.xlf:tx_myttaddressmap_domain_model_ajaxsearch
-						description = LLL:EXT:myttaddressmap/Resources/Private/Language/locallang_db.xlf:tx_myttaddressmap_domain_model_ajaxsearch.description
-						tt_content_defValues {
-							CType = list
-							list_type = myttaddressmap_map
-						}
-					}
-				}
-				show = *
-			}
-	   }'
-	);
-
-	
     }
 );
 
