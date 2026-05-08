@@ -178,7 +178,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	}
 
 
-	/**
+	/**	
 	 * action show
 	 *
 	 * @param \WSR\Myttaddressmap\Domain\Model\Address $address
@@ -611,7 +611,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		$zipcode = $theAddress['zipcode'] ?? '';
 
 
-		######################################Main Geocoders#####################################
+//		######################################Main Geocoders#####################################
 
         // for geocoding we need a server API key not a browser key
         if ($this->settings['googleServerApiKey']) {
