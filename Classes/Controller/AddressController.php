@@ -668,8 +668,8 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	/**
 	 * Flash a message
 	 *
-	 * @param string title 
-	 * @param string message
+	 * @param string $title 
+	 * @param string $message
 	 * 
 	 * @return void
 	 */
