@@ -471,10 +471,19 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
 
 	protected function getMarkerJS($locations, $categories, $latLon, $radius) {
+// ********************************************************************
+// markerClusterer did not work in Ajax mode!
+//markerClusterer = new markerClusterer.MarkerClusterer({map, marker});
 
-		$out = '<script	type="text/javascript">';
+	$out = '<script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>';
 
-		// remove marker from map
+	$out .= '<script	type="text/javascript">';
+
+
+//console.log('MMMMMMMMMM');
+//console.log(window.map);
+
+	// remove marker from map
 		$out .= 'for (i = 0; i < marker.length; i++) {
 			if (marker[i] !== undefined) {
 				marker[i].setMap(null);
@@ -531,7 +540,24 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 				$out .= 'marker[' . $i . '].append(markerIcon'.$i.');'
 				;
 
-			}
+/*
+				$out .= 'console.log(marker);console.log(window.map);'
+				;
+
+ 				$out = 'markerClusterer = new markerClusterer.MarkerClusterer({window.map, marker});';
+*/
+
+// ********************************************************************
+// markerClusterer did not work in Ajax mode!
+//markerClusterer = new markerClusterer.MarkerClusterer({map, marker});
+/*
+				if ($settings['enableMarkerClusterer']) {                
+					$out .= '
+						markerClusterer = new markerClusterer.MarkerClusterer({map: map, markers: marker, algorithmOptions: { grid: 100 } });
+					';
+				}
+*/
+				}
 		
 
 
@@ -541,8 +567,6 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
 			
 		} // for
-
-
 
 		$out .= 'map.fitBounds(mapBounds);';		
 		return $out . '</script>';

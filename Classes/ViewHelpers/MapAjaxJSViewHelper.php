@@ -17,7 +17,7 @@ use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
  ***/
 
 
-class MapJSViewHelper extends AbstractViewHelper {
+class MapAjaxJSViewHelper extends AbstractViewHelper {
 	/**
 	* Arguments Initialization
 	*/
@@ -44,6 +44,7 @@ class MapJSViewHelper extends AbstractViewHelper {
 		
 		$out .= '<script type="text/javascript">
         var markerIcon = [];
+		var marker;
 
 		function getMarkers() {';
 			if (is_array($locations)) {
@@ -108,24 +109,23 @@ class MapJSViewHelper extends AbstractViewHelper {
 					;
 
 					}
-
 				}
-
-				if ($settings['enableMarkerClusterer']) {                
-					$out .= '
-					markerClusterer = new markerClusterer.MarkerClusterer({map: map, markers: marker, algorithmOptions: { grid: 100 } });
-				';
-            }
-
-
 			}
 //            $out .= 'map.fitBounds(mapBounds);';
 
-
-
             $out .= '}</script>';
+
+	if ($settings['enableMarkerClusterer']) {
+        $out .= '<script>
+//	 console.log(window);
+
+		markerClusterer = new markerClusterer.MarkerClusterer({map: window.map, markers: window.marker, algorithmOptions: { grid: 100 } });
+console.log (markerClusterer);
+			</script>';
+		}
 		return $out;
 	 }
+
 	 
 	 public function getMapJavascript($locations, $settings) {
 	 if ($settings['enableMarkerClusterer']) {
@@ -199,10 +199,10 @@ class MapJSViewHelper extends AbstractViewHelper {
         
             map = new google.maps.Map(document.getElementById("map"), myOptions);
             if (mapBounds.length > 0)
-       			map.fitBounds(mapBounds);
+        			map.fitBounds(mapBounds);
 
-				// 45 degree images of cities		
-				map.setTilt(45);
+			// 45 degree images of cities		
+			map.setTilt(45);
             ';
             
             if ($settings['enableBicyclingLayer']) {                
@@ -246,6 +246,20 @@ class MapJSViewHelper extends AbstractViewHelper {
 //				   map.setCenter(event.latLng);
 			   });
 			';
+
+// ********************************************************************
+// markerClusterer did not work in Ajax mode!
+//markerClusterer = new markerClusterer.MarkerClusterer({map, marker});
+/*
+            if ($settings['enableMarkerClusterer']) {                
+                $out .= '
+console.log("HHHHHHHHHHHHHHHHHHHHH marker ist leer");
+// marker ist leer
+//				console.log(map);console.log(marker);
+//				markerClusterer = new markerClusterer.MarkerClusterer({map: map, markers: marker, algorithmOptions: { grid: 100 } });
+				';
+			}
+*/
 
 		$out .= '
 
