@@ -63,13 +63,12 @@ class MapJSViewHelper extends AbstractViewHelper {
 					}
 					$out .= 'var myLatLng = new google.maps.LatLng(' . $lat. ',' . $lon .');';
 		
-		
 					if ($mapIcon) {
 // 											icon: "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/' . $mapIcon .'",
 
 					$out .= '
 							markerIcon'.$i.' = document.createElement("img");
-							markerIcon'.$i.'.src = "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/' . $mapIcon .'";
+							markerIcon'.$i.'.src = "/fileadmin/ext/myttaddressmap/Resources/Public/MapIcons/' . $mapIcon .'";
 					';
 
 					$out .= 'marker[' . $i . '] = new google.maps.marker.AdvancedMarkerElement({
@@ -113,7 +112,8 @@ class MapJSViewHelper extends AbstractViewHelper {
 
 				if ($settings['enableMarkerClusterer']) {                
 					$out .= '
-					markerClusterer = new markerClusterer.MarkerClusterer({map: map, markers: marker, algorithmOptions: { grid: 100 } });
+						// we can use the window object window.map
+					markerClusterer = new markerClusterer.MarkerClusterer({map: window.map, markers: marker, algorithmOptions: { grid: 100 } });
 				';
             }
 

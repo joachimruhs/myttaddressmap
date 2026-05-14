@@ -196,7 +196,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	 * @return void
 	 */
 	public function populateMapIconDirectory() {
-		$iconPath = 'fileadmin/ext/myttaddressmap/Resources/Public/Icons/';
+		$iconPath = 'fileadmin/ext/myttaddressmap/Resources/Public/MapIcons/';
    		if (!is_dir(Environment::getPublicPath() . '/' . $iconPath)) {
             $fileSystem = new FileSystem();
             if (Environment::getPublicPath() != Environment::getProjectPath()) {
@@ -506,7 +506,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 				$locations[$i]['images'] =	$images;				
 			}
 			if ($locations[$i]['mapicon']) {			
-				if (!is_file(Environment::getPublicPath() . "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/" . $locations[$i]['mapicon'])) $locations[$i]['mapicon'] = 'questionmark.png';  
+				if (!is_file(Environment::getPublicPath() . "/fileadmin/ext/myttaddressmap/Resources/Public/MapIcons/" . $locations[$i]['mapicon'])) $locations[$i]['mapicon'] = 'questionmark.png';  
 			}
 		}
 

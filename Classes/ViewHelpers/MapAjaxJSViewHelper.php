@@ -63,14 +63,13 @@ class MapAjaxJSViewHelper extends AbstractViewHelper {
 						$mapIcon = $locations[$i]->getMapicon();
 					}
 					$out .= 'var myLatLng = new google.maps.LatLng(' . $lat. ',' . $lon .');';
-		
-		
+
 					if ($mapIcon) {
 // 											icon: "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/' . $mapIcon .'",
 
 					$out .= '
 							markerIcon'.$i.' = document.createElement("img");
-							markerIcon'.$i.'.src = "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/' . $mapIcon .'";
+							markerIcon'.$i.'.src = "/fileadmin/ext/myttaddressmap/Resources/Public/MapIcons/' . $mapIcon .'";
 					';
 
 					$out .= 'marker[' . $i . '] = new google.maps.marker.AdvancedMarkerElement({
@@ -118,7 +117,7 @@ class MapAjaxJSViewHelper extends AbstractViewHelper {
 	if ($settings['enableMarkerClusterer']) {
         $out .= '<script>
 //	 console.log(window);
-
+		// we can use the window object window.map
 		markerClusterer = new markerClusterer.MarkerClusterer({map: window.map, markers: window.marker, algorithmOptions: { grid: 100 } });
 console.log (markerClusterer);
 			</script>';

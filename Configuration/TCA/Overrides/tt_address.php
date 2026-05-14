@@ -13,7 +13,7 @@ $tmp_myttaddressmap_columns = array(
 			],
 			'fileFolderConfig' => [
 //                    'folder' => 'fileadmin/ext/myttaddressmap/Resources/Public/Icons/',
-                    'folder' => 'EXT:myttaddressmap/Resources/Public/Icons/',
+                    'folder' => 'EXT:myttaddressmap/Resources/Public/MapIcons/',
                     'allowedExtensions' => 'png,jpg,jpeg,gif',
                     'depth' => 1,
                 ],
