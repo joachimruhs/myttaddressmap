@@ -343,7 +343,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 			$this->language = $requestArguments['language'];		
 		}		
 
-		// NEW
+// NEW
 		// to minimize Google Server API requests
 		// only geocode if no coordinates are given
 		if ($requestArguments['lat'] == '' || $requestArguments['lon'] == '') {
@@ -504,10 +504,14 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 			$out .= 'var myLatLng = new google.maps.LatLng(' . $lat . ', ' . $lon .');';
             $locations[$i]['mapicon'] = $locations[$i]['mapicon'] ?? '';
 
+// icon: "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/' . $locations[$i]['mapicon'] .'"
+// icon: "' . $this->settings['defaultIcon'] . '"
+
 			if ($locations[$i]['mapicon']) {
+				//if (!is_file(Environment::getPublicPath() . "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/" . $locations[$i]['mapicon'])) $locations[$i]['mapicon'] = 'questionmark.png';  
 				$out .= '
 						markerIcon'.$i.' = document.createElement("img");
-						markerIcon'.$i.'.src = "/typo3conf/ext/myttaddressmap/Resources/Public/MapIcons/' . $locations[$i]['mapicon'] .'";
+						markerIcon'.$i.'.src = "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/' . $locations[$i]['mapicon'] .'";
 				';
 
 				$out .= 'marker[' . $i . '] = new google.maps.marker.AdvancedMarkerElement({

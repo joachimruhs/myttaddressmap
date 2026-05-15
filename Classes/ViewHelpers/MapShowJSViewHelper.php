@@ -45,10 +45,12 @@ class MapShowJSViewHelper extends AbstractViewHelper {
 			$lon = $location->getLongitude();
 			
 			$out .= 'var myLatLng = new google.maps.LatLng(' . $lat. ',' . $lon .');';
+
 			if ($location->getMapicon()) {
+//  icon: "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/' . $location->getMapicon() .'"
 				$out .= '
 						const markerIcon = document.createElement("img");
-						markerIcon.src = "/typo3conf/ext/myttaddressmap/Resources/Public/MapIcons/' . $location->getMapicon() .'";
+						markerIcon.src = "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/' . $location->getMapicon() .'";
 				';
 				$out .= 'marker[0] = new google.maps.marker.AdvancedMarkerElement({
 										position: myLatLng,

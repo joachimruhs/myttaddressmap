@@ -196,9 +196,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	 * @return void
 	 */
 	public function populateMapIconDirectory() {
-/* 
-****************  not used anymore because of the TCA restrictions of TYPO3 14 ************
-	$iconPath = 'fileadmin/ext/myttaddressmap/Resources/Public/MapIcons/';
+		$iconPath = 'fileadmin/ext/myttaddressmap/Resources/Public/Icons/';
    		if (!is_dir(Environment::getPublicPath() . '/' . $iconPath)) {
             $fileSystem = new FileSystem();
             if (Environment::getPublicPath() != Environment::getProjectPath()) {
@@ -210,8 +208,18 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $fileSystem->mirror($sourceDir, 'fileadmin/ext/myttaddressmap/Resources/Public/');
 			$this->addFlashMessage('Directory ' . $iconPath . ' created for use with own mapIcons!', '', \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::INFO);
         }
-*/
 
+/*
+		if (!is_dir(Environment::getPublicPath() . '/' . $iconPath)) {
+			$this->addFlashMessage('Directory ' . $iconPath . ' created for use with own mapIcons!', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+			GeneralUtility::mkdir_deep(Environment::getPublicPath() . '/' . $iconPath);
+			$sourceDir = 'typo3conf/ext/myttaddressmap/Resources/Public/Icons/';
+			$files = GeneralUtility::getFilesInDir($sourceDir, 'png,gif,jpg');			
+			foreach ($files as $file) {
+				copy($sourceDir . $file, $iconPath . $file);
+			}
+		}
+*/        
 	}
 	
 	/**
@@ -498,7 +506,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 				$locations[$i]['images'] =	$images;				
 			}
 			if ($locations[$i]['mapicon']) {			
-				if (!is_file(Environment::getPublicPath() . "/typo3conf/ext/myttaddressmap/Resources/Public/MapIcons/" . $locations[$i]['mapicon'])) $locations[$i]['mapicon'] = 'questionmark.png';  
+				if (!is_file(Environment::getPublicPath() . "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/" . $locations[$i]['mapicon'])) $locations[$i]['mapicon'] = 'questionmark.png';  
 			}
 		}
 
