@@ -12,15 +12,11 @@ $tmp_myttaddressmap_columns = array(
 		        [ '', 0 ],
 			],
 			'fileFolderConfig' => [
-//                    'folder' => 'fileadmin/ext/myttaddressmap/Resources/Public/Icons/',
                     'folder' => 'EXT:myttaddressmap/Resources/Public/MapIcons/',
                     'allowedExtensions' => 'png,jpg,jpeg,gif',
                     'depth' => 1,
                 ],
 
-//			'fileFolder' => 'fileadmin/ext/myttaddressmap/Resources/Public/Icons/',
-//			'fileFolder_extList' => 'png,jpg,jpeg,gif',
-//			'fileFolder_recursions' => 0,
 			'fieldWizard' => [
 	            'selectIcons' => [
 	                'disabled' => false,

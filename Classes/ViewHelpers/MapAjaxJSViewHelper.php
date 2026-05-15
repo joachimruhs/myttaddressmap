@@ -65,11 +65,9 @@ class MapAjaxJSViewHelper extends AbstractViewHelper {
 					$out .= 'var myLatLng = new google.maps.LatLng(' . $lat. ',' . $lon .');';
 
 					if ($mapIcon) {
-// 											icon: "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/' . $mapIcon .'",
-
 					$out .= '
 							markerIcon'.$i.' = document.createElement("img");
-							markerIcon'.$i.'.src = "/fileadmin/ext/myttaddressmap/Resources/Public/MapIcons/' . $mapIcon .'";
+							markerIcon'.$i.'.src = "/typo3conf/ext/myttaddressmap/Resources/Public/MapIcons/' . $mapIcon .'";
 					';
 
 					$out .= 'marker[' . $i . '] = new google.maps.marker.AdvancedMarkerElement({
