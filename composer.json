@@ -25,7 +25,9 @@
   },
   "extra": {
     "typo3/cms": {
-       "extension-key": "myttaddressmap"
+       "extension-key": "myttaddressmap",
+       "version": "2.8.1"     
+
     }
   }
   

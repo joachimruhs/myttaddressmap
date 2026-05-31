@@ -41,95 +41,17 @@ class MapAjaxJSViewHelper extends AbstractViewHelper {
 		$animation = '';
 		
 		$out = self::getMapJavascript($locations, $settings);
-		
-		$out .= '<script type="text/javascript">
-        var markerIcon = [];
-		var marker;
 
-		function getMarkers() {';
-			if (is_array($locations)) {
+		// no more code needed 
 
-				for ($i = 0; $i < count($locations); $i++) {
-
-					if (is_array($locations[$i])) {
-						$lat = $locations[$i]['latitude'];
-						$lon = $locations[$i]['longitude'];
-						$mapIcon = $locations[$i]['mapicon'];
-						$locationName = $locations[$i]['name'];
-					} else {
-						$lat = $locations[$i]->getLatitude();
-						$lon = $locations[$i]->getLongitude();
-						$locationName = $locations[$i]->getName();
-						$mapIcon = $locations[$i]->getMapicon();
-					}
-					$out .= 'var myLatLng = new google.maps.LatLng(' . $lat. ',' . $lon .');';
-		
-		
-					if ($mapIcon) {
-// 											icon: "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/' . $mapIcon .'",
-
-					$out .= '
-							markerIcon'.$i.' = document.createElement("img");
-							markerIcon'.$i.'.src = "/fileadmin/ext/myttaddressmap/Resources/Public/Icons/' . $mapIcon .'";
-					';
-
-					$out .= 'marker[' . $i . '] = new google.maps.marker.AdvancedMarkerElement({
-											position: myLatLng,
-											map: map,
-											title: "' . str_replace('"', '\"', $locationName) .'",
-											' . $animation . '
-											map: map
-											});
-											mapBounds.extend(myLatLng);
-		
-											';
-					$out .= 'marker[' . $i . '].append(markerIcon'.$i.');'
-					;
-					
-					
-					} else {
-//icon: "' . $settings['defaultIcon'] . '",
-//$out .= ' . $settings["defaultIcon"];';
-
-					$out .= '
-							markerIcon'.$i.' = document.createElement("img");
-							markerIcon'.$i.'.src = "' . $settings["defaultIcon"] .'";
-						';		
-					$out .= 'marker[' . $i . '] = new google.maps.marker.AdvancedMarkerElement({
-											position: myLatLng,
-											title: "' . str_replace('"', '\"', $locationName) .'",
-
-										' . $animation . '
-											map: map
-											});
-											mapBounds.extend(myLatLng);
-		
-											';
-					$out .= 'marker[' . $i . '].append(markerIcon'.$i.');'
-					;
-
-					}
-				}
-			}
-//            $out .= 'map.fitBounds(mapBounds);';
-
-            $out .= '}</script>';
-
-	if ($settings['enableMarkerClusterer']) {
-        $out .= '<script>
-//	 console.log(window);
-
-		markerClusterer = new markerClusterer.MarkerClusterer({map: window.map, markers: window.marker, algorithmOptions: { grid: 100 } });
-console.log (markerClusterer);
-			</script>';
-		}
 		return $out;
-	 }
+	}
 
 	 
 	 public function getMapJavascript($locations, $settings) {
 	 if ($settings['enableMarkerClusterer']) {
-	 $out .= '<script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>';
+    $out = '';
+     $out .= '<script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>';
 		}
 //	 $out = '<script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>';
 	 
@@ -238,7 +160,7 @@ console.log (markerClusterer);
 					 marker.setMap(map);
 				}
 				
-					getMarkers();
+//					getMarkers();
 		
 				// panning for mobile devices
 				google.maps.event.addListener(map, "click",function(event) {
@@ -250,16 +172,10 @@ console.log (markerClusterer);
 // ********************************************************************
 // markerClusterer did not work in Ajax mode!
 //markerClusterer = new markerClusterer.MarkerClusterer({map, marker});
-/*
-            if ($settings['enableMarkerClusterer']) {                
-                $out .= '
-console.log("HHHHHHHHHHHHHHHHHHHHH marker ist leer");
-// marker ist leer
-//				console.log(map);console.log(marker);
-//				markerClusterer = new markerClusterer.MarkerClusterer({map: map, markers: marker, algorithmOptions: { grid: 100 } });
-				';
-			}
-*/
+
+//            if ($settings['enableMarkerClusterer']) {                
+//			}
+
 
 		$out .= '
 

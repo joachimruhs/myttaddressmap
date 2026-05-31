@@ -37,10 +37,6 @@ Otherwise your changes will be overwritten the next time you save the extension 
 		</f:else>
 	</f:if>
 
-	<f:if condition="{settings.enableMarkerClusterer} > '0'">
-		<script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
-	</f:if>
-
 	<h1>Ajax Search Myttaddressmap</h1>
 	
 	<div id="flashMessages">
@@ -130,7 +126,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 	placeAutocomplete.id = 'tx_myttaddressmap_city';
 	document.getElementById("mapContainer").appendChild(placeAutocomplete);
 
-	// Add the gmp-placeselect listener, and display the results.
+    // Add the gmp-placeselect listener, and display the results.
 	//prettier-ignore
 	//@ts-ignore
 	placeAutocomplete.addEventListener('gmp-select', async ({ placePrediction }) => {

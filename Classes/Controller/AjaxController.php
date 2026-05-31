@@ -477,11 +477,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
 	$out = '<script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>';
 
-	$out .= '<script	type="text/javascript">';
-
-
-//console.log('MMMMMMMMMM');
-//console.log(window.map);
+	$out .= '<script type="text/javascript">';
 
 	// remove marker from map
 		$out .= 'for (i = 0; i < marker.length; i++) {
@@ -491,7 +487,6 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		}
 		marker = [];
 		';
-
 
 		for ($i = 0; $i < count($locations); $i++) {
 
@@ -547,16 +542,6 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
  				$out = 'markerClusterer = new markerClusterer.MarkerClusterer({window.map, marker});';
 */
 
-// ********************************************************************
-// markerClusterer did not work in Ajax mode!
-//markerClusterer = new markerClusterer.MarkerClusterer({map, marker});
-/*
-				if ($settings['enableMarkerClusterer']) {                
-					$out .= '
-						markerClusterer = new markerClusterer.MarkerClusterer({map: map, markers: marker, algorithmOptions: { grid: 100 } });
-					';
-				}
-*/
 				}
 		
 
@@ -568,7 +553,13 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 			
 		} // for
 
+		$out .= 'markerClusterer = new markerClusterer.MarkerClusterer({map: window.map, markers: marker});';
+
 		$out .= 'map.fitBounds(mapBounds);';		
+
+        if (count($locations) <= 1) {
+            $out .= 'map.setZoom(16);';
+        }
 		return $out . '</script>';
 	}
 	
