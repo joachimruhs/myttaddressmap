@@ -48,10 +48,10 @@ class MapAjaxJSViewHelper extends AbstractViewHelper {
 	}
 
 	 
-	 public function getMapJavascript($locations, $settings) {
-	 if ($settings['enableMarkerClusterer']) {
-    $out = '';
-     $out .= '<script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>';
+    public function getMapJavascript($locations, $settings) {
+        $out = '';
+        if ($settings['enableMarkerClusterer']) {
+            $out .= '<script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>';
 		}
 //	 $out = '<script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>';
 	 

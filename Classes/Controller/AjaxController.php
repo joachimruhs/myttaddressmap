@@ -472,8 +472,6 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
 	protected function getMarkerJS($locations, $categories, $latLon, $radius) {
 // ********************************************************************
-// markerClusterer did not work in Ajax mode!
-//markerClusterer = new markerClusterer.MarkerClusterer({map, marker});
 
 	$out = '<script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>';
 
@@ -553,8 +551,9 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 			
 		} // for
 
-		$out .= 'markerClusterer = new markerClusterer.MarkerClusterer({map: window.map, markers: marker});';
-
+        if ($this->settings['enableMarkerClusterer']) {
+		    $out .= 'markerClusterer = new markerClusterer.MarkerClusterer({map: window.map, markers: marker});';
+        }
 		$out .= 'map.fitBounds(mapBounds);';		
 
         if (count($locations) <= 1) {
