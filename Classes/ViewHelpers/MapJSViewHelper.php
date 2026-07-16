@@ -40,7 +40,7 @@ class MapJSViewHelper extends AbstractViewHelper {
 
 		$animation = '';
 		
-		$out = self::getMapJavascript($locations, $settings);
+		$out = self::getMapJavascript($locations, $settings) ?? "";
 		
 		$out .= '<script type="text/javascript">
         var markerIcon = [];
@@ -128,7 +128,9 @@ class MapJSViewHelper extends AbstractViewHelper {
 	 }
 	 
 	 public function getMapJavascript($locations, $settings) {
-	 if ($settings['enableMarkerClusterer']) {
+	     $out = "";
+	     if ($settings['enableMarkerClusterer']) {
+
 	 $out .= '<script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>';
 		}
 //	 $out = '<script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>';
