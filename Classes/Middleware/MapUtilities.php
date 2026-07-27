@@ -46,6 +46,8 @@ final class MapUtilities implements MiddlewareInterface
          * Dies muss geschehen, bevor AddressRepository oder
          * CategoryRepository erzeugt werden.
          */
+
+        // It seems that this is not needed !!!
         $configurationManager = GeneralUtility::getContainer()->get(
             ConfigurationManagerInterface::class
         );

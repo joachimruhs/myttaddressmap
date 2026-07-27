@@ -17,6 +17,11 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use WSR\Myttaddressmap\Domain\Repository\AddressRepository;
 use WSR\Myttaddressmap\Domain\Repository\CategoryRepository;
 
+
+//NEU
+use TYPO3\CMS\Core\Site\Entity\Site;
+use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
+
 /**
  * AJAX/eIDx controller for myttaddressmap.
  *
@@ -64,6 +69,8 @@ final class AjaxController
     private string|int $language = 0;
     
     private string $locale = '';
+    // NEU CR
+    private readonly LanguageServiceFactory $languageServiceFactory;
     
     /**
      * The legacy eIDx dispatcher passes the page UID here.
@@ -71,6 +78,7 @@ final class AjaxController
     public function __construct(int $pageId = 0)
     {
         $this->pageId = $pageId;
+      
     }
     
     /**
@@ -177,6 +185,8 @@ final class AjaxController
      */
     private function ajaxEidAction(): string
     {
+        
+ 
         $request = $this->requireRequest();
         $parsedBody = $request->getParsedBody();
         
@@ -197,7 +207,7 @@ final class AjaxController
         }
         
         $this->initializeLanguage($request, $requestArguments);
-        
+   
         $categoryList = $this->sanitizeCategoryList(
             $requestArguments['categories'] ?? []
             );
@@ -212,7 +222,7 @@ final class AjaxController
             $languageUid = (int)$this->settings['defaultLanguageUid'];
         }
         $this->language = $languageUid;
-        
+
         $latLon = $this->resolveCoordinates($requestArguments);
         
         if (($latLon->status ?? '') !== 'OK') {
@@ -239,7 +249,7 @@ final class AjaxController
             $limit = 1000;
             $page = 0;
         }
-        
+
         $addressSearch = trim((string)($requestArguments['address'] ?? ''));
         $country = trim((string)($requestArguments['country'] ?? ''));
         $orderBy = $addressSearch === '' ? 'city' : 'distance';
@@ -298,7 +308,8 @@ final class AjaxController
         if ($locations === []) {
             return '<div class="ajaxMessage">'
                 . htmlspecialchars(
-                    $this->translate('noLocationsFound'),
+                    // REQUEST ERGÄNZT
+                    $this->translate('noLocationsFound',$request),
                     ENT_QUOTES | ENT_SUBSTITUTE,
                     'UTF-8'
                     )
@@ -311,7 +322,7 @@ final class AjaxController
                                             . '}'
                                                 . '</script>';
         }
-        
+  
         $categories = [];
         $output = $this->getMarkerJavaScript(
             $locations,
@@ -319,20 +330,20 @@ final class AjaxController
             $latLon,
             $radius
             );
-        
+   // NEU REQUEST ERGÄNZT
         if ((int)($requestArguments['page'] ?? 0) !== -1) {
             $labels = [
-                'distance' => $this->translate('distance'),
-                'address' => $this->translate('address'),
-                'zip' => $this->translate('zip'),
-                'city' => $this->translate('city'),
-                'country' => $this->translate('country'),
-                'phone' => $this->translate('phone'),
-                'email' => $this->translate('email'),
-                'fax' => $this->translate('fax'),
-                'route' => $this->translate('route'),
+                'distance' => $this->translate('distance',$request),
+                'address' => $this->translate('address',$request),
+                'zip' => $this->translate('zip',$request),
+                'city' => $this->translate('city',$request),
+                'country' => $this->translate('country',$request),
+                'phone' => $this->translate('phone',$request),
+                'email' => $this->translate('email',$request),
+                'fax' => $this->translate('fax',$request),
+                'route' => $this->translate('route',$request),
             ];
-            
+         // ENDE NEU  
             $output .= $this->getLocationsList(
                 $locations,
                 $categories,
@@ -340,7 +351,7 @@ final class AjaxController
                 $labels
                 );
         }
-        
+     
         return $output;
     }
     
@@ -702,23 +713,39 @@ final class AjaxController
                 LanguageServiceFactory::class
                 )->create($languageCode);
     }
-    
-    private function translate(string $key): string
-    {
-        if ($this->languageService !== null) {
-            $translated = $this->languageService->sL(
-                'LLL:EXT:myttaddressmap/Resources/Private/Language/locallang.xlf:' . $key
+    //  NEU FUNKTION TRANSLATE
+    private function translate(
+        string $key,
+        ServerRequestInterface $request
+        ): string {
+            $siteLanguage = $request->getAttribute('language');
+            
+            if (!$siteLanguage instanceof SiteLanguage) {
+                $site = $request->getAttribute('site');
+                
+                if ($site instanceof Site) {
+                    $siteLanguage = $site->getDefaultLanguage();
+                }
+            }
+            
+            if (!$siteLanguage instanceof SiteLanguage) {
+                return $key;
+            }
+            
+            $languageServiceFactory = GeneralUtility::makeInstance(
+                LanguageServiceFactory::class
                 );
             
-            if ($translated !== '') {
-                return $translated;
-            }
-        }
-        
-        return (string)(
-            LocalizationUtility::translate($key, 'myttaddressmap')
-            ?? $key
-            );
+            $languageService = $languageServiceFactory
+            ->createFromSiteLanguage($siteLanguage);
+            
+            $labelReference =
+            'LLL:EXT:myttaddressmap/Resources/Private/Language/locallang.xlf:'
+                . $key;
+                
+                $translated = $languageService->sL($labelReference);
+                
+                return $translated !== '' ? $translated : $key;
     }
     
     private function createResponse(
