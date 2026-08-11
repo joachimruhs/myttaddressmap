@@ -434,7 +434,7 @@ final class AjaxController
             $location['address'] = nl2br($address, false);
             $location['infoWindowAddress'] = nl2br(
                 htmlspecialchars(
-                    $address,
+                    trim($address),
                     ENT_QUOTES | ENT_SUBSTITUTE,
                     'UTF-8'
                     ),
