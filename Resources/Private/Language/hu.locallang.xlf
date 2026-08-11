@@ -5,39 +5,39 @@
     <body>
       <trans-unit id="tx_myttaddressmap_domain_model_ajaxsearch">
         <source>MyTTAddressMap (Ajaxsearch)</source>
-        <target state="needs-translation">MyTTAddressMap (Ajaxsearch)</target>
+        <target state="translated">MyTTAddressMap (Ajaxsearch)</target>
       </trans-unit>
       <trans-unit id="tx_myttaddressmap_domain_model_ajaxsearch.description">
         <source>Google maps for tt_address</source>
-        <target state="needs-translation">Google maps for tt_address</target>
+        <target state="translated">Google Maps a tt_address-hez</target>
       </trans-unit>
       <trans-unit id="address">
         <source>Address</source>
-        <target state="needs-translation">Address</target>
+        <target state="translated">Cím</target>
       </trans-unit>
       <trans-unit id="zip">
         <source>Zip</source>
-        <target state="needs-translation">Zip</target>
+        <target state="translated">Irányítószám</target>
       </trans-unit>
       <trans-unit id="city">
         <source>City</source>
-        <target state="needs-translation">City</target>
+        <target state="translated">Város</target>
       </trans-unit>
       <trans-unit id="country">
         <source>Country</source>
-        <target state="needs-translation">Country</target>
+        <target state="translated">Ország</target>
       </trans-unit>
       <trans-unit id="search">
         <source>Search</source>
-        <target state="needs-translation">Search</target>
+        <target state="translated">Keresés</target>
       </trans-unit>
       <trans-unit id="noStartingPointCoordinatesFound">
         <source>No starting point coordinates found!</source>
-        <target state="needs-translation">No starting point coordinates found!</target>
+        <target state="translated">Nem találhatók a kiindulási pont koordinátái!</target>
       </trans-unit>
       <trans-unit id="distance">
         <source>Distance</source>
-        <target state="needs-translation">Distance</target>
+        <target state="translated">Távolság</target>
       </trans-unit>
       <trans-unit id="youAreHere">
         <source>You are here</source>
@@ -46,7 +46,7 @@
       <!-- messages -->
       <trans-unit id="noStartingPointCoordinatesFound">
         <source>No starting point coordinates found!</source>
-        <target state="needs-translation">No starting point coordinates found!</target>
+        <target state="translated">Nem találhatók a kiindulási pont koordinátái!</target>
       </trans-unit>
       <trans-unit id="noLocationsFound">
         <source>No locations found!</source>
