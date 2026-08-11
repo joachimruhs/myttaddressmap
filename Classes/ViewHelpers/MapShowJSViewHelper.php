@@ -98,7 +98,7 @@ class MapShowJSViewHelper extends AbstractViewHelper {
 
 		    var latlng = new google.maps.LatLng(' . $location->getLatitude() . ',' . $location->getLongitude() . ');
 		     myOptions = {
-			 mapId: "DEMO_MAP_ID",
+			  mapId: "' . ($settings['mapId'] ?? null ?: 'DEMO_MAP_ID') . '",
 		      zoom: zoom1,
 		      center: latlng,
 		      mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -110,18 +110,6 @@ class MapShowJSViewHelper extends AbstractViewHelper {
 		      disableDoubleClickZoom: 1,
 //			  scrollwheel: true,
 			';
-
-            if ($settings['mapTheme']) {
-			    $themeFile = GeneralUtility::getFileAbsFileName($settings['mapTheme']);
-				if (is_file($themeFile)) {
-					$mapTheme = file_get_contents($themeFile);
-					if (json_decode($mapTheme) == NULL) {
-						// all is ok
-					} else {
-		                $out .= ' styles:' . $mapTheme .',';
-					}
-				}
-			}
 
 			$out .= '			
 		 	  streetViewControl: 1
@@ -161,5 +149,3 @@ class MapShowJSViewHelper extends AbstractViewHelper {
 	 
 	 
 }
-
-?>

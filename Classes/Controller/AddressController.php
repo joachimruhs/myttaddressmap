@@ -232,20 +232,6 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		$this->populateMapIconDirectory();
 		$this->updateLatLon();
 
-		// check mapTheme
-		if ($this->settings['mapTheme']) {
-		    $themeFile = GeneralUtility::getFileAbsFileName($this->settings['mapTheme']);
-			if (!is_file($themeFile)) {
-				$this->flashMessage('Extension: myttaddressmap', \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('themeFileNotFound', 'myttaddressmap'), \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
-				return;
-			}
-			$mapTheme = file_get_contents($themeFile);
-			if (json_decode($mapTheme) == NULL) {
-				$this->flashMessage('Extension: myttaddressmap', \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('invalidThemeFile', 'myttaddressmap'), \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
-				return;
-			}
-		}		
-	
 		// Get the default Settings
 		$customStoragePid = $this->conf['storagePid'];
         $querySettings = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');

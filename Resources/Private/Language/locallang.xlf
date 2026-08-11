@@ -45,12 +45,6 @@
 			<trans-unit id="showMore" resname="showMore">
 				<source>Show more</source>
 			</trans-unit>
-			<trans-unit id="themeFileNotFound" resname="themeFileNotFound">
-				<source>Map theme file not found</source>
-			</trans-unit>
-			<trans-unit id="invalidThemeFile" resname="invalidThemeFile">
-				<source>The theme file format is invalid</source>
-			</trans-unit>
 		</body>
 	</file>
 </xliff>

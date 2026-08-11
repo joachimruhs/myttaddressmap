@@ -65,8 +65,8 @@ plugin.tx_myttaddressmap {
 		# cat=plugin.tx_myttaddressmap/googlemaps; type=boolean; label=Enable bicycling layer: Add bicycling layer to the maps
 		enableBicyclingLayer = 0
 
-		# cat=plugin.tx_myttaddressmap/googlemaps; type=string; label=Google map theme: File with Google map theme in json format. You can generate your own here: https://mapstyle.withgoogle.com/
-		mapTheme = 
+		# cat=plugin.tx_myttaddressmap/googlemaps; type=string; label=Google map ID: Map ID of a predefined map in the Google Cloud Console
+		mapId =
 
 		# cat=plugin.tx_myttaddressmap/googlemaps; type=string; label=Default languageUid: Use 0 in multi language sites to override selected language in Frontend and if tt_adress record are not localized. Leave it blank to use TYPO3 localization.
 		defaultLanguageUid = 
