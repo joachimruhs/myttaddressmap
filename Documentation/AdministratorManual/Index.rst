@@ -333,24 +333,24 @@ enableMarkerClusterer
 
 
 
-.. _mapTheme:
+.. _mapID:
 
-mapTheme
+mapId
 """"""""
 
 .. container:: table-row
 
    Property
-         mapTheme
+         mapId
 
    Data type
          string
 
    Description
-         Json file with Google map theme. Example: fileadmin/includes/ext/myttaddressmap/MapTheme/Retro.json. You can create your own map theme here: https://mapstyle.withgoogle.com/. Use with care - if your file is not a valid Google map theme it will break the javascript!
+         The map ID of a predefined map in the Google Cloud console. Defaults to `DEMO_MAP_ID` if not set.
 
    Default
-        -
+        DEMO_MAP_ID
 
 
 .. _defaultIcon:

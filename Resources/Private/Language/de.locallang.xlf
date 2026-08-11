@@ -64,14 +64,6 @@
         <source>Show more</source>
         <target state="translated">Mehr anzeigen</target>
       </trans-unit>
-      <trans-unit id="themeFileNotFound" approved="yes">
-        <source>Map theme file not found</source>
-        <target state="final">Map theme file nicht gefunden</target>
-      </trans-unit>
-      <trans-unit id="invalidThemeFile" approved="yes">
-        <source>The theme file format is invalid</source>
-        <target state="final">Das theme file Format ist ungültig</target>
-      </trans-unit>
     </body>
   </file>
 </xliff>

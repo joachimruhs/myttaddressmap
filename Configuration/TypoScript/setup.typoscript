@@ -58,8 +58,8 @@ plugin.tx_myttaddressmap {
 		resultLimit = {$plugin.tx_myttaddressmap.settings.resultLimit}
 		initialMapCoordinates = {$plugin.tx_myttaddressmap.settings.initialMapCoordinates}
 
-		mapTheme = {$plugin.tx_myttaddressmap.settings.mapTheme}
-		
+		mapId = {$plugin.tx_myttaddressmap.settings.mapId}
+
 		defaultLanguageUid = {$plugin.tx_myttaddressmap.settings.defaultLanguageUid}
 		
 	}
