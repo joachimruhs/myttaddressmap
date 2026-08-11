@@ -17,15 +17,15 @@
       </trans-unit>
       <trans-unit id="tx_myttaddressmap_domain_model_address.name">
         <source>Name</source>
-        <target state="needs-translation">Name</target>
+        <target state="translated">Név</target>
       </trans-unit>
       <trans-unit id="tx_myttaddressmap_domain_model_address.mapicon">
         <source>Mapicon</source>
-        <target state="needs-translation">Mapicon</target>
+        <target state="translated">Térkép ikon</target>
       </trans-unit>
       <trans-unit id="tx_myttaddressmap_domain_model_address.geocode">
         <source>Geocode</source>
-        <target state="needs-translation">Geocode</target>
+        <target state="translated">Geokódolás</target>
       </trans-unit>
     </body>
   </file>
