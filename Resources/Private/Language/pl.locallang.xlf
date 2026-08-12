@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="2018-02-01T18:22:55Z" product-name="myttaddressmap" target-language="pl">
+    <header/>
+    <body>
+      <trans-unit id="tx_myttaddressmap_domain_model_ajaxsearch">
+        <source>MyTTAddressMap (Ajaxsearch)</source>
+        <target state="needs-translation">MyTTAddressMap (Ajaxsearch)</target>
+      </trans-unit>
+      <trans-unit id="tx_myttaddressmap_domain_model_ajaxsearch.description">
+        <source>Google maps for tt_address</source>
+        <target state="needs-translation">Google maps for tt_address</target>
+      </trans-unit>
+      <trans-unit id="address">
+        <source>Address</source>
+        <target state="needs-translation">Address</target>
+      </trans-unit>
+      <trans-unit id="zip">
+        <source>Zip</source>
+        <target state="needs-translation">Zip</target>
+      </trans-unit>
+      <trans-unit id="city">
+        <source>City</source>
+        <target state="needs-translation">City</target>
+      </trans-unit>
+      <trans-unit id="country">
+        <source>Country</source>
+        <target state="needs-translation">Country</target>
+      </trans-unit>
+      <trans-unit id="search">
+        <source>Search</source>
+        <target state="needs-translation">Search</target>
+      </trans-unit>
+      <trans-unit id="noStartingPointCoordinatesFound">
+        <source>No starting point coordinates found!</source>
+        <target state="needs-translation">No starting point coordinates found!</target>
+      </trans-unit>
+      <trans-unit id="distance">
+        <source>Distance</source>
+        <target state="needs-translation">Distance</target>
+      </trans-unit>
+      <trans-unit id="youAreHere">
+        <source>You are here</source>
+        <target state="needs-translation">You are here</target>
+      </trans-unit>
+      <!-- messages -->
+      <trans-unit id="noStartingPointCoordinatesFound">
+        <source>No starting point coordinates found!</source>
+        <target state="needs-translation">No starting point coordinates found!</target>
+      </trans-unit>
+      <trans-unit id="noLocationsFound">
+        <source>No locations found!</source>
+        <target state="needs-translation">No locations found!</target>
+      </trans-unit>
+      <trans-unit id="errorInCategories">
+        <source>Error in categories!</source>
+        <target state="needs-translation">Error in categories!</target>
+      </trans-unit>
+      <trans-unit id="kWp">
+        <source>kWp</source>
+        <target state="needs-translation">kWp</target>
+      </trans-unit>
+      <trans-unit id="showMore">
+        <source>Show more</source>
+        <target state="needs-translation">Show more</target>
+      </trans-unit>
+      <trans-unit id="themeFileNotFound">
+        <source>Map theme file not found</source>
+        <target state="needs-translation">Map theme file not found</target>
+      </trans-unit>
+      <trans-unit id="invalidThemeFile">
+        <source>The theme file format is invalid</source>
+        <target state="needs-translation">The theme file format is invalid</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
