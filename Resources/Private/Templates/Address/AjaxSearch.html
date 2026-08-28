@@ -192,11 +192,12 @@ map = new google.maps.Map(document.getElementById("map"), myOptions);
 //new markerClusterer.MarkerClusterer({map: window.map, markers: marker, algorithmOptions: { grid: 100 } });
 
 
-           if ({settings.enableTrafficLayer}) {
+<f:format.raw>
+if ({settings.enableTrafficLayer}) {
                 var trafficLayer = new google.maps.TrafficLayer();
                 trafficLayer.setMap(map);
+</f:format.raw>
             }
-
 
 			$('#tx_myttaddressmap_more').css('display', 'none');
 			var page = parseInt($('#tx_myttaddressmap_page').val());
