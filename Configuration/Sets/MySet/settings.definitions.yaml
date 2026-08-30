@@ -1,0 +1,132 @@
+categories:
+  MySet:
+    label: 'Myttaddressmap'
+  MySet.templates:
+    label: 'Templates'
+    parent: MySet
+  MySet.layout:
+    label: 'Layout'
+    parent: MySet
+  MySet.pages:
+    label: 'Pages'
+    parent: MySet
+  MySet.keys:
+    label: 'Keys'
+    parent: MySet
+  MySet.options:
+    label: 'Options'
+    parent: MySet
+
+settings:
+#  plugin.tx_myttaddressmap.view.templateRootPath:
+#  MySet.templateRootPath:
+  plugin.tx_myttaddressmap.view.templateRootPath:
+    label: 'Page template path'
+    category: MySet.templates
+    description: 'Path to templates root'
+    type: string
+    default: 'EXT:myttaddressmap/Resources/Private/Templates222/'
+
+#  MySet.partialRootPath:
+  plugin.tx_myttaddressmap.view.partialRootPath:
+    label: 'Partials'
+    category: MySet.templates
+    description: 'Path to partial root'
+    type: string
+    default: 'EXT:myttaddressmap/Resources/Private/Partials/'
+#  MySet.layoutRootPath:
+  plugin.tx_myttaddressmap.view.layoutRootPath:
+    label: 'Layouts'
+    category: MySet.templates
+    description: 'Path to layout root'
+    type: string
+    default: 'EXT:myttaddressmap/Resources/Private/Layouts/'
+
+#  MySet.storagePid:
+  plugin.tx_myttaddressmap.persistence.storagePid:
+    label: 'Default storage PID'
+    category: MySet.pages
+    description: 'Folder that stores all data'
+    type: page
+    default: 0
+#  MySet.googleBrowserApiKey:
+  plugin.tx_myttaddressmap.settings.googleBrowserApiKey:
+    label: 'googleBrowserApiKey'
+    category: MySet.keys
+    description: 'Google browser API key'
+    type: string
+    default: ''
+#  MySet.googleServerApiKey:
+  plugin.tx_myttaddressmap.settings.googleServerApiKey:
+    label: 'googleServerApiKey'
+    category: MySet.keys
+    description: 'Google server API key'
+    type: string
+    default: ''
+  plugin.tx_myttaddressmap.settings.resultPageId:
+    label: 'result page id'
+    category: MySet.pages
+    description: 'The result page Id'
+    type: page
+    default: 0
+  plugin.tx_myttaddressmap.settings.detailsPageId:
+    label: 'details page id'
+    category: MySet.pages
+    description: 'The details page Id'
+    type: page
+    default: 0
+  plugin.tx_myttaddressmap.settings.singleViewUid:
+    label: 'single view uid'
+    category: MySet.options
+    description: 'The address uid of the single view'
+    type: int
+    default: 0
+  plugin.tx_myttaddressmap.settings.resultLimit:
+    label: 'result limit'
+    category: MySet.options
+    description: 'The limit of results'
+    type: int
+    default: 300
+  plugin.tx_myttaddressmap.settings.initialMapCoordinates:
+    label: 'initial map coordinates'
+    category: MySet.options
+    description: 'The initial coordinates of the map'
+    type: string
+    default: 48,8
+  plugin.tx_myttaddressmap.settings.enableMarkerClusterer:
+    label: 'enable marker clusterer'
+    category: MySet.options
+    description: 'Enable the marker clusterer'
+    type: bool
+    default: 0
+  plugin.tx_myttaddressmap.settings.enableTrafficLayer:
+    label: 'enable traffic layer'
+    category: MySet.options
+    description: 'Enable the traffic layer'
+    type: bool
+    default: 0
+  plugin.tx_myttaddressmap.settings.enableBicyclingLayer:
+    label: 'enable bicycling layer'
+    category: MySet.options
+    description: 'Enable the bicycling layer'
+    type: bool
+    default: 0
+  plugin.tx_myttaddressmap.settings.mapId:
+    label: 'mapId'
+    category: MySet.options
+    description: 'mapId'
+    type: string
+    default: ''
+  plugin.tx_myttaddressmap.settings.defaultIcon:
+    label: 'default icon'
+    category: MySet.options
+    description: 'default marker icon'
+    type: string
+    default: ''
+  plugin.tx_myttaddressmap.settings.defaultLanguageUid:
+    label: 'default language uid'
+    category: MySet.options
+    description: 'Default language Uid'
+    type: int
+    default: 0
+

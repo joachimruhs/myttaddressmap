@@ -10,6 +10,7 @@ plugin.tx_myttaddressmap {
     layoutRootPaths.0 = EXT:myttaddressmap/Resources/Private/Layouts/
     layoutRootPaths.1 = {$plugin.tx_myttaddressmap.view.layoutRootPath}
   }
+
   persistence {
     storagePid = {$plugin.tx_myttaddressmap.persistence.storagePid}
     #recursive = 1

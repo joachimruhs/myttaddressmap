@@ -28,8 +28,8 @@ Create some pages as shown below.
 On the  page 'Ajax Map' install plugin MyTTAddressMap (Map), on page 'Search' install plugin MyTTAddressMap (Searchform) , on
 page 'Searchresult' install plugin MyTTAddressMap (Searchresult) and plugin MyTTAddressmap (Searchform) in the sidebar. Finally on page 'Details' install plugin MyTTAddressMap (SingleView).
 
-
-On page 'address' or on your root page insert 'Typoscript Include static' (from extension) MyTTAddressmap (myttaddressmap).
+You can now insert a Site Set WSR myttaddressmap and set the desired settings or
+on page 'address' or on your root page insert 'Typoscript Include static' (from extension) MyTTAddressmap (myttaddressmap).
 With the constant editor insert the desired settings of the extension like storage Pid, Google map keys, Google maps options, your page ID's, 
 jQuery options, path to templates etc. Make sure, you have loaded the jQuery on top of the page. 
 
