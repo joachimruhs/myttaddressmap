@@ -582,7 +582,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	public function geocode($theAddress) {
 		//for urlencoding
 		$vars = array (
-			'zip',
+			'zipcode',
 			'city',
 			'address',
 			'country'

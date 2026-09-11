@@ -83,15 +83,15 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 	<div class="clearer"></div>
 
-	<f:render section="categoryList" arguments="{categories: categories}" />
+	<f:render section="categoryList" arguments="{categories: categories, id: id}" />
 	<f:section name="categoryList">
 		<ul>
 			<f:for each="{categories}" as="category">
 				<li>
-					<input type="checkbox" id="{category.title}" name="tx_myttaddressmap_categories"  value="{category.uid}" onclick="$('#tx_myttaddressmap_page').val(0); geocodeByClient();"/>
+					<input type="checkbox" id="{category.title}" name="tx_myttaddressmap_categories" class="{id}"  value="{category.uid}" onclick="toggleCheckBox(this.id); $('#tx_myttaddressmap_page').val(0);"/>
 					<label for="{category.title}">{category.title}</label>
 					<f:if condition="{category.children}">
-						<f:render section="categoryList" arguments="{categories: category.children}" />
+						<f:render section="categoryList" arguments="{categories: category.children, id: category.title}" />
 					</f:if>
 				</li>
 			</f:for>
@@ -109,6 +109,15 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 
 <script>
+       function toggleCheckBox(id) {
+          console.log(id);  
+          $('#'+id+'').on('change', function() {
+                $('.'+id+'').prop('checked', this.checked);
+            });
+        }
+
+
+
 	var marker = [];
 	var markerClusterer = [];
 	var maxPage = Math.ceil({locationsCount}/{settings.resultLimit});
