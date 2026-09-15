@@ -418,7 +418,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		// now get the startingpoint coordinates 
 		$theAddress = array (
 			'address' => $this->_GP['address'] ?? '',
-			'zip' => $this->_GP['zipcode'] ?? '',
+			'zip' => $this->_GP['zip'] ?? '',
 			'city' => $this->_GP['city'] ?? '',
 			'country' => $this->_GP['country'] ?? '',
 		);
@@ -533,6 +533,10 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 // J. Ruhs		
 //        $this->view->assign('_GP', $this->_GP);
 
+        $this->_GP['zipcode'] = $this->_GP['zipcode'] ?? '';
+        $this->_GP['lat'] = $this->_GP['lat'] ?? '';
+        $this->_GP['lon'] = $this->_GP['lon'] ?? '';
+
 		if ( ($this->_GP['city'] || $this->_GP['zipcode'] ) || ($this->_GP['lat'] && $this->_GP['lon'] )) // from autocompleter ($this->_GP['lat'] && $this->_GP['lon'] )
             $this->view->assign('showMap', 1);
 
@@ -580,9 +584,9 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
 		
 	public function geocode($theAddress) {
-		//for urlencoding
+    //for urlencoding
 		$vars = array (
-			'zipcode',
+			'zip',
 			'city',
 			'address',
 			'country'
@@ -595,7 +599,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		$address = $theAddress['address'] ?? '';
 		$city = $theAddress['city'] ?? '';
 		$country = $theAddress['country'] ?? '';
-		$zipcode = $theAddress['zipcode'] ?? '';
+		$zipcode = $theAddress['zip'] ?? '';
 
 
 //		######################################Main Geocoders#####################################

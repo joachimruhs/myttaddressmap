@@ -107,7 +107,7 @@ class AddressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 		$arrayOfPids = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $storagePid, TRUE);
 		$storagePidList = implode(',', $arrayOfPids);
 
-$language = '';		
+//$language = '';		
 		if ($language  && $sys_language_uid) {
 		$queryBuilder->selectLiteral(
 			'distinct a.*', '(acos(sin(' . floatval($lat * M_PI / 180) . ') * sin(latitude * ' . floatval(M_PI / 180) . ') + cos(' . floatval($lat * M_PI / 180) . ') *
