@@ -244,7 +244,8 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		$sys_language_uid = $context->getPropertyFromAspect('language', 'id'); 
 
 
-    	$categories = $this->categoryRepository->findAllOverride($this->conf['storagePid'], $sys_language_uid);
+            	$categories = $this->categoryRepository->findAllOverride($this->conf['storagePid'], $sys_language_uid);
+
 
 //   		$this->typo3CategoryRepository->setDefaultQuerySettings($querySettings);
 //		$this->typo3CategoryRepository->setDefaultOrderings(array('sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING));
@@ -257,10 +258,20 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 			if (! GeneralUtility::inList($customStoragePid, $categories[$i]['pid'])) continue;
 				
 			$arr[$i]['uid']= $categories[$i]['uid'];
+
 			if ($categories[$i]['parent']) {
 				$arr[$i]['parent'] = $categories[$i]['parent'];
+
+                        // get localizedUid
+                        $localizedUid = $this->categoryRepository->getLocalizedUid($categories[$i]['parent'], $sys_language_uid);
+
+                        $arr[$i]['parent'] = $localizedUid;
+
 			} else $arr[$i]['parent'] = 0;
 				
+
+
+
 			$arr[$i]['title'] = $categories[$i]['title'];
 		}
         if (!$arr) {
@@ -272,8 +283,7 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		
 		$categories = $this->buildTree($arr);
 
-
-        $pageArguments = $this->request->getAttribute('routing');
+      $pageArguments = $this->request->getAttribute('routing');
         $pageId = $pageArguments->getPageId();
 
 		$this->view->assign('id', $pageId);
@@ -288,6 +298,12 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             ->withAddedHeader('Content-Type', 'text/html; charset=utf-8')
             ->withBody($this->streamFactory->createStream($this->view->render()));
 	}
+
+        public function getCategoryParent($theParent, $sys_language_uid) {
+krexx($theParent);
+krexx($sys_language_uid);
+        }
+
 
 
 	/**

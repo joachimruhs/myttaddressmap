@@ -223,6 +223,9 @@ final class AjaxController
         }
         $this->language = $languageUid;
 
+//echo $this->language;
+
+
         $latLon = $this->resolveCoordinates($requestArguments);
         
         if (($latLon->status ?? '') !== 'OK') {

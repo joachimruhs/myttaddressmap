@@ -74,23 +74,25 @@
 				<td>Kategorien</td>
 				<td>			
 
-					<f:render section="categoryList" arguments="{categories: categories}" />
+					<f:render section="categoryList" arguments="{categories: categories, id: id}" />
 					<f:section name="categoryList">
 						<ul>
 							<f:for each="{categories}" as="category">
 								<li>
+                                    <f:variable name="catId"><f:replace value="{category.title}" search=" " replace="_" /></f:variable>
+
 									<f:if condition="{category.selected} == 1">
 										<f:then>
-											<input type="checkbox" checked="checked" id="{category.name}" name="tx_myttaddressmap_searchresult[categories][]"  value="{category.uid}"/>
+											<input type="checkbox" checked="checked"  id="{catId}" class="{id}" name="tx_myttaddressmap_searchresult[categories][]"  value="{category.uid}"  onclick="toggleCheckBox(this.id)";/>
 										</f:then>
 										<f:else>
-											<input type="checkbox" id="{category.name}" name="tx_myttaddressmap_searchresult[categories][]"  value="{category.uid}"/>
+											<input type="checkbox"  id="{catId}" class="{id}" name="tx_myttaddressmap_searchresult[categories][]"  value="{category.uid}"  onclick="toggleCheckBox(this.id)";/>
 											
 										</f:else>
 									</f:if>								
 									<label for="{category.name}">{category.title}</label>
 									<f:if condition="{category.children}">
-										<f:render section="categoryList" arguments="{categories: category.children}" />
+										<f:render section="categoryList" arguments="{categories: category.children, id: catId}" />
 									</f:if>
 								</li>
 							</f:for>
@@ -124,6 +126,16 @@
 
 
 <script type="text/javascript">
+       function toggleCheckBox(id) {
+//          console.log(id);  
+          $('#'+id+'').on('change', function() {
+                $('.'+id+'').prop('checked', this.checked);
+            });
+        }
+
+
+
+
 	if ("{radius}" > 0 ) {
 		$('#radiusSelector').val({radius});
 	}
