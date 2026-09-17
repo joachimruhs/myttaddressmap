@@ -398,8 +398,10 @@ krexx($sys_language_uid);
 				if (GeneralUtility::inList($categoryList, $arr[$i]['uid'])) $arr[$i]['selected'] = 1;
 	
 				if ($categories[$i]['parent']) {
-					$arr[$i]['parent'] = $categories[$i]['parent'];
-				} else $arr[$i]['parent'] = 0;
+                    // get localizedUid
+                    $localizedUid = $this->categoryRepository->getLocalizedUid($categories[$i]['parent'], $sys_language_uid);
+                   $arr[$i]['parent'] = $localizedUid;
+                } else $arr[$i]['parent'] = 0;
 					
 				$arr[$i]['title'] = $categories[$i]['title'];
 
