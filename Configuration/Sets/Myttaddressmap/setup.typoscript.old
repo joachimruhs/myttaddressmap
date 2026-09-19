@@ -1,0 +1,42 @@
+# Plugin configuration
+plugin.tx_myttaddressmap {
+  settings {
+    googleBrowserApiKey = {$MySet.googleBrowserApiKey}
+    googleServerApiKey = {$MySet.googleServerApiKey}
+    defaultIcon = {$MySet.defaultIcon}
+    enableTrafficLayer = {$MySet.enableTrafficLayer}
+    enableBicyclingLayer = {$MySet.enableBicyclingLayer}
+    resultPageId = {$MySet.resultPageId}
+    detailsPageId = {$MySet.detailsPageId}
+    singleViewUid = {$MySet.singleViewUid}
+    enableMarkerClusterer = {$MySet.enableMarkerClusterer}
+    resultLimit = {$MySet.resultLimit}
+    initialMapCoordinates = {$MySet.initialMapCoordinates}
+    mapId = {$MySet.mapId}
+    defaultLanguageUid = {$MySet.defaultLanguageUid}
+  }
+
+  persistence {
+    storagePid = {$MySet.storagePid}
+  }
+
+  view {
+    templateRootPaths.10 = {$MySet.templateRootPath}
+    partialRootPaths.10 = {$MySet.partialRootPath}
+    layoutRootPaths.10 = {$MySet.layoutRootPath}
+    defaultPid = auto
+  }
+
+  # This is an example how to modify the translation
+  _LOCAL_LANG {
+    default {
+      someUnusedKey = foo
+    }
+  }
+
+
+
+}
+
+
+

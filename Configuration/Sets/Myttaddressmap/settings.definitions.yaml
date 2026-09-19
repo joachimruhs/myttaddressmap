@@ -1,0 +1,132 @@
+categories:
+  Myttaddressmap:
+    label: 'Myttaddressmap'
+  Myttaddressmap.templates:
+    label: 'Templates'
+    parent: Myttaddressmap
+  Myttaddressmap.layout:
+    label: 'Layout'
+    parent: Myttaddressmap
+  Myttaddressmap.pages:
+    label: 'Pages'
+    parent: Myttaddressmap
+  Myttaddressmap.keys:
+    label: 'Keys'
+    parent: Myttaddressmap
+  Myttaddressmap.options:
+    label: 'Options'
+    parent: Myttaddressmap
+
+settings:
+#  plugin.tx_myttaddressmap.view.templateRootPath:
+#  Myttaddressmap.templateRootPath:
+  plugin.tx_myttaddressmap.view.templateRootPath:
+    label: 'Page template path'
+    category: Myttaddressmap.templates
+    description: 'Path to templates root'
+    type: string
+    default: 'EXT:myttaddressmap/Resources/Private/Templates222/'
+
+#  Myttaddressmap.partialRootPath:
+  plugin.tx_myttaddressmap.view.partialRootPath:
+    label: 'Partials'
+    category: Myttaddressmap.templates
+    description: 'Path to partial root'
+    type: string
+    default: 'EXT:myttaddressmap/Resources/Private/Partials/'
+#  Myttaddressmap.layoutRootPath:
+  plugin.tx_myttaddressmap.view.layoutRootPath:
+    label: 'Layouts'
+    category: Myttaddressmap.templates
+    description: 'Path to layout root'
+    type: string
+    default: 'EXT:myttaddressmap/Resources/Private/Layouts/'
+
+#  Myttaddressmap.storagePid:
+  plugin.tx_myttaddressmap.persistence.storagePid:
+    label: 'Default storage PID'
+    category: Myttaddressmap.pages
+    description: 'Folder that stores all data'
+    type: page
+    default: 0
+#  Myttaddressmap.googleBrowserApiKey:
+  plugin.tx_myttaddressmap.settings.googleBrowserApiKey:
+    label: 'googleBrowserApiKey'
+    category: Myttaddressmap.keys
+    description: 'Google browser API key'
+    type: string
+    default: ''
+#  Myttaddressmap.googleServerApiKey:
+  plugin.tx_myttaddressmap.settings.googleServerApiKey:
+    label: 'googleServerApiKey'
+    category: Myttaddressmap.keys
+    description: 'Google server API key'
+    type: string
+    default: ''
+  plugin.tx_myttaddressmap.settings.resultPageId:
+    label: 'result page id'
+    category: Myttaddressmap.pages
+    description: 'The result page Id'
+    type: page
+    default: 0
+  plugin.tx_myttaddressmap.settings.detailsPageId:
+    label: 'details page id'
+    category: Myttaddressmap.pages
+    description: 'The details page Id'
+    type: page
+    default: 0
+  plugin.tx_myttaddressmap.settings.singleViewUid:
+    label: 'single view uid'
+    category: Myttaddressmap.options
+    description: 'The address uid of the single view'
+    type: int
+    default: 0
+  plugin.tx_myttaddressmap.settings.resultLimit:
+    label: 'result limit'
+    category: Myttaddressmap.options
+    description: 'The limit of results'
+    type: int
+    default: 300
+  plugin.tx_myttaddressmap.settings.initialMapCoordinates:
+    label: 'initial map coordinates'
+    category: Myttaddressmap.options
+    description: 'The initial coordinates of the map'
+    type: string
+    default: 48,8
+  plugin.tx_myttaddressmap.settings.enableMarkerClusterer:
+    label: 'enable marker clusterer'
+    category: Myttaddressmap.options
+    description: 'Enable the marker clusterer'
+    type: bool
+    default: 0
+  plugin.tx_myttaddressmap.settings.enableTrafficLayer:
+    label: 'enable traffic layer'
+    category: Myttaddressmap.options
+    description: 'Enable the traffic layer'
+    type: bool
+    default: 0
+  plugin.tx_myttaddressmap.settings.enableBicyclingLayer:
+    label: 'enable bicycling layer'
+    category: Myttaddressmap.options
+    description: 'Enable the bicycling layer'
+    type: bool
+    default: 0
+  plugin.tx_myttaddressmap.settings.mapId:
+    label: 'mapId'
+    category: Myttaddressmap.options
+    description: 'mapId'
+    type: string
+    default: ''
+  plugin.tx_myttaddressmap.settings.defaultIcon:
+    label: 'default icon'
+    category: Myttaddressmap.options
+    description: 'default marker icon'
+    type: string
+    default: ''
+  plugin.tx_myttaddressmap.settings.defaultLanguageUid:
+    label: 'default language uid'
+    category: Myttaddressmap.options
+    description: 'Default language Uid'
+    type: int
+    default: 0
+
