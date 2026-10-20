@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="2018-02-01T18:22:55Z" product-name="myttaddressmap" target-language="t3">
+    <header/>
+    <body>
+      <trans-unit id="tx_myttaddressmap_domain_model_ajaxsearch">
+        <source>MyTTAddressMap (Ajaxsearch)</source>
+        <target>crwdns226605:0crwdne226605:0</target>
+      </trans-unit>
+      <trans-unit id="tx_myttaddressmap_domain_model_ajaxsearch.description">
+        <source>Google maps for tt_address</source>
+        <target>crwdns226607:0crwdne226607:0</target>
+      </trans-unit>
+      <trans-unit id="tx_myttaddressmap_domain_model_address">
+        <source>Address</source>
+        <target>crwdns226609:0crwdne226609:0</target>
+      </trans-unit>
+      <trans-unit id="tx_myttaddressmap_domain_model_address.name">
+        <source>Name</source>
+        <target>crwdns226611:0crwdne226611:0</target>
+      </trans-unit>
+      <trans-unit id="tx_myttaddressmap_domain_model_address.mapicon">
+        <source>Mapicon</source>
+        <target>crwdns226613:0crwdne226613:0</target>
+      </trans-unit>
+      <trans-unit id="tx_myttaddressmap_domain_model_address.geocode">
+        <source>Geocode</source>
+        <target>crwdns226615:0crwdne226615:0</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
