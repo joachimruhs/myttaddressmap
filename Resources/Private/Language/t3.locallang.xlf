@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="2018-02-01T18:22:55Z" product-name="myttaddressmap" target-language="t3">
+    <header/>
+    <body>
+      <trans-unit id="tx_myttaddressmap_domain_model_ajaxsearch">
+        <source>MyTTAddressMap (Ajaxsearch)</source>
+        <target>crwdns226565:0crwdne226565:0</target>
+      </trans-unit>
+      <trans-unit id="tx_myttaddressmap_domain_model_ajaxsearch.description">
+        <source>Google maps for tt_address</source>
+        <target>crwdns226567:0crwdne226567:0</target>
+      </trans-unit>
+      <trans-unit id="address">
+        <source>Address</source>
+        <target>crwdns226569:0crwdne226569:0</target>
+      </trans-unit>
+      <trans-unit id="zip">
+        <source>Zip</source>
+        <target>crwdns226571:0crwdne226571:0</target>
+      </trans-unit>
+      <trans-unit id="city">
+        <source>City</source>
+        <target>crwdns226573:0crwdne226573:0</target>
+      </trans-unit>
+      <trans-unit id="country">
+        <source>Country</source>
+        <target>crwdns226575:0crwdne226575:0</target>
+      </trans-unit>
+      <trans-unit id="search">
+        <source>Search</source>
+        <target>crwdns226577:0crwdne226577:0</target>
+      </trans-unit>
+      <trans-unit id="noStartingPointCoordinatesFound">
+        <source>No starting point coordinates found!</source>
+        <target>crwdns226579:0crwdne226579:0</target>
+      </trans-unit>
+      <trans-unit id="distance">
+        <source>Distance</source>
+        <target>crwdns226581:0crwdne226581:0</target>
+      </trans-unit>
+      <trans-unit id="youAreHere">
+        <source>You are here</source>
+        <target>crwdns226583:0crwdne226583:0</target>
+      </trans-unit>
+      <!-- messages -->
+      <trans-unit id="noStartingPointCoordinatesFound">
+        <source>No starting point coordinates found!</source>
+        <target>crwdns226579:0crwdne226579:0</target>
+      </trans-unit>
+      <trans-unit id="noLocationsFound">
+        <source>No locations found!</source>
+        <target>crwdns226587:0crwdne226587:0</target>
+      </trans-unit>
+      <trans-unit id="errorInCategories">
+        <source>Error in categories!</source>
+        <target>crwdns226589:0crwdne226589:0</target>
+      </trans-unit>
+      <trans-unit id="kWp">
+        <source>kWp</source>
+        <target>crwdns226591:0crwdne226591:0</target>
+      </trans-unit>
+      <trans-unit id="showMore">
+        <source>Show more</source>
+        <target>crwdns226593:0crwdne226593:0</target>
+      </trans-unit>
+      <trans-unit id="themeFileNotFound">
+        <source>Map theme file not found</source>
+        <target>crwdns226595:0crwdne226595:0</target>
+      </trans-unit>
+      <trans-unit id="invalidThemeFile">
+        <source>The theme file format is invalid</source>
+        <target>crwdns226597:0crwdne226597:0</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
