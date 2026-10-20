@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="2018-02-01T18:22:55Z" product-name="myttaddressmap" target-language="t3">
+    <header/>
+    <body>
+      <trans-unit id="tx_myttaddressmap_domain_model_ajaxsearch">
+        <source>MyTTAddressMap (Ajaxsearch)</source>
+        <target>crwdns226599:0crwdne226599:0</target>
+      </trans-unit>
+      <trans-unit id="tx_myttaddressmap_domain_model_ajaxsearch.description">
+        <source>Google maps for tt_address</source>
+        <target>crwdns226601:0crwdne226601:0</target>
+      </trans-unit>
+      <trans-unit id="name.description">
+        <source>name</source>
+        <target>crwdns226603:0crwdne226603:0</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
